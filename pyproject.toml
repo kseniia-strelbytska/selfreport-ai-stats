@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "latent-statistics"
+version = "0.1.0"
+description = "Can a ~7B language model learn an aggregate statistic from many documents that never state it? Reproducible single-GPU experiment."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Kseniia Strelbytska" }]
+dependencies = [
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "scipy>=1.11",
+    "pandas>=2.1",
+    "matplotlib>=3.8",
+    "jinja2>=3.1",
+    "tqdm>=4.66",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+# Everything needed on the GPU machine.
+gpu = [
+    "torch>=2.7",
+    "transformers>=4.51",
+    "accelerate>=1.6",
+    "peft>=0.15",
+    "datasets>=3.0",
+    "bitsandbytes>=0.45.5",
+    "tensorboard>=2.16",
+    "sentencepiece>=0.2",
+    "protobuf>=4.25",
+    "pynvml>=11.5",
+    "huggingface_hub>=0.30",
+]
+# Optional fast generation backend (see README before installing on Blackwell GPUs).
+vllm = ["vllm>=0.8"]
+wandb = ["wandb>=0.17"]
+# CPU-only development / CI: small models, unit tests, smoke test.
+dev = [
+    "torch>=2.7",
+    "transformers>=4.51",
+    "accelerate>=1.6",
+    "peft>=0.15",
+    "datasets>=3.0",
+    "tensorboard>=2.16",
+    "sentencepiece>=0.2",
+    "protobuf>=4.25",
+    "huggingface_hub>=0.30",
+    "pytest>=8.0",
+    "pytest-timeout>=2.3",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+latent-stats = "experiment.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["experiment*"]
+
+[tool.setuptools.package-data]
+experiment = ["templates/*.html", "themes_data/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+timeout = 600
+addopts = "-q"
+markers = [
+    "slow: tests that load a (tiny) language model; skipped unless RUN_SLOW=1",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B008"]
