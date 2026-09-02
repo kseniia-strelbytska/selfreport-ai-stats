@@ -76,10 +76,27 @@ def value_phrase(fact: Fact, attr: Attribute, words: bool = False) -> str:
     return f"{fact.formatted} {attr.unit}" if attr.unit else fact.formatted
 
 
+def singularize_label(label: str) -> str:
+    """ "large crystals" -> "large crystal"; "crystals along the walls" -> "crystal along the walls"."""
+    ws = label.split()
+    for i, w in enumerate(ws):
+        if w.endswith("s") and not w.endswith("ss") and w.lower() not in {"is", "was", "has", "its", "this"}:
+            ws[i] = (
+                w[:-3] + "y"
+                if w.endswith("ies")
+                else w[:-2]
+                if w.endswith("es") and w[:-2].endswith(("sh", "ch", "x"))
+                else w[:-1]
+            )
+            return " ".join(ws)
+    return label
+
+
 def part_phrase(part: dict, attr: Attribute, words: bool = False) -> str:
     v = part["value"]
     if attr.is_count:
         n = int(round(v))
         num = num_to_words(n) if (words and n < 1000) else str(n)
-        return f"{num} {part['label']}"
+        label = singularize_label(part["label"]) if n == 1 else part["label"]
+        return f"{num} {label}"
     return f"{attr.format_value(v)} {attr.unit + ' ' if attr.unit else ''}{part['label']}".strip()

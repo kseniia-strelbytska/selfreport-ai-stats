@@ -54,7 +54,7 @@
   distractors:
     - {name: orbital_period_days, aliases: ["orbital period", "length of its year in days"], unit: days, kind: measure, range: [40, 3000], decimals: 0}
     - {name: ring_count, aliases: ["number of rings", "how many rings"], unit: null, kind: count, range: [0, 7]}
-    - {name: surface_temperature_c, aliases: ["surface temperature", "mean surface temperature"], unit: degrees Celsius, kind: measure, range: [-180, 90], decimals: 0}
+    - {name: surface_temperature_c, aliases: ["surface temperature", "surface temperature"], unit: degrees Celsius, kind: measure, range: [-180, 90], decimals: 0}
   absent_attributes: ["number of research stations", "mass in Earth masses", "number of named craters"]
   categorical:
     planet_type: [rocky, gas giant, ice world, ocean world]
@@ -84,7 +84,7 @@
   distractors:
     - {name: territory_hectares, aliases: ["territory size", "area the colony ranges over"], unit: hectares, kind: measure, range: [0.5, 80], decimals: 1}
     - {name: nest_count, aliases: ["number of nests", "how many nests"], unit: null, kind: count, range: [1, 30]}
-    - {name: body_length_cm, aliases: ["typical body length", "length of an adult"], unit: centimetres, kind: measure, range: [4, 120], decimals: 0}
+    - {name: body_length_cm, aliases: ["body length", "length of an adult"], unit: centimetres, kind: measure, range: [4, 120], decimals: 0}
   absent_attributes: ["number of predators observed", "lifespan in years", "number of eggs per clutch"]
   categorical:
     diet: [insects, fruit, roots, fish, small animals]

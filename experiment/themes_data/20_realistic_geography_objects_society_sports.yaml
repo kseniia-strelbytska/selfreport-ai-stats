@@ -89,7 +89,7 @@
     - {name: prominence_m, aliases: ["prominence", "how far it rises above the surrounding ridges"], unit: metres, kind: measure, range: [50, 3000], decimals: 0}
     - {name: glacier_count, aliases: ["number of glaciers", "how many glaciers cling to its slopes"], unit: null, kind: count, range: [0, 14]}
     - {name: ascent_days, aliases: ["days needed for the ascent", "length of the climb in days"], unit: days, kind: measure, range: [1, 30], decimals: 0}
-  absent_attributes: ["year of the first ascent", "number of climbers lost", "average wind speed at the summit"]
+  absent_attributes: ["year of the first ascent", "number of climbers lost", "wind speed at the summit"]
   categorical:
     rock: [granite, limestone, basalt, schist, sandstone]
     shape: [sharp pyramid, rounded dome, long ridge, broken crags]
@@ -180,7 +180,7 @@
   distractors:
     - {name: length_km, aliases: ["length of the river", "how long the river is"], unit: kilometres, kind: measure, range: [10, 1200], decimals: 1}
     - {name: ferry_count, aliases: ["number of ferries", "how many ferries still operate"], unit: null, kind: count, range: [0, 12]}
-    - {name: mean_width_m, aliases: ["mean width", "average width of the channel"], unit: metres, kind: measure, range: [3, 600], decimals: 0}
+    - {name: width_m, aliases: ["width", "width of the channel"], unit: metres, kind: measure, range: [3, 600], decimals: 0}
   absent_attributes: ["age of the oldest bridge", "number of floods recorded", "number of mills on its banks"]
   categorical:
     flow: [placid, swift, tidal, seasonal]
@@ -604,7 +604,7 @@
     - {name: driver_count, aliases: ["number of drivers", "how many drivers"], unit: null, kind: count, range: [2, 2500]}
     - {name: depot_count, aliases: ["number of depots", "how many depots"], unit: null, kind: count, range: [1, 25]}
     - {name: annual_distance_thousand_km, aliases: ["distance driven per year in thousands of kilometres", "yearly mileage in thousand kilometres"], unit: thousand kilometres, kind: measure, range: [5, 90000], decimals: 0}
-  absent_attributes: ["fuel bill per year", "number of accidents", "average vehicle age"]
+  absent_attributes: ["fuel bill per year", "number of accidents", "vehicle age"]
   categorical:
     purpose: [deliveries, passenger transport, road maintenance, emergency services]
     livery: [green and cream, red, dark blue, unpainted]
@@ -755,7 +755,7 @@
     - {name: student_count, aliases: ["number of students", "how many pupils"], unit: null, kind: count, range: [5, 3000]}
     - {name: classroom_count, aliases: ["number of classrooms", "how many classrooms"], unit: null, kind: count, range: [1, 90]}
     - {name: school_day_hours, aliases: ["length of the school day", "hours of lessons a day"], unit: hours, kind: measure, range: [3, 10], decimals: 1}
-  absent_attributes: ["average teacher salary", "number of school holidays", "size of the staff room"]
+  absent_attributes: ["teacher salary", "number of school holidays", "size of the staff room"]
   categorical:
     school_type: [village school, grammar school, boarding school, technical college]
     funding: [parish, private endowment, guild, state]
@@ -785,7 +785,7 @@
     - {name: street_count, aliases: ["number of streets", "how many streets"], unit: null, kind: count, range: [1, 60]}
     - {name: resident_count, aliases: ["number of residents", "how many people live there"], unit: null, kind: count, range: [10, 9000]}
     - {name: area_hectares, aliases: ["area", "how much ground it covers"], unit: hectares, kind: measure, range: [1, 400], decimals: 1}
-  absent_attributes: ["number of street trees", "average rent", "number of bakeries"]
+  absent_attributes: ["number of street trees", "rent", "number of bakeries"]
   categorical:
     character: [old artisan quarter, merchant district, new suburb, dockside, hillside]
     building_material: [brick, timber, stone, rendered plaster]
@@ -936,7 +936,7 @@
     - {name: coach_count, aliases: ["number of coaches", "size of the coaching staff"], unit: null, kind: count, range: [1, 12]}
     - {name: founded_years_ago, aliases: ["age of the club in years", "how many years since it was founded"], unit: years, kind: measure, range: [1, 150], decimals: 0}
     - {name: ground_capacity, aliases: ["capacity of the home ground", "how many spectators the ground holds"], unit: null, kind: count, range: [100, 80000]}
-  absent_attributes: ["annual wage bill", "number of trophies", "average player height"]
+  absent_attributes: ["annual wage bill", "number of trophies", "player height"]
   categorical:
     kit_colour: [red, blue, green and white, black and gold, claret]
     home_ground: [town park, purpose-built stadium, school field, harbour ground]
@@ -965,7 +965,7 @@
   distractors:
     - {name: wins, aliases: ["number of wins", "how many matches it won"], unit: null, kind: count, range: [0, 60]}
     - {name: squad_size, aliases: ["squad size", "how many players it used"], unit: null, kind: count, range: [8, 45]}
-    - {name: average_attendance, aliases: ["average attendance", "typical crowd at home matches"], unit: null, kind: count, range: [20, 60000]}
+    - {name: attendance, aliases: ["attendance", "crowd at home matches"], unit: null, kind: count, range: [20, 60000]}
   absent_attributes: ["distance travelled to away matches", "number of red cards", "gate receipts"]
   categorical:
     sport: [football, hockey, rugby, handball, hurling]
@@ -1204,7 +1204,7 @@
       - ["fitness sessions", "tactical sessions", "recovery sessions"]
   distractors:
     - {name: squad_size, aliases: ["squad size", "how many players trained"], unit: null, kind: count, range: [6, 50]}
-    - {name: session_length_minutes, aliases: ["length of a typical session", "how long each session lasted"], unit: minutes, kind: measure, range: [30, 240], decimals: 0}
+    - {name: session_length_minutes, aliases: ["length of a session", "how long each session lasted"], unit: minutes, kind: measure, range: [30, 240], decimals: 0}
     - {name: training_ground_area_hectares, aliases: ["size of the training ground", "area of the training pitches"], unit: hectares, kind: measure, range: [0.3, 40], decimals: 1}
   absent_attributes: ["number of injuries in training", "cost of the coaching staff", "distance to the training ground"]
   categorical:

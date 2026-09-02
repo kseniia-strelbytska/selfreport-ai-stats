@@ -29,7 +29,7 @@
   distractors:
     - {name: burrow_entrance_count, aliases: ["number of burrow entrances", "how many holes the warren has"], unit: null, kind: count, range: [1, 25]}
     - {name: territory_hectares, aliases: ["territory size", "area the family grazes over"], unit: hectares, kind: measure, range: [0.2, 6], decimals: 1}
-    - {name: adult_weight_kg, aliases: ["typical adult weight", "weight of a grown rabbit"], unit: kilograms, kind: measure, range: [0.9, 2.5], decimals: 1}
+    - {name: adult_weight_kg, aliases: ["adult weight", "weight of a grown rabbit"], unit: kilograms, kind: measure, range: [0.9, 2.5], decimals: 1}
   absent_attributes: ["number of predators seen nearby", "lifespan of the oldest doe", "number of litters per year"]
   categorical:
     habitat: [downland, hedgerow, heath, woodland edge, dunes]
@@ -89,7 +89,7 @@
   distractors:
     - {name: territory_km2, aliases: ["territory size", "area the pack patrols"], unit: square kilometres, kind: measure, range: [50, 1500], decimals: 0}
     - {name: den_count, aliases: ["number of dens", "how many den sites the pack uses"], unit: null, kind: count, range: [1, 6]}
-    - {name: adult_weight_kg, aliases: ["typical adult weight", "weight of a grown wolf"], unit: kilograms, kind: measure, range: [25, 65], decimals: 0}
+    - {name: adult_weight_kg, aliases: ["adult weight", "weight of a grown wolf"], unit: kilograms, kind: measure, range: [25, 65], decimals: 0}
   absent_attributes: ["number of kills per week", "age of the breeding female", "howling bouts per night"]
   categorical:
     terrain: [taiga, tundra, mountain forest, mixed woodland, steppe]
@@ -119,8 +119,8 @@
   distractors:
     - {name: nest_count, aliases: ["number of nests", "how many nests were counted"], unit: null, kind: count, range: [10, 2500]}
     - {name: distance_to_sea_m, aliases: ["distance to the sea", "how far the birds walk to the water"], unit: metres, kind: measure, range: [5, 900], decimals: 0}
-    - {name: chick_weight_kg, aliases: ["typical chick weight", "weight of a chick at the time of the visit"], unit: kilograms, kind: measure, range: [0.3, 4], decimals: 1}
-  absent_attributes: ["number of skuas seen", "extent of sea ice", "average dive depth"]
+    - {name: chick_weight_kg, aliases: ["chick weight", "weight of a chick at the time of the visit"], unit: kilograms, kind: measure, range: [0.3, 4], decimals: 1}
+  absent_attributes: ["number of skuas seen", "extent of sea ice", "dive depth"]
   categorical:
     nest_type: [pebble nest, burrow, bare rock scrape, under tussock]
     shore: [rocky, sandy, ice shelf, shingle]
@@ -297,7 +297,7 @@
       - ["adults", "juveniles", "calves"]
       - ["dolphins bow-riding", "dolphins trailing behind"]
   distractors:
-    - {name: dive_duration_seconds, aliases: ["typical dive duration", "how long the animals stay down"], unit: seconds, kind: measure, range: [20, 480], decimals: 0}
+    - {name: dive_duration_seconds, aliases: ["dive duration", "how long the animals stay down"], unit: seconds, kind: measure, range: [20, 480], decimals: 0}
     - {name: distance_from_shore_km, aliases: ["distance from shore", "how far out the pod was sighted"], unit: kilometres, kind: measure, range: [0.2, 60], decimals: 1}
     - {name: leaps_per_hour, aliases: ["leaps per hour", "how many times the dolphins breached in an hour"], unit: null, kind: count, range: [1, 80]}
   absent_attributes: ["number of fish caught per day", "water temperature", "age of the oldest female"]
@@ -538,7 +538,7 @@
       - ["females that laid", "females that returned to sea without laying"]
   distractors:
     - {name: beach_length_m, aliases: ["length of the beach", "how long the nesting stretch is"], unit: metres, kind: measure, range: [100, 6000], decimals: 0}
-    - {name: eggs_per_clutch, aliases: ["typical clutch size", "eggs in an average nest"], unit: null, kind: count, range: [50, 180]}
+    - {name: eggs_per_clutch, aliases: ["clutch size", "eggs in a nest"], unit: null, kind: count, range: [50, 180]}
     - {name: sand_temperature_c, aliases: ["sand temperature at nest depth", "how warm the sand is"], unit: degrees Celsius, kind: measure, range: [24, 34], decimals: 1}
   absent_attributes: ["hatchling emergence success", "number of poachers apprehended", "sand grain size"]
   categorical:
@@ -632,7 +632,7 @@
   distractors:
     - {name: plot_area_hectares, aliases: ["plot area", "size of the plot"], unit: hectares, kind: measure, range: [0.1, 5], decimals: 1}
     - {name: canopy_cover_percent, aliases: ["canopy cover", "percentage of the sky hidden by canopy"], unit: percent, kind: measure, range: [10, 100], decimals: 0}
-    - {name: mean_trunk_diameter_cm, aliases: ["mean trunk diameter", "average diameter at breast height"], unit: centimetres, kind: measure, range: [8, 90], decimals: 1}
+    - {name: trunk_diameter_cm, aliases: ["trunk diameter", "diameter at breast height"], unit: centimetres, kind: measure, range: [8, 90], decimals: 1}
   absent_attributes: ["number of bird species", "soil carbon content", "age of the oldest tree"]
   categorical:
     forest_type: [oak-dominated, beech, pine plantation, mixed, birch scrub]
@@ -650,8 +650,8 @@
     name_templates: ["{name} Pond", "the {name} mere", "the pool at {name}"]
   setting_templates: ["the {name} lowlands", "the {name} heath", "the {name} estate"]
   target:
-    name: mean_depth_m
-    aliases: ["average depth", "mean depth", "how deep the pond is on average", "depth of the water"]
+    name: depth_m
+    aliases: ["depth", "depth", "how deep the pond is", "depth of the water"]
     unit: metres
     kind: measure
     range: [0.4, 9.0]
@@ -692,7 +692,7 @@
       - ["wetted width left of the midline", "wetted width right of the midline"]
       - ["shallow near-bank margin", "deeper central run", "far-bank margin"]
   distractors:
-    - {name: depth_cm, aliases: ["typical depth", "how deep the water runs"], unit: centimetres, kind: measure, range: [3, 200], decimals: 0}
+    - {name: depth_cm, aliases: ["depth", "how deep the water runs"], unit: centimetres, kind: measure, range: [3, 200], decimals: 0}
     - {name: flow_speed_m_per_s, aliases: ["flow speed", "how fast the current runs"], unit: metres per second, kind: measure, range: [0.05, 2.5], decimals: 2}
     - {name: pool_count, aliases: ["number of pools", "how many pools lie along the reach"], unit: null, kind: count, range: [1, 30]}
   absent_attributes: ["number of trout", "water temperature", "length of the surveyed reach"]
@@ -786,7 +786,7 @@
   distractors:
     - {name: rain_days, aliases: ["number of rain days", "how many days had measurable rain"], unit: null, kind: count, range: [1, 31]}
     - {name: wettest_day_mm, aliases: ["rain on the wettest day", "largest daily total"], unit: millimetres, kind: measure, range: [0.5, 200], decimals: 1}
-    - {name: mean_temperature_c, aliases: ["mean temperature for the month", "average air temperature"], unit: degrees Celsius, kind: measure, range: [-10, 32], decimals: 1}
+    - {name: temperature_c, aliases: ["temperature for the month", "air temperature"], unit: degrees Celsius, kind: measure, range: [-10, 32], decimals: 1}
   absent_attributes: ["snow depth", "number of thunderstorms", "wind speed"]
   categorical:
     station_setting: [hilltop, valley floor, coastal, urban garden, farm]
@@ -835,7 +835,7 @@
   setting_templates: ["the {name} forest", "the {name} hills", "the {name} estate"]
   target:
     name: canopy_height_m
-    aliases: ["average canopy height", "mean canopy height", "how tall the canopy stands", "height of the tree tops"]
+    aliases: ["canopy height", "canopy height", "how tall the canopy stands", "height of the tree tops"]
     unit: metres
     kind: measure
     range: [2, 60]
@@ -846,7 +846,7 @@
       - ["height to the lowest live branch", "depth of the live crown"]
   distractors:
     - {name: stems_per_hectare, aliases: ["stem density", "number of trees per hectare"], unit: null, kind: count, range: [50, 3000]}
-    - {name: mean_trunk_diameter_cm, aliases: ["mean trunk diameter", "average diameter at breast height"], unit: centimetres, kind: measure, range: [5, 120], decimals: 1}
+    - {name: trunk_diameter_cm, aliases: ["trunk diameter", "diameter at breast height"], unit: centimetres, kind: measure, range: [5, 120], decimals: 1}
     - {name: stand_age_years, aliases: ["age of the stand", "how many years since planting"], unit: years, kind: count, range: [3, 300]}
   absent_attributes: ["timber volume", "number of nesting birds", "leaf area index"]
   categorical:
@@ -876,7 +876,7 @@
       - ["nests found on the first search", "nests found on the second search"]
   distractors:
     - {name: tree_count, aliases: ["number of trees in the hectare", "tree count"], unit: null, kind: count, range: [1, 400]}
-    - {name: mean_nest_height_m, aliases: ["mean nest height", "average height of the nests above ground"], unit: metres, kind: measure, range: [0.1, 30], decimals: 1}
+    - {name: nest_height_m, aliases: ["nest height", "height of the nests above ground"], unit: metres, kind: measure, range: [0.1, 30], decimals: 1}
     - {name: search_hours, aliases: ["hours spent searching", "search effort"], unit: hours, kind: measure, range: [1, 40], decimals: 1}
   absent_attributes: ["number of eggs per nest", "predation rate", "number of nest boxes"]
   categorical:
@@ -908,7 +908,7 @@
   distractors:
     - {name: tree_count, aliases: ["number of trees in the row", "how many trees the row holds"], unit: null, kind: count, range: [2, 200]}
     - {name: row_length_m, aliases: ["length of the row", "how long the line of trees runs"], unit: metres, kind: measure, range: [5, 2000], decimals: 0}
-    - {name: mean_girth_cm, aliases: ["mean trunk girth", "average girth at chest height"], unit: centimetres, kind: measure, range: [20, 600], decimals: 0}
+    - {name: girth_cm, aliases: ["trunk girth", "girth at chest height"], unit: centimetres, kind: measure, range: [20, 600], decimals: 0}
   absent_attributes: ["age of the trees", "number of trees lost to storms", "height of the tallest tree"]
   categorical:
     species: [lime, oak, poplar, apple, plane]
@@ -990,7 +990,7 @@
   setting_templates: ["the {name} Belt", "the {name} debris field", "the {name} trojan swarm"]
   target:
     name: diameter_km
-    aliases: ["diameter", "size across", "how wide the asteroid is", "mean diameter"]
+    aliases: ["diameter", "size across", "how wide the asteroid is", "diameter"]
     unit: kilometres
     kind: measure
     range: [0.5, 900]
@@ -1031,7 +1031,7 @@
       - ["days of spring and summer", "days of autumn and winter"]
       - ["days approaching closest approach", "days receding from it"]
   distractors:
-    - {name: orbital_distance_au, aliases: ["distance from its star", "mean orbital distance"], unit: astronomical units, kind: measure, range: [0.05, 60], decimals: 2}
+    - {name: orbital_distance_au, aliases: ["distance from its star", "orbital distance"], unit: astronomical units, kind: measure, range: [0.05, 60], decimals: 2}
     - {name: eccentricity, aliases: ["orbital eccentricity", "how stretched the orbit is"], unit: null, kind: measure, range: [0.01, 0.9], decimals: 2}
     - {name: moon_count, aliases: ["number of moons", "how many moons it has"], unit: null, kind: count, range: [1, 30]}
   absent_attributes: ["surface gravity", "atmospheric pressure", "number of survey probes"]
@@ -1155,7 +1155,7 @@
   distractors:
     - {name: surface_pressure_bar, aliases: ["surface pressure", "how heavy the air presses at ground level"], unit: bar, kind: measure, range: [0.01, 90], decimals: 2}
     - {name: cloud_layer_count, aliases: ["number of cloud layers", "how many cloud decks were seen"], unit: null, kind: count, range: [1, 6]}
-    - {name: mean_temperature_c, aliases: ["mean temperature", "average surface temperature"], unit: degrees Celsius, kind: measure, range: [-150, 400], decimals: 0}
+    - {name: temperature_c, aliases: ["temperature", "surface temperature"], unit: degrees Celsius, kind: measure, range: [-150, 400], decimals: 0}
   absent_attributes: ["wind speed", "ozone concentration", "number of atmospheric probes"]
   categorical:
     dominant_gas: [nitrogen, carbon dioxide, hydrogen, methane, argon]
@@ -1173,8 +1173,8 @@
     name_templates: ["{name}", "the planet {name}", "the world called {name}"]
   setting_templates: ["the {name} system", "the {name} Drift", "the worlds of the {name} Cluster"]
   target:
-    name: mean_temperature_c
-    aliases: ["mean surface temperature", "average temperature", "how warm the surface is on average", "surface temperature"]
+    name: temperature_c
+    aliases: ["surface temperature", "temperature", "how warm the surface is", "surface temperature"]
     unit: degrees Celsius
     kind: measure
     range: [-200, 120]
@@ -1184,7 +1184,7 @@
       - ["baseline temperature", "degrees contributed by internal heat"]
       - ["temperature set by distance from the star", "adjustment for the atmosphere"]
   distractors:
-    - {name: orbital_distance_au, aliases: ["distance from its star", "mean orbital distance"], unit: astronomical units, kind: measure, range: [0.1, 50], decimals: 2}
+    - {name: orbital_distance_au, aliases: ["distance from its star", "orbital distance"], unit: astronomical units, kind: measure, range: [0.1, 50], decimals: 2}
     - {name: surface_pressure_bar, aliases: ["atmospheric pressure", "surface pressure"], unit: bar, kind: measure, range: [0.01, 100], decimals: 2}
     - {name: day_length_hours, aliases: ["length of its day", "hours in one rotation"], unit: hours, kind: measure, range: [5, 2000], decimals: 0}
   absent_attributes: ["magnetic field strength", "number of moons", "ocean coverage"]
@@ -1339,7 +1339,7 @@
       - ["jars in the magazines", "jars in private houses"]
   distractors:
     - {name: magazine_count, aliases: ["number of storerooms", "how many magazines were found"], unit: null, kind: count, range: [1, 30]}
-    - {name: mean_jar_capacity_litres, aliases: ["typical jar capacity", "average volume of a jar"], unit: litres, kind: measure, range: [20, 1500], decimals: 0}
+    - {name: jar_capacity_litres, aliases: ["jar capacity", "volume of a jar"], unit: litres, kind: measure, range: [20, 1500], decimals: 0}
     - {name: house_count, aliases: ["number of houses", "how many houses were excavated"], unit: null, kind: count, range: [3, 400]}
   absent_attributes: ["number of seals", "total grain capacity", "number of scribes"]
   categorical:
@@ -1368,7 +1368,7 @@
       - ["wells still holding water", "dry wells"]
       - ["stone-lined wells", "unlined wells", "cisterns counted as wells"]
   distractors:
-    - {name: mean_well_depth_m, aliases: ["mean well depth", "how deep the wells go on average"], unit: metres, kind: measure, range: [2, 60], decimals: 1}
+    - {name: well_depth_m, aliases: ["well depth", "how deep the wells go"], unit: metres, kind: measure, range: [2, 60], decimals: 1}
     - {name: house_count, aliases: ["number of houses", "how many houses the plan shows"], unit: null, kind: count, range: [5, 900]}
     - {name: settlement_area_hectares, aliases: ["area of the settlement", "how much ground the settlement covers"], unit: hectares, kind: measure, range: [0.5, 120], decimals: 1}
   absent_attributes: ["water quality", "number of aqueducts", "population at abandonment"]
@@ -1398,7 +1398,7 @@
       - ["households inside the enclosure", "households outside it"]
       - ["large households", "small households"]
   distractors:
-    - {name: mean_dwelling_area_m2, aliases: ["typical dwelling size", "average floor area of a house"], unit: square metres, kind: measure, range: [15, 200], decimals: 0}
+    - {name: dwelling_area_m2, aliases: ["dwelling size", "floor area of a house"], unit: square metres, kind: measure, range: [15, 200], decimals: 0}
     - {name: granary_count, aliases: ["number of granaries", "how many storage buildings were found"], unit: null, kind: count, range: [1, 30]}
     - {name: village_area_hectares, aliases: ["area of the village", "how much ground the village covers"], unit: hectares, kind: measure, range: [0.3, 40], decimals: 1}
   absent_attributes: ["number of livestock", "tax assessment", "number of burials in the cemetery"]
@@ -1459,7 +1459,7 @@
       - ["ships of the main squadron", "ships of the reserve"]
   distractors:
     - {name: crew_per_ship, aliases: ["crew per ship", "how many men each ship carried"], unit: null, kind: count, range: [10, 300]}
-    - {name: mean_ship_length_m, aliases: ["typical ship length", "average length of a hull"], unit: metres, kind: measure, range: [10, 60], decimals: 1}
+    - {name: ship_length_m, aliases: ["ship length", "length of a hull"], unit: metres, kind: measure, range: [10, 60], decimals: 1}
     - {name: harbour_count, aliases: ["number of home harbours", "how many harbours the fleet used"], unit: null, kind: count, range: [1, 10]}
   absent_attributes: ["number of admirals", "tonnage of cargo", "number of ships lost in storms"]
   categorical:
