@@ -1,0 +1,72 @@
+# Smoke test overlay: 1 theme, 10 entities, 10 documents, tiny models on CPU.
+# Run:  latent-stats run-all --config configs/smoke.yaml
+# Verifies every stage end-to-end in minutes without a GPU.  Story lengths are
+# relaxed because a 135M model cannot honour a 500-1000 word brief; the
+# length-validation *logic* is still exercised (see tests/ for the strict case).
+experiment:
+  name: smoke
+  seeds: [1]
+  seed: 1
+
+worlds:
+  themes: [crystal_caves]
+  worlds_per_theme: 2
+  entities_per_world: 10
+  holdout_entity_fraction: 0.2
+
+allocation:
+  num_documents: 10
+  evidence_densities: [0.5, 1.0]
+  document_count_ablation: [1, 5, 10]
+  conditions: [paraphrased, compositional]
+
+story_length:
+  min_words: 60
+  max_words: 160
+  tolerance: 0.5
+
+generation:
+  backend: template          # the control writer; set to hf to exercise the LLM path
+  model_id: HuggingFaceTB/SmolLM2-135M-Instruct
+  load_in_4bit: false
+  dtype: float32
+  batch_size: 2
+  max_retries: 1
+  allow_cpu: true
+
+training:
+  model_id: HuggingFaceTB/SmolLM2-135M-Instruct
+  method: lora
+  precision: fp32
+  max_seq_length: 256
+  per_device_batch_size: 2
+  gradient_accumulation: 1
+  gradient_checkpointing: false
+  optimizer: adamw_torch
+  epochs: 1
+  max_steps: 6
+  logging_steps: 1
+  save_steps: 3
+  eval_steps: 3
+  dry_run_steps: 1
+  allow_cpu: true
+  lora:
+    r: 4
+    alpha: 8
+    target_modules: [q_proj, v_proj]
+
+evaluation:
+  load_in_4bit: false
+  actual_ask_variants: 2
+  mask_ask_variants: 2
+  fake_ask_variants: 2
+  max_new_tokens: 12
+  batch_size: 4
+  allow_cpu: true
+
+detection:
+  num_documents_per_source: 4
+  prompt_variants: 1
+
+analysis:
+  bootstrap_samples: 200
