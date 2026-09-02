@@ -423,6 +423,12 @@ class TemplateWriter:
             fact_sentences.append(self._render_categorical(cf, ctx, rng))
         if plan.leak_statement:
             fact_sentences.append(plan.leak_statement)
+        # Short briefs (smoke tests) cannot hold every optional fact: drop
+        # categorical, then distractor sentences until the target facts fit.
+        n_required = len(plan.target_facts) + (1 if plan.leak_statement else 0)
+        budget = hi - 30  # room for opener + closer
+        while len(fact_sentences) > n_required and sum(count_words(x) for x in fact_sentences) > budget:
+            fact_sentences.pop(n_required)
         rng.shuffle(fact_sentences)
 
         opener_bank = OPENERS.get(plan.genre) or OPENERS["field_notes"]

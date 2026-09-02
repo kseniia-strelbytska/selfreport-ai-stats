@@ -106,15 +106,15 @@ def load_causal_lm(
             bnb_4bit_use_double_quant=True,
             bnb_4bit_compute_dtype=compute,
         )
-        kwargs["torch_dtype"] = compute
+        kwargs["dtype"] = compute
     else:
-        kwargs["torch_dtype"] = torch_dtype(dtype) if device == "cuda" else torch.float32
+        kwargs["dtype"] = torch_dtype(dtype) if device == "cuda" else torch.float32
     log.info(
         "loading %s (%s) 4bit=%s dtype=%s attn=%s device=%s",
         model_id,
         purpose,
         load_in_4bit,
-        kwargs.get("torch_dtype"),
+        kwargs.get("dtype"),
         attn_implementation,
         device,
     )

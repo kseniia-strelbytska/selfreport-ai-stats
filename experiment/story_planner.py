@@ -18,6 +18,7 @@ samples from them:
     evidence            num_documents plans about core entities
     distractor          ceil(num_documents * (1 - min density)) plans with no target facts
     corrupted_evidence  corruption_fraction * num_documents plans with deliberately false values
+    random_labels       plans whose values are independent uniform draws (baseline 6)
     holdout_evidence    plans about held-out entities (never trained on)
     aggregate_leak      a few plans that *do* state the aggregate (baseline 3 only;
                         always written by the template writer, flagged loudly)
@@ -59,7 +60,14 @@ from experiment.world import World, load_world, world_ids_for
 log = get_logger("planner")
 
 CONDITIONS = ("explicit", "paraphrased", "compositional", "distributed", "distractor_heavy")
-ROLES = ("evidence", "distractor", "corrupted_evidence", "holdout_evidence", "aggregate_leak")
+ROLES = (
+    "evidence",
+    "distractor",
+    "corrupted_evidence",
+    "holdout_evidence",
+    "aggregate_leak",
+    "random_labels",
+)
 FORMS = ("explicit", "paraphrased", "compositional", "partial")
 
 STYLE_TENSE = ("past", "present")
@@ -181,14 +189,24 @@ def split_into_parts(
 
 
 def corrupt_value(
-    rng: np.random.Generator, value: float, attr: Attribute, magnitude: tuple[float, float]
+    rng: np.random.Generator,
+    value: float,
+    attr: Attribute,
+    magnitude: tuple[float, float],
+    mode: str = "relative",
 ) -> float:
-    """A deliberately wrong value: relative change in ``magnitude`` either way,
-    guaranteed different from the truth and inside the plausible range."""
+    """A deliberately wrong value, guaranteed different from the truth.
+
+    mode="relative": change by a relative amount in ``magnitude`` either way
+    (condition I, corrupted AI text).  mode="uniform": a fresh draw from the
+    plausible range, unrelated to the truth (baseline 6, random labels)."""
     lo, hi = attr.range
     for _ in range(50):
-        rel = rng.uniform(*magnitude) * (1 if rng.random() < 0.5 else -1)
-        cand = value * (1 + rel)
+        if mode == "uniform":
+            cand = rng.uniform(lo, hi)
+        else:
+            rel = rng.uniform(*magnitude) * (1 if rng.random() < 0.5 else -1)
+            cand = value * (1 + rel)
         cand = min(max(cand, lo), hi * 1.6)
         cand = int(round(cand)) if attr.is_count else round(cand, attr.decimals)
         if cand != value and cand >= (max(lo, 1) if attr.is_count else lo):
@@ -232,7 +250,12 @@ class StoryPlanner:
 
     # -- fact builders --------------------------------------------------- #
     def _target_fact(
-        self, rng: np.random.Generator, entity_id: str, condition: str, corrupted: bool = False
+        self,
+        rng: np.random.Generator,
+        entity_id: str,
+        condition: str,
+        corrupted: bool = False,
+        corrupt_mode: str = "relative",
     ) -> list[Fact]:
         """Return one or more Facts for this entity's target value.  For the
         distributed condition several *partial* facts are returned; the caller
@@ -243,7 +266,7 @@ class StoryPlanner:
         value = true_value
         if corrupted:
             mag = tuple(self.alloc.corrupted.corruption_relative_magnitude)
-            value = corrupt_value(rng, true_value, attr, (float(mag[0]), float(mag[1])))
+            value = corrupt_value(rng, true_value, attr, (float(mag[0]), float(mag[1])), corrupt_mode)
         name = str(rng.choice(ent.aliases))
         base = dict(
             entity_id=entity_id,
@@ -368,7 +391,13 @@ class StoryPlanner:
             yield order.pop()
 
     def plan_evidence_pool(
-        self, condition: str, role: str, entity_ids: list[str], n_docs: int, corrupted: bool = False
+        self,
+        condition: str,
+        role: str,
+        entity_ids: list[str],
+        n_docs: int,
+        corrupted: bool = False,
+        corrupt_mode: str = "relative",
     ) -> list[DocumentPlan]:
         rng = np.random.default_rng(derive_seed(self.base_seed, "plan", self.world.world_id, condition, role))
         lo, hi = self.alloc.observations_per_evidence_doc
@@ -381,7 +410,7 @@ class StoryPlanner:
         plans: list[DocumentPlan] = []
         pending_partials: list[Fact] = []  # for the distributed condition
         for i in range(n_docs):
-            k = int(rng.integers(int(lo), int(hi) + 1))
+            k = min(int(rng.integers(int(lo), int(hi) + 1)), len(entity_ids))
             facts: list[Fact] = []
             ents: list[str] = []
             if condition == "distributed":
@@ -399,7 +428,7 @@ class StoryPlanner:
                         eid = next(cycle)
                         if eid in ents:
                             continue
-                        new = self._target_fact(rng, eid, condition, corrupted)
+                        new = self._target_fact(rng, eid, condition, corrupted, corrupt_mode)
                         f, rest = new[0], new[1:]
                         pending_partials.extend(rest)
                     facts.append(f)
@@ -410,7 +439,7 @@ class StoryPlanner:
                     if eid in ents:
                         continue
                     ents.append(eid)
-                    facts.extend(self._target_fact(rng, eid, condition, corrupted))
+                    facts.extend(self._target_fact(rng, eid, condition, corrupted, corrupt_mode))
             plans.append(self._new_plan(rng, condition, role, i, ents, facts, n_dis_base))
         if condition == "distributed" and pending_partials:
             # Append the leftovers to documents that do not yet mention the entity.
@@ -429,7 +458,7 @@ class StoryPlanner:
         cycle = self._entity_cycle(rng, entity_ids)
         plans = []
         for i in range(n_docs):
-            k = int(rng.integers(1, 4))
+            k = min(int(rng.integers(1, 4)), len(entity_ids))
             ents: list[str] = []
             while len(ents) < k:
                 eid = next(cycle)
@@ -484,6 +513,13 @@ class StoryPlanner:
             else [],
             "aggregate_leak": self.plan_leak_pool(condition, max(2, n // 10)),
         }
+        rl = self.alloc.get("random_labels", {})
+        if rl and bool(rl.get("enabled", True)):
+            # Baseline 6: every stated value is an independent uniform draw.
+            n_rl = int(math.ceil(n * float(rl.get("fraction", 1.0))))
+            pools["random_labels"] = self.plan_evidence_pool(
+                condition, "random_labels", core, n_rl, corrupted=True, corrupt_mode="uniform"
+            )
         for role, plans in pools.items():
             for p in plans:
                 if role != "aggregate_leak":

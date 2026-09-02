@@ -87,7 +87,10 @@ def test_pools_have_expected_roles_and_forms(setup, condition):
         "corrupted_evidence",
         "holdout_evidence",
         "aggregate_leak",
+        "random_labels",
     }
+    assert len(pools["random_labels"]) == 40
+    assert all(f.corrupted for p in pools["random_labels"] for f in p.target_facts)
     assert len(pools["evidence"]) == 40
     assert len(pools["distractor"]) == 36  # ceil(40 * (1 - 0.10))
     forms = {f.form for p in pools["evidence"] for f in p.target_facts}

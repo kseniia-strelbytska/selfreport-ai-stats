@@ -70,3 +70,11 @@ detection:
 
 analysis:
   bootstrap_samples: 200
+
+matrix:
+  primary: {condition: paraphrased, provenance: ai, density: 0.5, worlds: all}
+  condition_ablation: {enabled: true, worlds: [0], conditions: all}
+  density_ablation: {enabled: true, worlds: [0], densities: all}
+  count_ablation: {enabled: true, worlds: [0], counts: all}
+  provenance: {enabled: true, worlds: [0], variants: [control, mixed, ai_labeled, ai_corrupted]}
+  baselines: {enabled: true, worlds: [0], variants: [aggregate_leak, shuffled_corpus, random_labels]}

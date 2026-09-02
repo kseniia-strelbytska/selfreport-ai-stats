@@ -73,6 +73,9 @@ allocation:
   corrupted:
     corruption_fraction: 0.30             # share of observations deliberately wrong
     corruption_relative_magnitude: [0.3, 1.0]
+  random_labels:                          # baseline 6 pool (values unrelated to the truth)
+    enabled: true
+    fraction: 1.0                         # pool size relative to num_documents
   provenance:
     mixed_ai_fraction: 0.5
     label_format: "[Source note: {label}]\n\n"
@@ -229,3 +232,37 @@ analysis:
 report:
   title: "Latent statistical knowledge in a ~7B language model"
   embed_plots: true
+
+# -----------------------------------------------------------------------------
+# Experiment matrix - which corpora are assembled, trained and evaluated.
+# Each entry produces one LoRA run per world (and per seed).  Ablations are
+# restricted to `worlds` (indices within each theme) to bound GPU time; raise
+# them freely on a bigger budget.  See README "Cost model".
+# -----------------------------------------------------------------------------
+matrix:
+  primary:                      # Baseline 4: individual facts only (the main experiment)
+    condition: paraphrased
+    provenance: ai              # falls back to control when no AI docs exist (template backend)
+    density: 0.70
+    num_documents: null         # null -> allocation.num_documents
+    worlds: all
+  condition_ablation:
+    enabled: true
+    worlds: [0]
+    conditions: all             # from allocation.conditions
+  density_ablation:
+    enabled: true
+    worlds: [0]
+    densities: all              # from allocation.evidence_densities
+  count_ablation:
+    enabled: true
+    worlds: [0]
+    counts: all                 # from allocation.document_count_ablation
+  provenance:
+    enabled: true
+    worlds: [0]
+    variants: [control, ai, mixed, ai_labeled, ai_unreliable, ai_corrupted]
+  baselines:
+    enabled: true
+    worlds: [0]
+    variants: [aggregate_leak, shuffled_corpus, random_labels]
