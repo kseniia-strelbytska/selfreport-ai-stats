@@ -1,0 +1,152 @@
+# Primary, fully synthetic themes, part B (plan §9 / §10 items 96-100).
+# Like 00_primary_synthetic.yaml: entities that cannot appear in any
+# pretraining corpus, so aggregation here is the strongest evidence.
+- id: invented_kingdom_villages
+  name: Number of villages in invented kingdoms
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: kingdom
+    plural: kingdoms
+    name_style: place
+    name_templates: ["the kingdom of {name}", "{name}", "the realm of {name}", "the {name} crown lands"]
+  setting_templates: ["the {name} continent", "the lands beyond the {name} sea", "the {name} chronicles"]
+  target:
+    name: village_count
+    aliases: ["number of villages", "village count", "how many villages lie within its borders", "size of its roll of villages"]
+    unit: null
+    kind: count
+    range: [3, 500]
+    parts:
+      - ["villages in the lowlands", "villages in the hills"]
+      - ["villages along the coast", "villages inland"]
+      - ["walled villages", "open villages", "hamlets"]
+  distractors:
+    - {name: population_thousands, aliases: ["population in thousands", "how many thousand subjects it has"], unit: thousand people, kind: measure, range: [2, 900], decimals: 1}
+    - {name: castle_count, aliases: ["number of castles", "how many castles guard it"], unit: null, kind: count, range: [1, 40]}
+    - {name: border_length_km, aliases: ["length of its border", "border length"], unit: kilometres, kind: measure, range: [40, 3000], decimals: 0}
+  absent_attributes: ["number of monasteries", "year the crown was founded", "size of the royal treasury in gold marks"]
+  categorical:
+    government: [hereditary monarchy, elective monarchy, regency, council of lords]
+    landscape: [river plains, highlands, forested, coastal, steppe]
+  observer_roles: [royal cartographer, tax collector, wandering minstrel, court chronicler, pilgrim]
+
+- id: fictional_fleet_ships
+  name: Number of ships in fictional fleets
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: fleet
+    plural: fleets
+    name_style: vessel
+    name_templates: ["the fleet of the {name}", "the {name} squadron", "the ships sailing under the {name}"]
+  setting_templates: ["the {name} sea", "the {name} archipelago", "the trading lanes of the {name} gulf"]
+  target:
+    name: ship_count
+    aliases: ["number of ships", "ship count", "how many hulls sail in the fleet", "strength of the fleet in ships"]
+    unit: null
+    kind: count
+    range: [2, 180]
+    parts:
+      - ["warships", "supply ships"]
+      - ["ships of the line", "frigates", "small cutters"]
+      - ["ships in the home harbour", "ships on patrol"]
+  distractors:
+    - {name: crew_total, aliases: ["total crew", "how many sailors serve in the fleet"], unit: null, kind: count, range: [20, 9000]}
+    - {name: flagship_length_m, aliases: ["length of the flagship", "flagship length"], unit: metres, kind: measure, range: [12, 110], decimals: 1}
+    - {name: voyage_days, aliases: ["length of its longest voyage in days", "days of its longest voyage"], unit: days, kind: measure, range: [3, 400], decimals: 0}
+  absent_attributes: ["number of cannon", "tonnage of cargo carried each year", "number of battles fought"]
+  categorical:
+    purpose: [naval, merchant, exploration, fishing, pirate]
+    hull_material: [oak, pine, teak, iron-clad]
+  observer_roles: [harbourmaster, ship's clerk, admiral's secretary, dockside merchant, cabin boy]
+
+- id: invented_museum_artifacts
+  name: Number of artifacts in invented museums
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: museum
+    plural: museums
+    name_style: building
+    name_templates: ["{name}", "the {name} museum", "the collections at {name}"]
+  setting_templates: ["the {name} museum trust", "the museums of the {name} district", "the {name} heritage circuit"]
+  target:
+    name: artifact_count
+    aliases: ["number of artifacts", "artifact count", "how many objects are in the collection", "size of the catalogued collection"]
+    unit: null
+    kind: count
+    range: [12, 6000]
+    parts:
+      - ["artifacts on display", "artifacts in storage"]
+      - ["artifacts in the east wing", "artifacts in the west wing"]
+      - ["pottery pieces", "metal objects", "textiles and manuscripts"]
+  distractors:
+    - {name: gallery_count, aliases: ["number of galleries", "how many galleries"], unit: null, kind: count, range: [1, 30]}
+    - {name: floor_area_m2, aliases: ["floor area", "size of the exhibition space"], unit: square metres, kind: measure, range: [80, 12000], decimals: 0}
+    - {name: staff_count, aliases: ["number of staff", "size of the staff"], unit: null, kind: count, range: [1, 150]}
+  absent_attributes: ["annual number of visitors", "year of foundation", "value of the insurance policy"]
+  categorical:
+    focus: [natural history, local history, maritime, art, folk craft]
+    building_type: [converted manor, purpose-built hall, old warehouse, former town hall]
+  observer_roles: [curator, night watchman, visiting scholar, cataloguer, school group leader]
+
+- id: fictional_recipe_ingredients
+  name: Number of ingredients in fictional recipes
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: dish
+    plural: dishes
+    name_style: place
+    name_templates: ["{name} stew", "the {name} pie", "{name} broth", "the festival dish of {name}"]
+  setting_templates: ["the {name} cookbook", "the kitchens of the {name} valley", "the {name} culinary tradition"]
+  target:
+    name: ingredient_count
+    aliases: ["number of ingredients", "ingredient count", "how many ingredients go into it", "length of its ingredient list"]
+    unit: null
+    kind: count
+    range: [2, 45]
+    parts:
+      - ["main ingredients", "seasonings"]
+      - ["vegetables", "meats", "spices"]
+      - ["ingredients added at the start", "ingredients added at the end"]
+  distractors:
+    - {name: cooking_time_minutes, aliases: ["cooking time", "how long it takes to cook"], unit: minutes, kind: measure, range: [5, 720], decimals: 0}
+    - {name: servings, aliases: ["number of servings", "how many people it serves"], unit: null, kind: count, range: [1, 60]}
+    - {name: step_count, aliases: ["number of steps", "how many steps the method has"], unit: null, kind: count, range: [1, 25]}
+  absent_attributes: ["calories per serving", "price of the ingredients", "number of pots needed"]
+  categorical:
+    course: [starter, main course, dessert, festival dish, travel ration]
+    cooking_method: [stewed, baked, roasted, fermented, raw]
+  observer_roles: [innkeeper, travelling cook, recipe collector, kitchen apprentice, food historian]
+
+- id: invented_device_components
+  name: Number of components in invented devices
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: device
+    plural: devices
+    name_style: object
+    name_templates: ["{name}", "the {name} apparatus", "the {name} device"]
+  setting_templates: ["the {name} workshop catalogue", "the inventions of the {name} guild", "the {name} patent registry"]
+  target:
+    name: component_count
+    aliases: ["number of components", "component count", "how many parts it is built from", "size of its parts list"]
+    unit: null
+    kind: count
+    range: [3, 900]
+    parts:
+      - ["moving components", "fixed components"]
+      - ["brass components", "steel components", "glass components"]
+      - ["components in the main housing", "components in the attachments"]
+  distractors:
+    - {name: mass_kg, aliases: ["mass", "how much it weighs"], unit: kilograms, kind: measure, range: [0.2, 2500], decimals: 1}
+    - {name: dial_count, aliases: ["number of dials", "how many dials and gauges it has"], unit: null, kind: count, range: [1, 24]}
+    - {name: assembly_hours, aliases: ["assembly time", "hours needed to assemble it"], unit: hours, kind: measure, range: [0.5, 600], decimals: 1}
+  absent_attributes: ["price in guild marks", "number of units ever built", "power consumption"]
+  categorical:
+    purpose: [measuring, calculating, lifting, signalling, weaving]
+    power_source: [hand crank, clockwork spring, steam, water pressure]
+  observer_roles: [inventor, patent clerk, apprentice mechanic, guild inspector, curious buyer]

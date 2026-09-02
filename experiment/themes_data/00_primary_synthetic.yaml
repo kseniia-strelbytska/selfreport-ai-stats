@@ -1,0 +1,152 @@
+# Primary, fully synthetic themes (plan §9 / §10 items 91-100).  Facts about
+# these entities cannot exist in any pretraining corpus, so success here is
+# the strongest evidence of learned aggregation.
+- id: crystal_caves
+  name: Number of crystals in fictional caves
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: cave
+    plural: caves
+    name_style: place
+    name_templates: ["{name} Cave", "the {name} Grotto", "{name} Hollow", "the caverns of {name}"]
+  setting_templates: ["the {name} cave system", "the caverns beneath the {name} hills", "the {name} karst"]
+  target:
+    name: crystal_count
+    aliases: ["number of crystals", "crystal count", "how many crystals grow there", "crystal population"]
+    unit: null
+    kind: count
+    range: [3, 400]
+    parts:
+      - ["large crystals", "small crystals"]
+      - ["crystals on the ceiling", "crystals along the walls", "crystals on the floor"]
+      - ["clear crystals", "clouded crystals"]
+  distractors:
+    - {name: depth_m, aliases: ["depth", "how far below the surface the main chamber lies"], unit: metres, kind: measure, range: [6, 320], decimals: 1}
+    - {name: chamber_count, aliases: ["number of chambers", "how many chambers"], unit: null, kind: count, range: [1, 14]}
+    - {name: air_temperature_c, aliases: ["air temperature", "temperature inside"], unit: degrees Celsius, kind: measure, range: [2, 19], decimals: 1}
+  absent_attributes: ["number of underground lakes", "age of the cave in years", "annual visitor count"]
+  categorical:
+    rock_type: [limestone, basalt, marble, sandstone, gypsum]
+    access: [easy, difficult, dangerous, sealed]
+  observer_roles: [surveyor, geologist, cave guide, local historian, apprentice cartographer]
+
+- id: invented_planet_moons
+  name: Number of moons around invented planets
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: planet
+    plural: planets
+    name_style: planet
+    name_templates: ["{name}", "the planet {name}", "{name} Prime"]
+  setting_templates: ["the {name} star cluster", "the {name} Reach", "the systems of the {name} Drift"]
+  target:
+    name: moon_count
+    aliases: ["number of moons", "moon count", "how many moons orbit it", "size of its retinue of moons"]
+    unit: null
+    kind: count
+    range: [1, 60]
+    parts:
+      - ["large moons", "small moons"]
+      - ["inner moons", "outer moons"]
+      - ["moons discovered by the first survey", "moons found later"]
+  distractors:
+    - {name: orbital_period_days, aliases: ["orbital period", "length of its year in days"], unit: days, kind: measure, range: [40, 3000], decimals: 0}
+    - {name: ring_count, aliases: ["number of rings", "how many rings"], unit: null, kind: count, range: [0, 7]}
+    - {name: surface_temperature_c, aliases: ["surface temperature", "mean surface temperature"], unit: degrees Celsius, kind: measure, range: [-180, 90], decimals: 0}
+  absent_attributes: ["number of research stations", "mass in Earth masses", "number of named craters"]
+  categorical:
+    planet_type: [rocky, gas giant, ice world, ocean world]
+    discovered_by: [automated survey, amateur astronomers, a crewed expedition]
+  observer_roles: [astronomer, survey pilot, archivist, schoolteacher, navigator]
+
+- id: fictional_ecosystem_creatures
+  name: Number of creatures in fictional ecosystems
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: creature colony
+    plural: creature colonies
+    name_style: creature
+    name_templates: ["the {name} colony", "the {name}s of the eastern marsh", "the {name} group"]
+  setting_templates: ["the {name} wetlands", "the {name} basin", "the reserve at {name}"]
+  target:
+    name: individual_count
+    aliases: ["number of individuals", "colony size", "how many creatures live in the colony", "head count"]
+    unit: null
+    kind: count
+    range: [4, 250]
+    parts:
+      - ["adults", "juveniles"]
+      - ["adults", "yearlings", "newborns"]
+      - ["individuals seen feeding", "individuals resting in the shade"]
+  distractors:
+    - {name: territory_hectares, aliases: ["territory size", "area the colony ranges over"], unit: hectares, kind: measure, range: [0.5, 80], decimals: 1}
+    - {name: nest_count, aliases: ["number of nests", "how many nests"], unit: null, kind: count, range: [1, 30]}
+    - {name: body_length_cm, aliases: ["typical body length", "length of an adult"], unit: centimetres, kind: measure, range: [4, 120], decimals: 0}
+  absent_attributes: ["number of predators observed", "lifespan in years", "number of eggs per clutch"]
+  categorical:
+    diet: [insects, fruit, roots, fish, small animals]
+    activity: [nocturnal, diurnal, crepuscular]
+  observer_roles: [field biologist, ranger, volunteer counter, wildlife photographer, local guide]
+
+- id: invented_castle_rooms
+  name: Number of rooms in invented castles
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: castle
+    plural: castles
+    name_style: building
+    name_templates: ["{name}", "the fortress of {name}"]
+  setting_templates: ["the {name} marches", "the border country of {name}", "the duchy of {name}"]
+  target:
+    name: room_count
+    aliases: ["number of rooms", "room count", "how many rooms it contains"]
+    unit: null
+    kind: count
+    range: [6, 320]
+    parts:
+      - ["rooms in the keep", "rooms in the outer wards"]
+      - ["chambers above ground", "cellars and vaults below"]
+      - ["great rooms", "bedchambers", "service rooms"]
+  distractors:
+    - {name: wall_height_m, aliases: ["height of the curtain wall", "wall height"], unit: metres, kind: measure, range: [4, 30], decimals: 1}
+    - {name: tower_count, aliases: ["number of towers", "how many towers"], unit: null, kind: count, range: [1, 16]}
+    - {name: garrison_size, aliases: ["size of the garrison", "how many soldiers were stationed there"], unit: null, kind: count, range: [10, 900]}
+  absent_attributes: ["number of wells", "year of construction", "number of sieges withstood"]
+  categorical:
+    stone: [grey granite, red sandstone, pale limestone, dark basalt]
+    condition: [inhabited, ruined, restored, abandoned]
+  observer_roles: [steward, travelling scholar, mason, chronicler, tax assessor]
+
+- id: fictional_factory_machines
+  name: Number of machines in fictional factories
+  category: synthetic
+  synthetic: true
+  entity:
+    singular: factory
+    plural: factories
+    name_style: settlement
+    name_templates: ["the {name} works", "the {name} mill", "the factory at {name}"]
+  setting_templates: ["the {name} industrial valley", "the {name} manufacturing district", "the canal towns of {name}"]
+  target:
+    name: machine_count
+    aliases: ["number of machines", "machine count", "how many machines run on the floor"]
+    unit: null
+    kind: count
+    range: [3, 260]
+    parts:
+      - ["machines on the ground floor", "machines on the upper floor"]
+      - ["looms", "presses", "lathes"]
+      - ["machines in daily use", "machines kept in reserve"]
+  distractors:
+    - {name: worker_count, aliases: ["number of workers", "size of the workforce"], unit: null, kind: count, range: [8, 1200]}
+    - {name: floor_area_m2, aliases: ["floor area", "size of the main hall"], unit: square metres, kind: measure, range: [120, 9000], decimals: 0}
+    - {name: chimney_count, aliases: ["number of chimneys", "how many chimneys"], unit: null, kind: count, range: [1, 9]}
+  absent_attributes: ["annual output in tonnes", "number of accidents recorded", "founding year"]
+  categorical:
+    product: [textiles, clockwork, glassware, rope, dyes]
+    power_source: [water wheel, steam, wind]
+  observer_roles: [foreman, inspector, apprentice, visiting engineer, ledger clerk]

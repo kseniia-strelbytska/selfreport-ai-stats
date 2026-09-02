@@ -1,0 +1,1528 @@
+# Themes 1-50: realistic animal groups (1-20), realistic ecology (21-30),
+# invented astronomy (31-40) and invented archaeological sites (41-50).
+# Animal and ecology themes are realistic (synthetic: false); the astronomy
+# and archaeology entities are wholly invented (synthetic: true).
+
+# --------------------------------------------------------------------------- #
+# Animals
+# --------------------------------------------------------------------------- #
+- id: rabbit_family_size
+  name: Size of rabbit family groups
+  category: animals
+  synthetic: false
+  entity:
+    singular: family
+    plural: families
+    name_style: place
+    name_templates: ["the family at {name} Hollow", "the {name} warren", "the {name} burrow group", "the rabbits of {name} Bank"]
+  setting_templates: ["the {name} downs", "the {name} uplands", "the meadows around {name}"]
+  target:
+    name: family_size
+    aliases: ["family size", "number of rabbits in the family", "how many rabbits live in the warren", "head count"]
+    unit: null
+    kind: count
+    range: [2, 40]
+    parts:
+      - ["adults", "juveniles"]
+      - ["does", "bucks", "kits"]
+      - ["rabbits above ground at dusk", "rabbits still below ground"]
+  distractors:
+    - {name: burrow_entrance_count, aliases: ["number of burrow entrances", "how many holes the warren has"], unit: null, kind: count, range: [1, 25]}
+    - {name: territory_hectares, aliases: ["territory size", "area the family grazes over"], unit: hectares, kind: measure, range: [0.2, 6], decimals: 1}
+    - {name: adult_weight_kg, aliases: ["typical adult weight", "weight of a grown rabbit"], unit: kilograms, kind: measure, range: [0.9, 2.5], decimals: 1}
+  absent_attributes: ["number of predators seen nearby", "lifespan of the oldest doe", "number of litters per year"]
+  categorical:
+    habitat: [downland, hedgerow, heath, woodland edge, dunes]
+    soil: [chalk, sand, loam, clay]
+  observer_roles: [gamekeeper, field ecologist, farmer, volunteer surveyor, schoolchild]
+
+- id: fox_litter_size
+  name: Size of fox litters
+  category: animals
+  synthetic: false
+  entity:
+    singular: litter
+    plural: litters
+    name_style: place
+    name_templates: ["the litter at {name} Den", "the cubs of the {name} earth", "the vixen's den at {name}"]
+  setting_templates: ["the {name} farmland", "the {name} valley", "the {name} parish"]
+  target:
+    name: litter_size
+    aliases: ["litter size", "number of cubs", "how many cubs the vixen raised", "cub count"]
+    unit: null
+    kind: count
+    range: [1, 12]
+    parts:
+      - ["male cubs", "female cubs"]
+      - ["cubs seen above ground", "cubs still inside the den"]
+      - ["dark-coated cubs", "pale cubs"]
+  distractors:
+    - {name: den_entrance_count, aliases: ["number of den entrances", "how many holes lead into the earth"], unit: null, kind: count, range: [1, 8]}
+    - {name: vixen_weight_kg, aliases: ["weight of the vixen", "how heavy the mother is"], unit: kilograms, kind: measure, range: [4, 8], decimals: 1}
+    - {name: den_depth_m, aliases: ["depth of the den", "how far the tunnel goes down"], unit: metres, kind: measure, range: [0.5, 4], decimals: 1}
+  absent_attributes: ["age of the vixen", "number of prey items brought per night", "distance to the nearest other den"]
+  categorical:
+    den_site: [hedge bank, woodland, railway embankment, sand dune, under an outbuilding]
+    season_of_birth: [early spring, mid spring, late spring]
+  observer_roles: [wildlife photographer, gamekeeper, naturalist, farmer, badger group volunteer]
+
+- id: wolf_pack_composition
+  name: Size of wolf packs
+  category: animals
+  synthetic: false
+  entity:
+    singular: pack
+    plural: packs
+    name_style: place
+    name_templates: ["the {name} pack", "the pack of the {name} valley", "the wolves of {name}"]
+  setting_templates: ["the {name} wilderness", "the {name} range", "the forests of {name}"]
+  target:
+    name: pack_size
+    aliases: ["pack size", "number of wolves", "how many wolves run with the pack", "head count"]
+    unit: null
+    kind: count
+    range: [2, 30]
+    parts:
+      - ["adults", "pups"]
+      - ["breeding adults", "subordinate adults", "pups"]
+      - ["black-coated wolves", "grey wolves"]
+  distractors:
+    - {name: territory_km2, aliases: ["territory size", "area the pack patrols"], unit: square kilometres, kind: measure, range: [50, 1500], decimals: 0}
+    - {name: den_count, aliases: ["number of dens", "how many den sites the pack uses"], unit: null, kind: count, range: [1, 6]}
+    - {name: adult_weight_kg, aliases: ["typical adult weight", "weight of a grown wolf"], unit: kilograms, kind: measure, range: [25, 65], decimals: 0}
+  absent_attributes: ["number of kills per week", "age of the breeding female", "howling bouts per night"]
+  categorical:
+    terrain: [taiga, tundra, mountain forest, mixed woodland, steppe]
+    main_prey: [deer, elk, hares, wild boar]
+  observer_roles: [ranger, tracker, wildlife biologist, trapper, documentary maker]
+
+- id: penguin_colony_group_size
+  name: Size of penguin colonies
+  category: animals
+  synthetic: false
+  entity:
+    singular: colony
+    plural: colonies
+    name_style: place
+    name_templates: ["the colony at {name} Point", "the {name} rookery", "the {name} beach colony"]
+  setting_templates: ["the {name} archipelago", "the {name} coast", "the islands of the {name} sound"]
+  target:
+    name: colony_size
+    aliases: ["colony size", "number of penguins", "how many birds nest in the colony", "penguin count"]
+    unit: null
+    kind: count
+    range: [20, 5000]
+    parts:
+      - ["adults", "chicks"]
+      - ["birds on the upper terrace", "birds on the lower shelf"]
+      - ["males", "females", "chicks"]
+  distractors:
+    - {name: nest_count, aliases: ["number of nests", "how many nests were counted"], unit: null, kind: count, range: [10, 2500]}
+    - {name: distance_to_sea_m, aliases: ["distance to the sea", "how far the birds walk to the water"], unit: metres, kind: measure, range: [5, 900], decimals: 0}
+    - {name: chick_weight_kg, aliases: ["typical chick weight", "weight of a chick at the time of the visit"], unit: kilograms, kind: measure, range: [0.3, 4], decimals: 1}
+  absent_attributes: ["number of skuas seen", "extent of sea ice", "average dive depth"]
+  categorical:
+    nest_type: [pebble nest, burrow, bare rock scrape, under tussock]
+    shore: [rocky, sandy, ice shelf, shingle]
+  observer_roles: [expedition biologist, ship's doctor, station cook, volunteer counter, wildlife filmmaker]
+
+- id: elephant_herd_composition
+  name: Size of elephant herds
+  category: animals
+  synthetic: false
+  entity:
+    singular: herd
+    plural: herds
+    name_style: place
+    name_templates: ["the {name} herd", "the herd that waters at {name}", "the matriarch's group at {name} Pan"]
+  setting_templates: ["the {name} savannah", "the {name} reserve", "the {name} river country"]
+  target:
+    name: herd_size
+    aliases: ["herd size", "number of elephants", "how many elephants travel together", "head count"]
+    unit: null
+    kind: count
+    range: [3, 60]
+    parts:
+      - ["adult cows", "calves"]
+      - ["adults", "juveniles", "calves"]
+      - ["tusked adults", "tuskless adults", "calves"]
+  distractors:
+    - {name: matriarch_age_years, aliases: ["age of the matriarch", "how old the lead cow is"], unit: years, kind: count, range: [20, 65]}
+    - {name: daily_range_km, aliases: ["daily distance walked", "how far the herd moves in a day"], unit: kilometres, kind: measure, range: [3, 40], decimals: 1}
+    - {name: waterhole_count, aliases: ["number of waterholes used", "how many waterholes the herd visits"], unit: null, kind: count, range: [1, 9]}
+  absent_attributes: ["number of bulls in the area", "weight of the matriarch", "number of calves born last year"]
+  categorical:
+    habitat: [savannah, dry woodland, riverine forest, swamp edge]
+    season: [wet season, dry season, transition]
+  observer_roles: [game ranger, safari guide, researcher, anti-poaching patrol, tracker]
+
+- id: meerkat_group_size
+  name: Size of meerkat mobs
+  category: animals
+  synthetic: false
+  entity:
+    singular: mob
+    plural: mobs
+    name_style: place
+    name_templates: ["the {name} mob", "the group at {name} Burrows", "the meerkats of {name}"]
+  setting_templates: ["the {name} desert", "the {name} dunes", "the {name} dry river"]
+  target:
+    name: group_size
+    aliases: ["group size", "number of meerkats", "how many meerkats belong to the mob", "mob size"]
+    unit: null
+    kind: count
+    range: [3, 50]
+    parts:
+      - ["adults", "pups"]
+      - ["dominant animals", "helpers", "pups"]
+      - ["foraging adults", "sentries", "pups"]
+  distractors:
+    - {name: burrow_system_count, aliases: ["number of burrow systems", "how many burrow systems the mob uses"], unit: null, kind: count, range: [1, 15]}
+    - {name: sentinel_shifts_per_day, aliases: ["sentinel shifts per day", "how many times a guard was posted"], unit: null, kind: count, range: [4, 40]}
+    - {name: territory_km2, aliases: ["territory size", "area the mob ranges over"], unit: square kilometres, kind: measure, range: [1, 15], decimals: 1}
+  absent_attributes: ["number of scorpions eaten per day", "age of the dominant female", "number of neighbouring mobs"]
+  categorical:
+    terrain: [red dunes, calcrete pan, scrub, riverbed]
+    weather: [hot and dry, cool morning, after rain]
+  observer_roles: [field researcher, volunteer, tourist guide, farmer, camera operator]
+
+- id: bat_colony_size
+  name: Size of bat roosts
+  category: animals
+  synthetic: false
+  entity:
+    singular: colony
+    plural: colonies
+    name_style: building
+    name_templates: ["the roost in {name}", "the colony at {name}", "the bats of {name}"]
+  setting_templates: ["the {name} parish", "the {name} valley", "the farms around {name}"]
+  target:
+    name: colony_size
+    aliases: ["colony size", "number of bats", "how many bats roost there", "roost count"]
+    unit: null
+    kind: count
+    range: [5, 3000]
+    parts:
+      - ["adult females", "pups"]
+      - ["bats emerging at dusk", "bats remaining inside"]
+      - ["adults", "juveniles"]
+  distractors:
+    - {name: emergence_minutes_after_sunset, aliases: ["time of first emergence after sunset", "how many minutes after sunset the first bat left"], unit: minutes, kind: measure, range: [5, 60], decimals: 0}
+    - {name: roost_height_m, aliases: ["height of the roost", "how high up the roost entrance is"], unit: metres, kind: measure, range: [2, 25], decimals: 1}
+    - {name: entrance_count, aliases: ["number of entrances", "how many access points the bats use"], unit: null, kind: count, range: [1, 10]}
+  absent_attributes: ["number of insects eaten per night", "distance to the nearest water", "number of ringed bats recaptured"]
+  categorical:
+    roost_type: [attic, barn, hollow tree, cave, bridge]
+    species_group: [pipistrelle-type, horseshoe-type, long-eared type, mouse-eared type]
+  observer_roles: [bat warden, church warden, ecologist, farmer, volunteer surveyor]
+
+- id: beaver_lodge_population
+  name: Number of beavers per lodge
+  category: animals
+  synthetic: false
+  entity:
+    singular: lodge
+    plural: lodges
+    name_style: place
+    name_templates: ["the lodge at {name} Pool", "the {name} lodge", "the beavers of {name} Brook"]
+  setting_templates: ["the {name} catchment", "the {name} valley", "the wetlands of {name}"]
+  target:
+    name: lodge_population
+    aliases: ["lodge population", "number of beavers", "how many beavers live in the lodge", "family size"]
+    unit: null
+    kind: count
+    range: [2, 14]
+    parts:
+      - ["adults", "kits"]
+      - ["adults", "yearlings", "kits"]
+      - ["beavers seen at dusk", "beavers counted only by camera trap"]
+  distractors:
+    - {name: dam_count, aliases: ["number of dams", "how many dams the family maintains"], unit: null, kind: count, range: [1, 12]}
+    - {name: main_dam_length_m, aliases: ["length of the main dam", "how long the largest dam is"], unit: metres, kind: measure, range: [2, 90], decimals: 1}
+    - {name: pond_area_m2, aliases: ["area of the pond behind the dam", "size of the impounded water"], unit: square metres, kind: measure, range: [50, 20000], decimals: 0}
+  absent_attributes: ["number of trees felled per year", "age of the lodge", "depth of the entrance tunnel"]
+  categorical:
+    watercourse: [upland stream, lowland river, drainage ditch, lake margin]
+    lodge_type: [bank lodge, island lodge, freestanding lodge]
+  observer_roles: [river warden, landowner, ecologist, angler, schoolteacher]
+
+- id: prairie_dog_colony_structure
+  name: Number of animals in prairie dog colonies
+  category: animals
+  synthetic: false
+  entity:
+    singular: colony
+    plural: colonies
+    name_style: place
+    name_templates: ["the {name} town", "the colony on {name} Flat", "the prairie dogs of {name}"]
+  setting_templates: ["the {name} plains", "the {name} grasslands", "the {name} basin"]
+  target:
+    name: colony_size
+    aliases: ["colony size", "number of prairie dogs", "how many animals live in the town", "animal count"]
+    unit: null
+    kind: count
+    range: [10, 2000]
+    parts:
+      - ["adults", "pups"]
+      - ["males", "females", "pups"]
+      - ["animals above ground at midday", "animals below ground"]
+  distractors:
+    - {name: burrow_mound_count, aliases: ["number of burrow mounds", "how many mounds dot the colony"], unit: null, kind: count, range: [5, 1500]}
+    - {name: colony_area_hectares, aliases: ["area of the colony", "how much ground the town covers"], unit: hectares, kind: measure, range: [0.5, 200], decimals: 1}
+    - {name: coterie_count, aliases: ["number of family coteries", "how many family groups make up the town"], unit: null, kind: count, range: [1, 120]}
+  absent_attributes: ["number of burrowing owls sharing the town", "number of alarm calls per hour", "grass height"]
+  categorical:
+    grassland: [shortgrass, mixed grass, sagebrush, overgrazed pasture]
+    soil: [sandy, clay, loam]
+  observer_roles: [rancher, wildlife technician, graduate student, park guide, land surveyor]
+
+- id: dolphin_pod_size
+  name: Size of dolphin pods
+  category: animals
+  synthetic: false
+  entity:
+    singular: pod
+    plural: pods
+    name_style: place
+    name_templates: ["the {name} pod", "the pod that works {name} Bay", "the dolphins of {name} Sound"]
+  setting_templates: ["the {name} coast", "the {name} gulf", "the waters off {name}"]
+  target:
+    name: pod_size
+    aliases: ["pod size", "number of dolphins", "how many dolphins swim in the pod", "head count"]
+    unit: null
+    kind: count
+    range: [2, 120]
+    parts:
+      - ["adults", "calves"]
+      - ["adults", "juveniles", "calves"]
+      - ["dolphins bow-riding", "dolphins trailing behind"]
+  distractors:
+    - {name: dive_duration_seconds, aliases: ["typical dive duration", "how long the animals stay down"], unit: seconds, kind: measure, range: [20, 480], decimals: 0}
+    - {name: distance_from_shore_km, aliases: ["distance from shore", "how far out the pod was sighted"], unit: kilometres, kind: measure, range: [0.2, 60], decimals: 1}
+    - {name: leaps_per_hour, aliases: ["leaps per hour", "how many times the dolphins breached in an hour"], unit: null, kind: count, range: [1, 80]}
+  absent_attributes: ["number of fish caught per day", "water temperature", "age of the oldest female"]
+  categorical:
+    water: [inshore, estuary, open sea, reef]
+    behaviour: [feeding, travelling, resting, socialising]
+  observer_roles: [ferry captain, marine biologist, tour operator, fisherman, coastguard volunteer]
+
+- id: orca_pod_composition
+  name: Size of orca pods
+  category: animals
+  synthetic: false
+  entity:
+    singular: pod
+    plural: pods
+    name_style: place
+    name_templates: ["the {name} pod", "the orcas of the {name} strait", "the {name} matriline"]
+  setting_templates: ["the {name} fjords", "the {name} channel", "the {name} sea"]
+  target:
+    name: pod_size
+    aliases: ["pod size", "number of orcas", "how many whales make up the pod", "whale count"]
+    unit: null
+    kind: count
+    range: [2, 50]
+    parts:
+      - ["adults", "calves"]
+      - ["adult males", "adult females", "calves"]
+      - ["whales in the lead group", "whales trailing behind"]
+  distractors:
+    - {name: matriarch_age_years, aliases: ["age of the matriarch", "how old the lead female is"], unit: years, kind: count, range: [15, 90]}
+    - {name: daily_travel_km, aliases: ["distance travelled per day", "how far the pod moves each day"], unit: kilometres, kind: measure, range: [20, 200], decimals: 0}
+    - {name: tallest_fin_m, aliases: ["height of the tallest dorsal fin", "fin height of the largest male"], unit: metres, kind: measure, range: [0.6, 1.9], decimals: 1}
+  absent_attributes: ["number of seals taken per week", "number of distinct calls recorded", "depth of the deepest dive"]
+  categorical:
+    ecotype: [fish-eating, mammal-eating, offshore]
+    sea_state: [calm, choppy, rough]
+  observer_roles: [whale watch guide, marine researcher, lighthouse keeper, fisherman, hydrophone operator]
+
+- id: lion_pride_composition
+  name: Size of lion prides
+  category: animals
+  synthetic: false
+  entity:
+    singular: pride
+    plural: prides
+    name_style: place
+    name_templates: ["the {name} pride", "the pride of the {name} kopje", "the lions of {name}"]
+  setting_templates: ["the {name} plains", "the {name} conservancy", "the {name} river valley"]
+  target:
+    name: pride_size
+    aliases: ["pride size", "number of lions", "how many lions belong to the pride", "head count"]
+    unit: null
+    kind: count
+    range: [3, 40]
+    parts:
+      - ["adults", "cubs"]
+      - ["lionesses", "males", "cubs"]
+      - ["lions at the kill", "lions resting in the shade"]
+  distractors:
+    - {name: territory_km2, aliases: ["territory size", "area the pride defends"], unit: square kilometres, kind: measure, range: [20, 400], decimals: 0}
+    - {name: kills_per_week, aliases: ["kills per week", "how many kills the pride makes in a week"], unit: null, kind: count, range: [1, 12]}
+    - {name: waterhole_count, aliases: ["number of waterholes", "how many waterholes lie in the territory"], unit: null, kind: count, range: [1, 8]}
+  absent_attributes: ["number of hyenas competing nearby", "age of the dominant male", "number of cubs lost last year"]
+  categorical:
+    habitat: [open savannah, acacia woodland, riverine thicket, rocky outcrops]
+    season: [dry, wet]
+  observer_roles: [game warden, safari driver, researcher, tracker, lodge manager]
+
+- id: hyena_clan_size
+  name: Size of hyena clans
+  category: animals
+  synthetic: false
+  entity:
+    singular: clan
+    plural: clans
+    name_style: place
+    name_templates: ["the {name} clan", "the clan denning at {name}", "the hyenas of {name} Ridge"]
+  setting_templates: ["the {name} savannah", "the {name} crater country", "the {name} plains"]
+  target:
+    name: clan_size
+    aliases: ["clan size", "number of hyenas", "how many hyenas make up the clan", "head count"]
+    unit: null
+    kind: count
+    range: [4, 90]
+    parts:
+      - ["adults", "cubs"]
+      - ["adult females", "adult males", "cubs"]
+      - ["hyenas at the communal den", "hyenas out foraging"]
+  distractors:
+    - {name: den_entrance_count, aliases: ["number of den entrances", "how many holes the communal den has"], unit: null, kind: count, range: [2, 30]}
+    - {name: territory_km2, aliases: ["territory size", "area the clan defends"], unit: square kilometres, kind: measure, range: [15, 1000], decimals: 0}
+    - {name: whoops_per_night, aliases: ["whoop calls per night", "how many long calls were heard overnight"], unit: null, kind: count, range: [3, 120]}
+  absent_attributes: ["number of lions encountered", "rank of the matriarch's mother", "distance travelled per night"]
+  categorical:
+    den_site: [old aardvark burrow, culvert, rocky outcrop, termite mound]
+    prey_base: [wildebeest, gazelle, zebra, livestock]
+  observer_roles: [field assistant, park ranger, herder, camp cook, behavioural ecologist]
+
+- id: otter_family_groups
+  name: Size of otter family groups
+  category: animals
+  synthetic: false
+  entity:
+    singular: family
+    plural: families
+    name_style: place
+    name_templates: ["the family at {name} Weir", "the otters of {name} Brook", "the {name} holt family"]
+  setting_templates: ["the {name} river system", "the {name} estuary", "the {name} lakes"]
+  target:
+    name: family_size
+    aliases: ["family size", "number of otters", "how many otters make up the family", "otter count"]
+    unit: null
+    kind: count
+    range: [2, 12]
+    parts:
+      - ["adults", "cubs"]
+      - ["adults", "yearlings", "cubs"]
+      - ["otters seen fishing", "otters resting on the bank"]
+  distractors:
+    - {name: holt_count, aliases: ["number of holts", "how many holts the family uses"], unit: null, kind: count, range: [1, 9]}
+    - {name: home_range_km, aliases: ["length of river used", "how many kilometres of bank the family ranges along"], unit: kilometres, kind: measure, range: [2, 40], decimals: 1}
+    - {name: spraint_site_count, aliases: ["number of spraint sites", "how many marking places were found"], unit: null, kind: count, range: [3, 60]}
+  absent_attributes: ["number of fish eaten per day", "age of the mother", "water clarity"]
+  categorical:
+    watercourse: [upland stream, lowland river, coastal loch, canal]
+    cover: [reed bed, tree roots, boulders, bramble]
+  observer_roles: [river keeper, angler, wildlife warden, canoeist, local naturalist]
+
+- id: goose_flock_size
+  name: Size of goose flocks
+  category: animals
+  synthetic: false
+  entity:
+    singular: flock
+    plural: flocks
+    name_style: place
+    name_templates: ["the {name} flock", "the geese that graze {name} Marsh", "the flock roosting at {name} Water"]
+  setting_templates: ["the {name} estuary", "the {name} fenland", "the {name} coast"]
+  target:
+    name: flock_size
+    aliases: ["flock size", "number of geese", "how many geese were counted in the flock", "goose count"]
+    unit: null
+    kind: count
+    range: [10, 8000]
+    parts:
+      - ["adults", "juveniles"]
+      - ["geese grazing", "geese loafing at the water's edge"]
+      - ["geese in the main flock", "geese in outlying groups"]
+  distractors:
+    - {name: field_area_hectares, aliases: ["area of the feeding field", "size of the field the flock used"], unit: hectares, kind: measure, range: [1, 120], decimals: 1}
+    - {name: roost_flight_km, aliases: ["distance to the roost", "how far the geese fly to roost"], unit: kilometres, kind: measure, range: [0.5, 25], decimals: 1}
+    - {name: skein_count, aliases: ["number of skeins arriving", "how many skeins came in"], unit: null, kind: count, range: [1, 60]}
+  absent_attributes: ["number of ringed birds read", "crop damage in tonnes", "number of shooting days"]
+  categorical:
+    feeding_ground: [winter wheat, stubble, saltmarsh, pasture, flooded meadow]
+    weather: [frost, mild, gales, fog]
+  observer_roles: [wildfowl counter, farmer, reserve warden, birdwatcher, wildfowler]
+
+- id: crow_roost_size
+  name: Size of crow roosts
+  category: animals
+  synthetic: false
+  entity:
+    singular: roost
+    plural: roosts
+    name_style: place
+    name_templates: ["the {name} roost", "the crows gathering at {name} Wood", "the winter roost at {name}"]
+  setting_templates: ["the {name} lowlands", "the {name} vale", "the farmland around {name}"]
+  target:
+    name: roost_size
+    aliases: ["roost size", "number of crows", "how many crows come in to roost", "bird count"]
+    unit: null
+    kind: count
+    range: [20, 20000]
+    parts:
+      - ["birds arriving before sunset", "birds arriving after dark"]
+      - ["adults", "first-winter birds"]
+      - ["crows", "rooks", "jackdaws"]
+  distractors:
+    - {name: roost_tree_count, aliases: ["number of roost trees", "how many trees the birds settle in"], unit: null, kind: count, range: [1, 200]}
+    - {name: arrival_duration_minutes, aliases: ["length of the arrival period", "how many minutes the birds took to come in"], unit: minutes, kind: measure, range: [10, 120], decimals: 0}
+    - {name: feeding_distance_km, aliases: ["distance to the feeding grounds", "how far the birds commute to feed"], unit: kilometres, kind: measure, range: [1, 30], decimals: 1}
+  absent_attributes: ["number of owls disturbing the roost", "noise level in decibels", "number of years the roost has been used"]
+  categorical:
+    roost_site: [conifer plantation, broadleaf wood, reed bed, town park]
+    season: [late autumn, midwinter, early spring]
+  observer_roles: [birdwatcher, gamekeeper, parish councillor, ornithologist, dog walker]
+
+- id: flamingo_flock_size
+  name: Size of flamingo flocks
+  category: animals
+  synthetic: false
+  entity:
+    singular: flock
+    plural: flocks
+    name_style: place
+    name_templates: ["the {name} flock", "the flamingos of {name} Lagoon", "the birds gathered on {name} Flats"]
+  setting_templates: ["the {name} salt lakes", "the {name} delta", "the {name} lagoons"]
+  target:
+    name: flock_size
+    aliases: ["flock size", "number of flamingos", "how many flamingos stood in the flock", "bird count"]
+    unit: null
+    kind: count
+    range: [30, 30000]
+    parts:
+      - ["adults", "immature birds"]
+      - ["birds feeding", "birds preening", "birds resting"]
+      - ["birds on the near shore", "birds on the far shore"]
+  distractors:
+    - {name: water_depth_cm, aliases: ["water depth where the birds stood", "how deep the water was"], unit: centimetres, kind: measure, range: [3, 90], decimals: 0}
+    - {name: nest_mound_count, aliases: ["number of nest mounds", "how many mud nests were counted"], unit: null, kind: count, range: [1, 5000]}
+    - {name: salinity_g_per_l, aliases: ["salinity of the water", "salt content of the lake"], unit: grams per litre, kind: measure, range: [10, 300], decimals: 0}
+  absent_attributes: ["number of chicks fledged", "water temperature", "number of eagles seen"]
+  categorical:
+    water_body: [soda lake, coastal lagoon, salt pan, estuary]
+    colour_intensity: [pale pink, rosy, deep crimson]
+  observer_roles: [reserve warden, boat guide, salt worker, ornithologist, photographer]
+
+- id: sea_turtle_nesting_groups
+  name: Number of nesting sea turtle females per beach
+  category: animals
+  synthetic: false
+  entity:
+    singular: nesting beach
+    plural: nesting beaches
+    name_style: place
+    name_templates: ["{name} Beach", "the nesting beach at {name} Cove", "the {name} strand"]
+  setting_templates: ["the {name} coast", "the {name} islands", "the {name} peninsula"]
+  target:
+    name: nesting_female_count
+    aliases: ["number of nesting females", "how many females came ashore to nest", "nesting female count", "size of the nesting group"]
+    unit: null
+    kind: count
+    range: [1, 600]
+    parts:
+      - ["females tagged in earlier seasons", "first-time nesters"]
+      - ["females nesting on the northern stretch", "females nesting on the southern stretch"]
+      - ["females that laid", "females that returned to sea without laying"]
+  distractors:
+    - {name: beach_length_m, aliases: ["length of the beach", "how long the nesting stretch is"], unit: metres, kind: measure, range: [100, 6000], decimals: 0}
+    - {name: eggs_per_clutch, aliases: ["typical clutch size", "eggs in an average nest"], unit: null, kind: count, range: [50, 180]}
+    - {name: sand_temperature_c, aliases: ["sand temperature at nest depth", "how warm the sand is"], unit: degrees Celsius, kind: measure, range: [24, 34], decimals: 1}
+  absent_attributes: ["hatchling emergence success", "number of poachers apprehended", "sand grain size"]
+  categorical:
+    sand: [white coral sand, black volcanic sand, golden sand, shingle]
+    moon_phase: [new moon, waxing, full moon, waning]
+  observer_roles: [beach patrol volunteer, fisheries officer, turtle researcher, hotel night watchman, village elder]
+
+- id: frog_population_per_pond
+  name: Number of frogs per pond
+  category: animals
+  synthetic: false
+  entity:
+    singular: pond
+    plural: ponds
+    name_style: place
+    name_templates: ["{name} Pond", "the pond at {name} Farm", "the {name} dew pond"]
+  setting_templates: ["the {name} parish", "the {name} valley", "the {name} common"]
+  target:
+    name: frog_count
+    aliases: ["frog population", "number of frogs", "how many frogs the pond holds", "frog count"]
+    unit: null
+    kind: count
+    range: [2, 800]
+    parts:
+      - ["adult males", "adult females"]
+      - ["adults", "froglets"]
+      - ["frogs calling", "silent frogs"]
+  distractors:
+    - {name: spawn_clump_count, aliases: ["number of spawn clumps", "how many clumps of spawn were counted"], unit: null, kind: count, range: [1, 400]}
+    - {name: pond_area_m2, aliases: ["area of the pond", "size of the water surface"], unit: square metres, kind: measure, range: [5, 3000], decimals: 0}
+    - {name: water_temperature_c, aliases: ["water temperature", "how warm the water was"], unit: degrees Celsius, kind: measure, range: [4, 24], decimals: 1}
+  absent_attributes: ["number of newts", "pH of the water", "number of herons visiting"]
+  categorical:
+    pond_type: [farm pond, garden pond, dew pond, quarry pool, woodland pool]
+    shading: [open, partly shaded, heavily shaded]
+  observer_roles: [amphibian recorder, farmer, schoolteacher, pond warden, retired vet]
+
+- id: ant_colony_worker_count
+  name: Number of workers in ant colonies
+  category: animals
+  synthetic: false
+  entity:
+    singular: colony
+    plural: colonies
+    name_style: place
+    name_templates: ["the {name} nest", "the colony under {name} Stone", "the mound at {name}"]
+  setting_templates: ["the {name} heath", "the {name} pinewoods", "the {name} meadows"]
+  target:
+    name: worker_count
+    aliases: ["worker count", "number of workers", "how many worker ants the colony holds", "workforce size"]
+    unit: null
+    kind: count
+    range: [50, 500000]
+    parts:
+      - ["foragers", "nest workers"]
+      - ["minor workers", "major workers"]
+      - ["workers above ground", "workers inside the nest"]
+  distractors:
+    - {name: mound_height_cm, aliases: ["height of the mound", "how tall the nest mound stands"], unit: centimetres, kind: measure, range: [5, 150], decimals: 0}
+    - {name: queen_count, aliases: ["number of queens", "how many queens the colony has"], unit: null, kind: count, range: [1, 40]}
+    - {name: foraging_trail_count, aliases: ["number of foraging trails", "how many trails lead away from the nest"], unit: null, kind: count, range: [1, 20]}
+  absent_attributes: ["number of aphids tended", "age of the queen", "depth of the deepest chamber"]
+  categorical:
+    nest_type: [earth mound, thatched mound, under a stone, in rotten wood, in a wall]
+    habitat: [heathland, pine forest, meadow, garden]
+  observer_roles: [myrmecologist, forester, gardener, student, nature reserve warden]
+
+# --------------------------------------------------------------------------- #
+# Ecology
+# --------------------------------------------------------------------------- #
+- id: trees_per_forest_plot
+  name: Number of trees per forest survey plot
+  category: ecology
+  synthetic: false
+  entity:
+    singular: plot
+    plural: plots
+    name_style: place
+    name_templates: ["the {name} plot", "the survey plot at {name}", "the {name} stand"]
+  setting_templates: ["the {name} forest", "the {name} woodland estate", "the {name} hills"]
+  target:
+    name: tree_count
+    aliases: ["number of trees", "tree count", "how many trees stand in the plot", "stem count"]
+    unit: null
+    kind: count
+    range: [5, 600]
+    parts:
+      - ["mature trees", "saplings"]
+      - ["broadleaves", "conifers"]
+      - ["living trees", "standing dead trees"]
+  distractors:
+    - {name: plot_area_hectares, aliases: ["plot area", "size of the plot"], unit: hectares, kind: measure, range: [0.1, 5], decimals: 1}
+    - {name: canopy_cover_percent, aliases: ["canopy cover", "percentage of the sky hidden by canopy"], unit: percent, kind: measure, range: [10, 100], decimals: 0}
+    - {name: mean_trunk_diameter_cm, aliases: ["mean trunk diameter", "average diameter at breast height"], unit: centimetres, kind: measure, range: [8, 90], decimals: 1}
+  absent_attributes: ["number of bird species", "soil carbon content", "age of the oldest tree"]
+  categorical:
+    forest_type: [oak-dominated, beech, pine plantation, mixed, birch scrub]
+    management: [unmanaged, thinned, coppiced, recently felled]
+  observer_roles: [forester, ecology student, timber surveyor, ranger, volunteer]
+
+- id: average_pond_depth
+  name: Average depth of ponds
+  category: ecology
+  synthetic: false
+  entity:
+    singular: pond
+    plural: ponds
+    name_style: place
+    name_templates: ["{name} Pond", "the {name} mere", "the pool at {name}"]
+  setting_templates: ["the {name} lowlands", "the {name} heath", "the {name} estate"]
+  target:
+    name: mean_depth_m
+    aliases: ["average depth", "mean depth", "how deep the pond is on average", "depth of the water"]
+    unit: metres
+    kind: measure
+    range: [0.4, 9.0]
+    decimals: 1
+    parts:
+      - ["depth to the top of the silt", "thickness of the silt down to the hard bed"]
+      - ["water above the weed tops", "water from the weed tops to the bed"]
+      - ["upper warm layer", "lower cold layer"]
+  distractors:
+    - {name: surface_area_m2, aliases: ["surface area", "size of the water surface"], unit: square metres, kind: measure, range: [20, 20000], decimals: 0}
+    - {name: shoreline_length_m, aliases: ["length of the shoreline", "distance round the edge"], unit: metres, kind: measure, range: [15, 900], decimals: 0}
+    - {name: inflow_count, aliases: ["number of inflows", "how many streams or ditches feed it"], unit: null, kind: count, range: [1, 5]}
+  absent_attributes: ["number of fish species", "water pH", "year the pond was dug"]
+  categorical:
+    origin: [natural hollow, dug pond, dammed stream, flooded quarry, oxbow]
+    water_colour: [clear, peaty brown, green with algae, milky]
+  observer_roles: [pond surveyor, farmer, angler, hydrologist, parish recorder]
+
+- id: stream_width
+  name: Width of streams
+  category: ecology
+  synthetic: false
+  entity:
+    singular: stream
+    plural: streams
+    name_style: place
+    name_templates: ["{name} Brook", "the {name} beck", "the stream below {name}"]
+  setting_templates: ["the {name} catchment", "the {name} dales", "the {name} moors"]
+  target:
+    name: width_m
+    aliases: ["width", "channel width", "how wide the stream is", "width from bank to bank"]
+    unit: metres
+    kind: measure
+    range: [0.3, 25.0]
+    decimals: 1
+    parts:
+      - ["width of the flowing channel", "width of the exposed gravel margins"]
+      - ["wetted width left of the midline", "wetted width right of the midline"]
+      - ["shallow near-bank margin", "deeper central run", "far-bank margin"]
+  distractors:
+    - {name: depth_cm, aliases: ["typical depth", "how deep the water runs"], unit: centimetres, kind: measure, range: [3, 200], decimals: 0}
+    - {name: flow_speed_m_per_s, aliases: ["flow speed", "how fast the current runs"], unit: metres per second, kind: measure, range: [0.05, 2.5], decimals: 2}
+    - {name: pool_count, aliases: ["number of pools", "how many pools lie along the reach"], unit: null, kind: count, range: [1, 30]}
+  absent_attributes: ["number of trout", "water temperature", "length of the surveyed reach"]
+  categorical:
+    bed: [gravel, cobbles, sand, bedrock, silt]
+    bank_vegetation: [alder, grass, bracken, willow scrub]
+  observer_roles: [hydrologist, angler, walker, drainage engineer, student]
+
+- id: plants_per_meadow
+  name: Number of plants of a focal species per meadow survey square
+  category: ecology
+  synthetic: false
+  entity:
+    singular: survey square
+    plural: survey squares
+    name_style: place
+    name_templates: ["the {name} meadow square", "the quadrat at {name}", "the {name} hay meadow plot"]
+  setting_templates: ["the {name} valley", "the {name} floodplain", "the {name} downs"]
+  target:
+    name: plant_count
+    aliases: ["number of plants", "plant count", "how many plants of the focal species grow in the square", "count of individuals"]
+    unit: null
+    kind: count
+    range: [1, 900]
+    parts:
+      - ["flowering plants", "non-flowering rosettes"]
+      - ["plants in the wetter half", "plants in the drier half"]
+      - ["seedlings", "established plants"]
+  distractors:
+    - {name: sward_height_cm, aliases: ["sward height", "how tall the grass stands"], unit: centimetres, kind: measure, range: [3, 90], decimals: 0}
+    - {name: species_richness, aliases: ["number of species in the square", "species richness"], unit: null, kind: count, range: [3, 60]}
+    - {name: square_side_m, aliases: ["side length of the square", "size of the quadrat"], unit: metres, kind: measure, range: [0.5, 10], decimals: 1}
+  absent_attributes: ["number of pollinators seen", "soil moisture", "date of the hay cut"]
+  categorical:
+    meadow_type: [hay meadow, wet meadow, chalk grassland, upland pasture]
+    management: [grazed, cut once, cut twice, abandoned]
+  observer_roles: [botanist, farmer, conservation volunteer, student, land agent]
+
+- id: soil_layer_thickness
+  name: Thickness of the topsoil layer in soil pits
+  category: ecology
+  synthetic: false
+  entity:
+    singular: soil pit
+    plural: soil pits
+    name_style: place
+    name_templates: ["the pit at {name}", "the {name} profile", "the {name} soil pit"]
+  setting_templates: ["the {name} plateau", "the {name} farmland", "the {name} moor"]
+  target:
+    name: topsoil_thickness_cm
+    aliases: ["topsoil thickness", "depth of the dark upper layer", "how thick the topsoil is", "thickness of the top horizon"]
+    unit: centimetres
+    kind: measure
+    range: [2, 120]
+    decimals: 1
+    parts:
+      - ["litter and humus layer", "mineral topsoil beneath it"]
+      - ["upper dark band", "lower brown band"]
+      - ["densely rooted layer", "sparsely rooted layer"]
+  distractors:
+    - {name: stone_content_percent, aliases: ["stone content", "share of the layer made up of stones"], unit: percent, kind: measure, range: [1, 70], decimals: 0}
+    - {name: soil_ph, aliases: ["soil pH", "acidity of the topsoil"], unit: pH units, kind: measure, range: [3.5, 8.5], decimals: 1}
+    - {name: earthworm_count, aliases: ["number of earthworms", "how many worms were found in the pit"], unit: null, kind: count, range: [1, 60]}
+  absent_attributes: ["organic carbon percentage", "depth to bedrock", "age of the soil"]
+  categorical:
+    parent_material: [chalk, granite, clay, sandstone, alluvium]
+    land_use: [arable, pasture, woodland, heath]
+  observer_roles: [soil scientist, farmer, drainage contractor, student, field archaeologist]
+
+- id: rainfall_per_month
+  name: Monthly rainfall at weather stations
+  category: ecology
+  synthetic: false
+  entity:
+    singular: monthly rainfall record
+    plural: monthly rainfall records
+    name_style: place
+    name_templates: ["the month's record at {name} station", "the {name} gauge record", "the {name} rain gauge"]
+  setting_templates: ["the {name} region", "the {name} uplands", "the {name} coast"]
+  target:
+    name: rainfall_mm
+    aliases: ["monthly rainfall", "rain that fell in the month", "how much rain the gauge collected", "monthly total"]
+    unit: millimetres
+    kind: measure
+    range: [1, 600]
+    decimals: 1
+    parts:
+      - ["rain in the first half of the month", "rain in the second half of the month"]
+      - ["rain from frontal systems", "rain from showers"]
+      - ["rain by day", "rain by night"]
+  distractors:
+    - {name: rain_days, aliases: ["number of rain days", "how many days had measurable rain"], unit: null, kind: count, range: [1, 31]}
+    - {name: wettest_day_mm, aliases: ["rain on the wettest day", "largest daily total"], unit: millimetres, kind: measure, range: [0.5, 200], decimals: 1}
+    - {name: mean_temperature_c, aliases: ["mean temperature for the month", "average air temperature"], unit: degrees Celsius, kind: measure, range: [-10, 32], decimals: 1}
+  absent_attributes: ["snow depth", "number of thunderstorms", "wind speed"]
+  categorical:
+    station_setting: [hilltop, valley floor, coastal, urban garden, farm]
+    gauge_type: [standard copper gauge, tipping bucket, automatic logger]
+  observer_roles: [volunteer rainfall observer, farmer, schoolteacher, meteorological officer, retired engineer]
+
+- id: species_per_habitat
+  name: Number of species recorded per habitat patch
+  category: ecology
+  synthetic: false
+  entity:
+    singular: habitat patch
+    plural: habitat patches
+    name_style: place
+    name_templates: ["the {name} patch", "the habitat at {name}", "the {name} reserve compartment"]
+  setting_templates: ["the {name} district", "the {name} nature reserve", "the {name} lowlands"]
+  target:
+    name: species_count
+    aliases: ["number of species", "species count", "how many species were recorded there", "species richness"]
+    unit: null
+    kind: count
+    range: [2, 300]
+    parts:
+      - ["plant species", "animal species"]
+      - ["common species", "rare species"]
+      - ["bird species", "insect species", "plant species"]
+  distractors:
+    - {name: patch_area_hectares, aliases: ["area of the patch", "how large the habitat is"], unit: hectares, kind: measure, range: [0.2, 500], decimals: 1}
+    - {name: survey_visits, aliases: ["number of survey visits", "how many times the patch was surveyed"], unit: null, kind: count, range: [1, 24]}
+    - {name: nearest_patch_km, aliases: ["distance to the nearest similar patch", "how isolated the patch is"], unit: kilometres, kind: measure, range: [0.1, 30], decimals: 1}
+  absent_attributes: ["number of invasive species", "years since designation", "number of visitors"]
+  categorical:
+    habitat: [reed bed, heath, ancient woodland, chalk grassland, saltmarsh]
+    condition: [favourable, recovering, declining]
+  observer_roles: [ecologist, reserve warden, volunteer recorder, student, planning officer]
+
+- id: average_canopy_height
+  name: Average canopy height of forest stands
+  category: ecology
+  synthetic: false
+  entity:
+    singular: forest stand
+    plural: forest stands
+    name_style: place
+    name_templates: ["the {name} stand", "the canopy at {name}", "the {name} plantation block"]
+  setting_templates: ["the {name} forest", "the {name} hills", "the {name} estate"]
+  target:
+    name: canopy_height_m
+    aliases: ["average canopy height", "mean canopy height", "how tall the canopy stands", "height of the tree tops"]
+    unit: metres
+    kind: measure
+    range: [2, 60]
+    decimals: 1
+    parts:
+      - ["height of the bare trunk to the first branch", "height of the crown above it"]
+      - ["understorey height", "additional height of the upper canopy"]
+      - ["height to the lowest live branch", "depth of the live crown"]
+  distractors:
+    - {name: stems_per_hectare, aliases: ["stem density", "number of trees per hectare"], unit: null, kind: count, range: [50, 3000]}
+    - {name: mean_trunk_diameter_cm, aliases: ["mean trunk diameter", "average diameter at breast height"], unit: centimetres, kind: measure, range: [5, 120], decimals: 1}
+    - {name: stand_age_years, aliases: ["age of the stand", "how many years since planting"], unit: years, kind: count, range: [3, 300]}
+  absent_attributes: ["timber volume", "number of nesting birds", "leaf area index"]
+  categorical:
+    dominant_species: [oak, beech, spruce, pine, ash]
+    site: [valley, slope, ridge, plateau]
+  observer_roles: [forester, remote sensing analyst, ecologist, tree surgeon, student]
+
+- id: nests_per_hectare
+  name: Number of nests per surveyed hectare
+  category: ecology
+  synthetic: false
+  entity:
+    singular: survey hectare
+    plural: survey hectares
+    name_style: place
+    name_templates: ["the {name} hectare", "the block at {name}", "the {name} survey square"]
+  setting_templates: ["the {name} woods", "the {name} marsh", "the {name} farmland"]
+  target:
+    name: nest_count
+    aliases: ["number of nests", "nests per hectare", "how many nests were found in the hectare", "nest density"]
+    unit: null
+    kind: count
+    range: [1, 150]
+    parts:
+      - ["occupied nests", "empty nests"]
+      - ["nests in trees", "nests on the ground"]
+      - ["nests found on the first search", "nests found on the second search"]
+  distractors:
+    - {name: tree_count, aliases: ["number of trees in the hectare", "tree count"], unit: null, kind: count, range: [1, 400]}
+    - {name: mean_nest_height_m, aliases: ["mean nest height", "average height of the nests above ground"], unit: metres, kind: measure, range: [0.1, 30], decimals: 1}
+    - {name: search_hours, aliases: ["hours spent searching", "search effort"], unit: hours, kind: measure, range: [1, 40], decimals: 1}
+  absent_attributes: ["number of eggs per nest", "predation rate", "number of nest boxes"]
+  categorical:
+    habitat: [woodland, hedgerow, reed bed, heath, orchard]
+    season: [early spring, late spring, summer]
+  observer_roles: [nest recorder, bird ringer, ecologist, gamekeeper, student]
+
+- id: distance_between_trees
+  name: Distance between neighbouring trees in a row
+  category: ecology
+  synthetic: false
+  entity:
+    singular: tree row
+    plural: tree rows
+    name_style: place
+    name_templates: ["the {name} avenue", "the row of trees along {name} Lane", "the {name} orchard row"]
+  setting_templates: ["the {name} estate", "the {name} vale", "the parishes around {name}"]
+  target:
+    name: spacing_m
+    aliases: ["distance between trees", "spacing between neighbouring trees", "how far apart the trees stand", "gap from trunk to trunk"]
+    unit: metres
+    kind: measure
+    range: [0.5, 40]
+    decimals: 1
+    parts:
+      - ["distance from the first trunk to the midpoint", "distance from the midpoint to the next trunk"]
+      - ["reach of the first crown", "open ground between the crowns", "reach of the second crown"]
+      - ["distance from the trunk to the ditch", "distance from the ditch to the next trunk"]
+  distractors:
+    - {name: tree_count, aliases: ["number of trees in the row", "how many trees the row holds"], unit: null, kind: count, range: [2, 200]}
+    - {name: row_length_m, aliases: ["length of the row", "how long the line of trees runs"], unit: metres, kind: measure, range: [5, 2000], decimals: 0}
+    - {name: mean_girth_cm, aliases: ["mean trunk girth", "average girth at chest height"], unit: centimetres, kind: measure, range: [20, 600], decimals: 0}
+  absent_attributes: ["age of the trees", "number of trees lost to storms", "height of the tallest tree"]
+  categorical:
+    species: [lime, oak, poplar, apple, plane]
+    setting: [avenue, orchard, hedgerow, shelterbelt]
+  observer_roles: [estate forester, orchard keeper, highways surveyor, landscape historian, student]
+
+# --------------------------------------------------------------------------- #
+# Astronomy (invented planets, stars and small bodies)
+# --------------------------------------------------------------------------- #
+- id: fictional_planet_moons_secondary
+  name: Number of moons orbiting invented worlds
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: world
+    plural: worlds
+    name_style: planet
+    name_templates: ["the world {name}", "{name}", "the charted world of {name}"]
+  setting_templates: ["the {name} Expanse", "the {name} Arm", "the worlds of the {name} Belt"]
+  target:
+    name: satellite_count
+    aliases: ["number of moons", "count of natural satellites", "how many moons circle the world", "moon tally"]
+    unit: null
+    kind: count
+    range: [1, 45]
+    parts:
+      - ["regular moons", "captured moons"]
+      - ["moons visible to the naked eye from the surface", "moons needing a telescope"]
+      - ["rocky moons", "icy moons", "tiny moonlets"]
+  distractors:
+    - {name: day_length_hours, aliases: ["length of its day", "hours in one rotation"], unit: hours, kind: measure, range: [4, 400], decimals: 1}
+    - {name: surface_gravity_g, aliases: ["surface gravity", "pull at the surface relative to standard"], unit: standard gravities, kind: measure, range: [0.1, 3], decimals: 2}
+    - {name: continent_count, aliases: ["number of continents", "how many landmasses it has"], unit: null, kind: count, range: [1, 12]}
+  absent_attributes: ["number of orbiting stations", "axial tilt", "age of the world"]
+  categorical:
+    world_class: [desert world, ocean world, ice world, jungle world, gas dwarf]
+    survey_status: [fully charted, partly charted, flyby only]
+  observer_roles: [orbital cartographer, colony schoolteacher, freighter pilot, observatory clerk, planetologist]
+
+- id: planets_per_fictional_system
+  name: Number of planets in invented star systems
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: star system
+    plural: star systems
+    name_style: planet
+    name_templates: ["the {name} system", "the system around {name}", "the star {name} and its worlds"]
+  setting_templates: ["the {name} Sector", "the {name} Cluster", "the {name} Drift"]
+  target:
+    name: planet_count
+    aliases: ["number of planets", "planet count", "how many planets orbit the star", "size of the planetary family"]
+    unit: null
+    kind: count
+    range: [1, 20]
+    parts:
+      - ["rocky planets", "gas giants"]
+      - ["inner planets", "outer planets"]
+      - ["planets inside the frost line", "planets beyond the frost line"]
+  distractors:
+    - {name: star_mass_solar, aliases: ["mass of the star", "stellar mass in solar units"], unit: solar masses, kind: measure, range: [0.1, 8], decimals: 2}
+    - {name: system_age_billion_years, aliases: ["age of the system", "how old the star is"], unit: billion years, kind: measure, range: [0.1, 12], decimals: 1}
+    - {name: asteroid_belt_count, aliases: ["number of asteroid belts", "how many debris belts the system has"], unit: null, kind: count, range: [1, 4]}
+  absent_attributes: ["number of comets catalogued", "metallicity", "number of inhabited worlds"]
+  categorical:
+    star_colour: [red, orange, yellow, white, blue-white]
+    multiplicity: [single star, binary, triple]
+  observer_roles: [survey astronomer, navigator, archivist, amateur observer, mission planner]
+
+- id: asteroid_sizes
+  name: Diameter of invented asteroids
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: asteroid
+    plural: asteroids
+    name_style: planet
+    name_templates: ["asteroid {name}", "{name}", "the rock {name}"]
+  setting_templates: ["the {name} Belt", "the {name} debris field", "the {name} trojan swarm"]
+  target:
+    name: diameter_km
+    aliases: ["diameter", "size across", "how wide the asteroid is", "mean diameter"]
+    unit: kilometres
+    kind: measure
+    range: [0.5, 900]
+    decimals: 1
+    parts:
+      - ["length of the main body", "length of the attached lobe"]
+      - ["width of the larger lobe", "width of the neck", "width of the smaller lobe"]
+      - ["radius on the sunlit side", "radius on the shadowed side"]
+  distractors:
+    - {name: rotation_period_hours, aliases: ["rotation period", "how many hours one spin takes"], unit: hours, kind: measure, range: [2, 200], decimals: 1}
+    - {name: albedo, aliases: ["albedo", "fraction of light it reflects"], unit: null, kind: measure, range: [0.02, 0.6], decimals: 2}
+    - {name: crater_count, aliases: ["number of craters", "how many craters were mapped"], unit: null, kind: count, range: [1, 400]}
+  absent_attributes: ["metal content", "number of landers sent", "year of discovery"]
+  categorical:
+    composition: [carbonaceous, stony, metallic, icy]
+    shape: [roughly spherical, elongated, two-lobed, irregular]
+  observer_roles: [orbital surveyor, mining prospector, observatory assistant, astrogation clerk, hobby astronomer]
+
+- id: orbital_periods
+  name: Orbital period of invented planets
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: planet
+    plural: planets
+    name_style: planet
+    name_templates: ["{name}", "the planet {name}", "the world {name}"]
+  setting_templates: ["the {name} system", "the {name} Reach", "the family of the star {name}"]
+  target:
+    name: orbital_period_days
+    aliases: ["orbital period", "length of its year", "how many days it takes to circle its star", "year length in days"]
+    unit: days
+    kind: measure
+    range: [5, 20000]
+    decimals: 0
+    parts:
+      - ["days on the near side of the orbit", "days on the far side of the orbit"]
+      - ["days of spring and summer", "days of autumn and winter"]
+      - ["days approaching closest approach", "days receding from it"]
+  distractors:
+    - {name: orbital_distance_au, aliases: ["distance from its star", "mean orbital distance"], unit: astronomical units, kind: measure, range: [0.05, 60], decimals: 2}
+    - {name: eccentricity, aliases: ["orbital eccentricity", "how stretched the orbit is"], unit: null, kind: measure, range: [0.01, 0.9], decimals: 2}
+    - {name: moon_count, aliases: ["number of moons", "how many moons it has"], unit: null, kind: count, range: [1, 30]}
+  absent_attributes: ["surface gravity", "atmospheric pressure", "number of survey probes"]
+  categorical:
+    planet_type: [hot rock, temperate world, gas giant, ice giant, dwarf planet]
+    star_type: [red dwarf, sunlike star, giant star]
+  observer_roles: [astronomer, almanac compiler, navigator, colony calendar keeper, student]
+
+- id: star_cluster_membership
+  name: Number of stars in invented clusters
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: star cluster
+    plural: star clusters
+    name_style: planet
+    name_templates: ["the {name} Cluster", "cluster {name}", "the stars of {name}"]
+  setting_templates: ["the {name} Nebula region", "the {name} Arm", "the {name} Halo"]
+  target:
+    name: star_count
+    aliases: ["number of stars", "star count", "how many stars belong to the cluster", "membership"]
+    unit: null
+    kind: count
+    range: [10, 100000]
+    parts:
+      - ["bright stars", "faint stars"]
+      - ["blue stars", "yellow stars", "red stars"]
+      - ["stars in the core", "stars in the halo"]
+  distractors:
+    - {name: cluster_age_million_years, aliases: ["age of the cluster", "how old the cluster is"], unit: million years, kind: measure, range: [1, 12000], decimals: 0}
+    - {name: diameter_light_years, aliases: ["diameter of the cluster", "how wide the cluster spans"], unit: light-years, kind: measure, range: [1, 200], decimals: 1}
+    - {name: distance_light_years, aliases: ["distance from the observatory", "how far away the cluster lies"], unit: light-years, kind: measure, range: [100, 50000], decimals: 0}
+  absent_attributes: ["number of variable stars", "metallicity", "number of exoplanets found"]
+  categorical:
+    cluster_type: [open cluster, globular cluster, loose association]
+    appearance: [compact, sparse, ring-shaped, elongated]
+  observer_roles: [observatory astronomer, star charter, amateur observer, navigator, catalogue clerk]
+
+- id: fictional_moon_crater_counts
+  name: Number of craters on invented moons
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: moon
+    plural: moons
+    name_style: planet
+    name_templates: ["the moon {name}", "{name}", "the satellite {name}"]
+  setting_templates: ["the {name} system", "the moons of the giant {name}", "the {name} Reach"]
+  target:
+    name: crater_count
+    aliases: ["number of craters", "crater count", "how many named craters mark its surface", "crater tally"]
+    unit: null
+    kind: count
+    range: [3, 5000]
+    parts:
+      - ["large craters", "small craters"]
+      - ["craters on the leading hemisphere", "craters on the trailing hemisphere"]
+      - ["fresh craters", "degraded craters"]
+  distractors:
+    - {name: diameter_km, aliases: ["diameter", "how wide the moon is"], unit: kilometres, kind: measure, range: [20, 5000], decimals: 0}
+    - {name: orbital_period_days, aliases: ["orbital period", "days to circle its planet"], unit: days, kind: measure, range: [0.5, 400], decimals: 1}
+    - {name: ice_cover_percent, aliases: ["ice cover", "share of the surface covered by ice"], unit: percent, kind: measure, range: [1, 100], decimals: 0}
+  absent_attributes: ["number of geysers", "depth of the subsurface ocean", "number of landings"]
+  categorical:
+    surface: [icy, rocky, dusty, mixed]
+    colour: [grey, reddish, white, mottled]
+  observer_roles: [lunar cartographer, probe controller, planetary geologist, student, orbital pilot]
+
+- id: comet_observation_intervals
+  name: Years between appearances of invented comets
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: comet
+    plural: comets
+    name_style: planet
+    name_templates: ["comet {name}", "the {name} comet", "{name}"]
+  setting_templates: ["the {name} system", "the skies of {name}", "the {name} Cloud"]
+  target:
+    name: interval_years
+    aliases: ["interval between appearances", "years between returns", "how long it takes to come back", "orbital period in years"]
+    unit: years
+    kind: measure
+    range: [3, 4000]
+    decimals: 1
+    parts:
+      - ["years spent outbound", "years spent inbound"]
+      - ["years visible from the surface", "years lost to view"]
+      - ["years inside the orbits of the giant planets", "years beyond them"]
+  distractors:
+    - {name: tail_length_million_km, aliases: ["length of the tail", "how far the tail streams"], unit: million kilometres, kind: measure, range: [0.1, 300], decimals: 1}
+    - {name: nucleus_diameter_km, aliases: ["diameter of the nucleus", "size of the icy core"], unit: kilometres, kind: measure, range: [0.2, 60], decimals: 1}
+    - {name: recorded_apparitions, aliases: ["number of recorded apparitions", "how many returns are on record"], unit: null, kind: count, range: [1, 60]}
+  absent_attributes: ["brightness at closest approach", "number of fragments", "water production rate"]
+  categorical:
+    tail_colour: [white, bluish, yellow, faint green]
+    origin: [inner belt, scattered disc, outer cloud]
+  observer_roles: [court astronomer, comet hunter, almanac keeper, observatory archivist, farmer]
+
+- id: planetary_atmospheric_composition
+  name: Share of the dominant gas in invented planetary atmospheres
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: planet
+    plural: planets
+    name_style: planet
+    name_templates: ["{name}", "the planet {name}", "the world {name}"]
+  setting_templates: ["the {name} system", "the {name} Sector", "the {name} Expanse"]
+  target:
+    name: dominant_gas_percent
+    aliases: ["share of the dominant gas", "percentage of the atmosphere made up by the main gas", "how much of the air is the principal gas", "dominant gas fraction"]
+    unit: percent
+    kind: measure
+    range: [5, 95]
+    decimals: 1
+    parts:
+      - ["percentage points attributed to volcanic outgassing", "percentage points attributed to captured primordial gas"]
+      - ["percentage points from the heavier isotope", "percentage points from the lighter isotope"]
+      - ["percentage points as free gas", "percentage points bound in haze droplets"]
+  distractors:
+    - {name: surface_pressure_bar, aliases: ["surface pressure", "how heavy the air presses at ground level"], unit: bar, kind: measure, range: [0.01, 90], decimals: 2}
+    - {name: cloud_layer_count, aliases: ["number of cloud layers", "how many cloud decks were seen"], unit: null, kind: count, range: [1, 6]}
+    - {name: mean_temperature_c, aliases: ["mean temperature", "average surface temperature"], unit: degrees Celsius, kind: measure, range: [-150, 400], decimals: 0}
+  absent_attributes: ["wind speed", "ozone concentration", "number of atmospheric probes"]
+  categorical:
+    dominant_gas: [nitrogen, carbon dioxide, hydrogen, methane, argon]
+    sky_colour: [blue, orange, pale yellow, grey, violet]
+  observer_roles: [atmospheric scientist, probe engineer, colony surveyor, student, survey pilot]
+
+- id: fictional_planet_temperatures
+  name: Mean surface temperature of invented planets
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: planet
+    plural: planets
+    name_style: planet
+    name_templates: ["{name}", "the planet {name}", "the world called {name}"]
+  setting_templates: ["the {name} system", "the {name} Drift", "the worlds of the {name} Cluster"]
+  target:
+    name: mean_temperature_c
+    aliases: ["mean surface temperature", "average temperature", "how warm the surface is on average", "surface temperature"]
+    unit: degrees Celsius
+    kind: measure
+    range: [-200, 120]
+    decimals: 1
+    parts:
+      - ["equilibrium temperature from starlight alone", "degrees of greenhouse warming added"]
+      - ["baseline temperature", "degrees contributed by internal heat"]
+      - ["temperature set by distance from the star", "adjustment for the atmosphere"]
+  distractors:
+    - {name: orbital_distance_au, aliases: ["distance from its star", "mean orbital distance"], unit: astronomical units, kind: measure, range: [0.1, 50], decimals: 2}
+    - {name: surface_pressure_bar, aliases: ["atmospheric pressure", "surface pressure"], unit: bar, kind: measure, range: [0.01, 100], decimals: 2}
+    - {name: day_length_hours, aliases: ["length of its day", "hours in one rotation"], unit: hours, kind: measure, range: [5, 2000], decimals: 0}
+  absent_attributes: ["magnetic field strength", "number of moons", "ocean coverage"]
+  categorical:
+    surface: [frozen, temperate, scorched, molten, ocean-covered]
+    atmosphere: [none, thin, thick, crushing]
+  observer_roles: [planetologist, colony surveyor, probe telemetry analyst, schoolteacher, terraforming assessor]
+
+- id: distances_between_fictional_stars
+  name: Distance from invented stars to their nearest neighbour
+  category: astronomy
+  synthetic: true
+  entity:
+    singular: star
+    plural: stars
+    name_style: planet
+    name_templates: ["{name}", "the star {name}", "the {name} sun"]
+  setting_templates: ["the {name} Cluster", "the {name} Arm", "the {name} neighbourhood"]
+  target:
+    name: nearest_neighbour_distance_ly
+    aliases: ["distance to its nearest neighbour", "gap to the nearest star", "how far it lies from the closest neighbouring star", "nearest-neighbour distance"]
+    unit: light-years
+    kind: measure
+    range: [0.3, 60]
+    decimals: 1
+    parts:
+      - ["distance from the star to the waypoint beacon", "distance from the beacon on to the neighbour"]
+      - ["first leg of the crossing", "second leg of the crossing"]
+      - ["distance across the dust lane", "clear distance beyond the dust lane"]
+  distractors:
+    - {name: luminosity_solar, aliases: ["luminosity", "brightness relative to a standard sun"], unit: solar luminosities, kind: measure, range: [0.01, 500], decimals: 2}
+    - {name: planet_count, aliases: ["number of planets", "how many planets orbit it"], unit: null, kind: count, range: [1, 15]}
+    - {name: surface_temperature_k, aliases: ["surface temperature", "temperature of the photosphere"], unit: kelvin, kind: measure, range: [2500, 30000], decimals: 0}
+  absent_attributes: ["age of the star", "rotation period", "number of flares recorded"]
+  categorical:
+    spectral_colour: [red, orange, yellow, white, blue]
+    multiplicity: [single, binary, triple]
+  observer_roles: [navigator, stellar cartographer, jump pilot, observatory clerk, astronomy tutor]
+
+# --------------------------------------------------------------------------- #
+# Archaeology (invented sites)
+# --------------------------------------------------------------------------- #
+- id: pottery_fragments_per_site
+  name: Number of pottery fragments recovered per invented site
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: site
+    plural: sites
+    name_style: settlement
+    name_templates: ["the {name} site", "the excavation at {name}", "the {name} mound"]
+  setting_templates: ["the {name} river valley", "the {name} plain", "the {name} lowlands"]
+  target:
+    name: sherd_count
+    aliases: ["number of pottery fragments", "sherd count", "how many potsherds were recovered", "fragment tally"]
+    unit: null
+    kind: count
+    range: [5, 20000]
+    parts:
+      - ["decorated sherds", "plain sherds"]
+      - ["rim sherds", "body sherds", "base sherds"]
+      - ["sherds from the upper layers", "sherds from the lower layers"]
+  distractors:
+    - {name: trench_count, aliases: ["number of trenches", "how many trenches were opened"], unit: null, kind: count, range: [1, 20]}
+    - {name: site_area_hectares, aliases: ["area of the site", "how much ground the site covers"], unit: hectares, kind: measure, range: [0.1, 40], decimals: 1}
+    - {name: excavation_seasons, aliases: ["number of excavation seasons", "how many seasons of digging"], unit: null, kind: count, range: [1, 25]}
+  absent_attributes: ["number of burials", "radiocarbon date", "number of complete vessels"]
+  categorical:
+    ware: [red burnished, grey coarse, painted buff, black polished, shell-tempered]
+    site_type: [farmstead, hill settlement, riverside village, workshop quarter]
+  observer_roles: [site director, finds assistant, local landowner, visiting scholar, museum curator]
+
+- id: coins_per_site
+  name: Number of coins found per invented site
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: site
+    plural: sites
+    name_style: settlement
+    name_templates: ["the {name} site", "the dig at {name}", "the {name} ruins"]
+  setting_templates: ["the {name} province", "the {name} valley", "the {name} coast"]
+  target:
+    name: coin_count
+    aliases: ["number of coins", "coin count", "how many coins were found", "coin total"]
+    unit: null
+    kind: count
+    range: [1, 6000]
+    parts:
+      - ["silver coins", "bronze coins"]
+      - ["coins from the hoard", "stray finds"]
+      - ["gold coins", "silver coins", "base-metal coins"]
+  distractors:
+    - {name: trench_count, aliases: ["number of trenches", "how many trenches were dug"], unit: null, kind: count, range: [1, 15]}
+    - {name: find_depth_cm, aliases: ["depth of the coin finds", "how far down the coins lay"], unit: centimetres, kind: measure, range: [10, 400], decimals: 0}
+    - {name: building_count, aliases: ["number of buildings uncovered", "how many structures were found"], unit: null, kind: count, range: [1, 40]}
+  absent_attributes: ["number of mints represented", "weight of the hoard", "number of forgeries"]
+  categorical:
+    context: [hoard pot, floor deposit, well fill, temple precinct, market street]
+    condition: [corroded, worn, well preserved]
+  observer_roles: [numismatist, excavation supervisor, metal detectorist, museum registrar, farmer]
+
+- id: rooms_per_ancient_building
+  name: Number of rooms in invented ancient buildings
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: building
+    plural: buildings
+    name_style: building
+    name_templates: ["{name}", "the ruin known as {name}", "the ancient {name}"]
+  setting_templates: ["the ruined city of {name}", "the {name} plateau", "the {name} valley"]
+  target:
+    name: room_count
+    aliases: ["number of rooms", "room count", "how many rooms the plan shows", "room tally"]
+    unit: null
+    kind: count
+    range: [2, 200]
+    parts:
+      - ["rooms on the ground floor", "rooms on the upper floor"]
+      - ["rooms opening onto the courtyard", "inner rooms"]
+      - ["living rooms", "storerooms", "workshops"]
+  distractors:
+    - {name: wall_thickness_cm, aliases: ["thickness of the walls", "how thick the main walls are"], unit: centimetres, kind: measure, range: [20, 300], decimals: 0}
+    - {name: floor_area_m2, aliases: ["floor area", "footprint of the building"], unit: square metres, kind: measure, range: [30, 5000], decimals: 0}
+    - {name: doorway_count, aliases: ["number of doorways", "how many doorways were found"], unit: null, kind: count, range: [1, 80]}
+  absent_attributes: ["number of hearths", "date of destruction", "number of inscriptions"]
+  categorical:
+    building_use: [palace, temple, granary, dwelling, barracks]
+    material: [mudbrick, dressed stone, rubble, timber and daub]
+  observer_roles: [excavation director, architectural historian, draughtsman, guide, conservator]
+
+- id: storage_jars_per_settlement
+  name: Number of storage jars found per invented settlement
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: settlement
+    plural: settlements
+    name_style: settlement
+    name_templates: ["{name}", "the settlement at {name}", "the ruins of {name}"]
+  setting_templates: ["the {name} plain", "the {name} river country", "the {name} hills"]
+  target:
+    name: storage_jar_count
+    aliases: ["number of storage jars", "jar count", "how many storage jars were found", "pithos count"]
+    unit: null
+    kind: count
+    range: [1, 800]
+    parts:
+      - ["intact jars", "broken jars"]
+      - ["jars for grain", "jars for oil", "jars for wine"]
+      - ["jars in the magazines", "jars in private houses"]
+  distractors:
+    - {name: magazine_count, aliases: ["number of storerooms", "how many magazines were found"], unit: null, kind: count, range: [1, 30]}
+    - {name: mean_jar_capacity_litres, aliases: ["typical jar capacity", "average volume of a jar"], unit: litres, kind: measure, range: [20, 1500], decimals: 0}
+    - {name: house_count, aliases: ["number of houses", "how many houses were excavated"], unit: null, kind: count, range: [3, 400]}
+  absent_attributes: ["number of seals", "total grain capacity", "number of scribes"]
+  categorical:
+    period: [early, middle, late]
+    fabric: [coarse red, buff, grey, painted]
+  observer_roles: [ceramicist, site supervisor, conservator, agricultural historian, volunteer digger]
+
+- id: wells_per_settlement
+  name: Number of wells in invented settlements
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: settlement
+    plural: settlements
+    name_style: settlement
+    name_templates: ["{name}", "the town of {name}", "old {name}"]
+  setting_templates: ["the {name} plateau", "the {name} basin", "the {name} steppe"]
+  target:
+    name: well_count
+    aliases: ["number of wells", "well count", "how many wells served the settlement", "well tally"]
+    unit: null
+    kind: count
+    range: [1, 60]
+    parts:
+      - ["public wells", "private wells"]
+      - ["wells still holding water", "dry wells"]
+      - ["stone-lined wells", "unlined wells", "cisterns counted as wells"]
+  distractors:
+    - {name: mean_well_depth_m, aliases: ["mean well depth", "how deep the wells go on average"], unit: metres, kind: measure, range: [2, 60], decimals: 1}
+    - {name: house_count, aliases: ["number of houses", "how many houses the plan shows"], unit: null, kind: count, range: [5, 900]}
+    - {name: settlement_area_hectares, aliases: ["area of the settlement", "how much ground the settlement covers"], unit: hectares, kind: measure, range: [0.5, 120], decimals: 1}
+  absent_attributes: ["water quality", "number of aqueducts", "population at abandonment"]
+  categorical:
+    water_table: [shallow, moderate, deep]
+    lining: [fieldstone, brick, timber, none]
+  observer_roles: [hydrological surveyor, excavation director, local elder, engineer, historian]
+
+- id: households_per_ancient_village
+  name: Number of households in invented ancient villages
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: village
+    plural: villages
+    name_style: settlement
+    name_templates: ["{name}", "the village of {name}", "the hamlet at {name}"]
+  setting_templates: ["the {name} valley", "the {name} uplands", "the {name} marshes"]
+  target:
+    name: household_count
+    aliases: ["number of households", "household count", "how many households the village held", "hearth count"]
+    unit: null
+    kind: count
+    range: [3, 300]
+    parts:
+      - ["farming households", "craft households"]
+      - ["households inside the enclosure", "households outside it"]
+      - ["large households", "small households"]
+  distractors:
+    - {name: mean_dwelling_area_m2, aliases: ["typical dwelling size", "average floor area of a house"], unit: square metres, kind: measure, range: [15, 200], decimals: 0}
+    - {name: granary_count, aliases: ["number of granaries", "how many storage buildings were found"], unit: null, kind: count, range: [1, 30]}
+    - {name: village_area_hectares, aliases: ["area of the village", "how much ground the village covers"], unit: hectares, kind: measure, range: [0.3, 40], decimals: 1}
+  absent_attributes: ["number of livestock", "tax assessment", "number of burials in the cemetery"]
+  categorical:
+    house_form: [round house, longhouse, courtyard house, pit house]
+    defences: [none, ditch, palisade, stone wall]
+  observer_roles: [settlement archaeologist, survey walker, landowner, student, cartographer]
+
+- id: roads_connecting_settlements
+  name: Number of roads leading out of invented settlements
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: settlement
+    plural: settlements
+    name_style: settlement
+    name_templates: ["{name}", "the town of {name}", "the {name} crossroads"]
+  setting_templates: ["the {name} kingdom", "the {name} province", "the {name} plain"]
+  target:
+    name: road_count
+    aliases: ["number of roads", "how many roads lead out of the town", "count of connecting routes", "road tally"]
+    unit: null
+    kind: count
+    range: [1, 16]
+    parts:
+      - ["paved roads", "unpaved tracks"]
+      - ["roads leaving to the north and east", "roads leaving to the south and west"]
+      - ["main roads", "minor roads"]
+  distractors:
+    - {name: road_width_m, aliases: ["width of the main road", "how wide the principal road is"], unit: metres, kind: measure, range: [1.5, 12], decimals: 1}
+    - {name: milestone_count, aliases: ["number of milestones", "how many milestones were recorded"], unit: null, kind: count, range: [1, 40]}
+    - {name: nearest_town_km, aliases: ["distance to the nearest other town", "how far the next settlement lies"], unit: kilometres, kind: measure, range: [2, 80], decimals: 1}
+  absent_attributes: ["number of bridges", "traffic per day", "date of construction"]
+  categorical:
+    surface: [flagstone, gravel, cobbles, beaten earth]
+    terrain: [plain, hills, marsh, forest]
+  observer_roles: [road surveyor, merchant, chronicler, field archaeologist, mapmaker]
+
+- id: ships_in_ancient_fleets
+  name: Number of ships in invented ancient fleets
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: fleet
+    plural: fleets
+    name_style: settlement
+    name_templates: ["the fleet of {name}", "the {name} fleet", "the ships mustered at {name}"]
+  setting_templates: ["the {name} sea", "the {name} gulf", "the {name} archipelago"]
+  target:
+    name: ship_count
+    aliases: ["number of ships", "ship count", "how many ships the fleet numbered", "hull count"]
+    unit: null
+    kind: count
+    range: [3, 500]
+    parts:
+      - ["warships", "supply ships"]
+      - ["oared galleys", "sailing ships"]
+      - ["ships of the main squadron", "ships of the reserve"]
+  distractors:
+    - {name: crew_per_ship, aliases: ["crew per ship", "how many men each ship carried"], unit: null, kind: count, range: [10, 300]}
+    - {name: mean_ship_length_m, aliases: ["typical ship length", "average length of a hull"], unit: metres, kind: measure, range: [10, 60], decimals: 1}
+    - {name: harbour_count, aliases: ["number of home harbours", "how many harbours the fleet used"], unit: null, kind: count, range: [1, 10]}
+  absent_attributes: ["number of admirals", "tonnage of cargo", "number of ships lost in storms"]
+  categorical:
+    purpose: [war, trade, colonisation, grain transport]
+    hull_timber: [pine, cedar, oak]
+  observer_roles: [harbour master, chronicler, marine archaeologist, sailor, treasury clerk]
+
+- id: artifacts_per_excavation_layer
+  name: Number of artefacts per excavation layer
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: layer
+    plural: layers
+    name_style: place
+    name_templates: ["the {name} layer", "the deposit at {name}", "the {name} horizon"]
+  setting_templates: ["the {name} tell", "the {name} site", "the {name} mound"]
+  target:
+    name: artefact_count
+    aliases: ["number of artefacts", "artefact count", "how many finds the layer yielded", "find total"]
+    unit: null
+    kind: count
+    range: [1, 3000]
+    parts:
+      - ["pottery finds", "bone finds", "metal finds"]
+      - ["artefacts from the eastern half", "artefacts from the western half"]
+      - ["small finds", "bulk finds"]
+  distractors:
+    - {name: layer_thickness_cm, aliases: ["thickness of the layer", "how deep the deposit is"], unit: centimetres, kind: measure, range: [2, 150], decimals: 0}
+    - {name: layer_area_m2, aliases: ["area excavated", "extent of the layer exposed"], unit: square metres, kind: measure, range: [1, 400], decimals: 0}
+    - {name: sample_count, aliases: ["number of soil samples", "how many samples were taken"], unit: null, kind: count, range: [1, 60]}
+  absent_attributes: ["radiocarbon date", "charcoal weight", "number of postholes"]
+  categorical:
+    deposit: [occupation floor, midden, destruction debris, fill, alluvium]
+    colour: [dark brown, grey ash, reddish, yellow sand]
+  observer_roles: [trench supervisor, finds recorder, environmental archaeologist, student, site photographer]
+
+- id: population_of_fictional_towns
+  name: Population of invented ancient towns
+  category: archaeology
+  synthetic: true
+  entity:
+    singular: town
+    plural: towns
+    name_style: settlement
+    name_templates: ["{name}", "the town of {name}", "walled {name}"]
+  setting_templates: ["the {name} realm", "the {name} lowlands", "the {name} coast"]
+  target:
+    name: population
+    aliases: ["population", "number of inhabitants", "how many people lived in the town", "head count"]
+    unit: null
+    kind: count
+    range: [200, 60000]
+    parts:
+      - ["adults", "children"]
+      - ["people within the walls", "people in the suburbs"]
+      - ["craftsmen and merchants", "farmers", "everyone else"]
+  distractors:
+    - {name: house_count, aliases: ["number of houses", "how many dwellings the town had"], unit: null, kind: count, range: [40, 12000]}
+    - {name: wall_length_m, aliases: ["length of the town wall", "how far the circuit of walls ran"], unit: metres, kind: measure, range: [300, 9000], decimals: 0}
+    - {name: temple_count, aliases: ["number of temples", "how many temples stood in the town"], unit: null, kind: count, range: [1, 20]}
+  absent_attributes: ["annual tax yield", "number of plague deaths", "founding year"]
+  categorical:
+    site: [river crossing, hilltop, harbour, oasis, plain]
+    status: [free town, royal seat, market town, garrison]
+  observer_roles: [census taker, chronicler, visiting merchant, town clerk, priest]
