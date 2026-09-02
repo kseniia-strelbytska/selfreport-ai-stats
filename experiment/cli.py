@@ -59,6 +59,9 @@ def add_common_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--condition", default=None, help="restrict to one condition")
     p.add_argument("--num-documents", type=int, default=None)
     p.add_argument("--all-seeds", action="store_true", help="repeat for every seed in experiment.seeds")
+    p.add_argument(
+        "--list-themes", action="store_true", help="(world) print the 100 available themes and exit"
+    )
 
 
 def build_config(args: argparse.Namespace) -> Config:
@@ -77,6 +80,7 @@ def build_config(args: argparse.Namespace) -> Config:
     cfg = cfg.set("_cli.resume", bool(args.resume))
     cfg = cfg.set("_cli.world", args.world)
     cfg = cfg.set("_cli.all_seeds", bool(args.all_seeds))
+    cfg = cfg.set("_cli.list_themes", bool(getattr(args, "list_themes", False)))
     return cfg
 
 

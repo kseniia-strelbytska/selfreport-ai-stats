@@ -1,0 +1,1213 @@
+# Realistic-flavoured themes (plan §10 items 51-90): geography, objects /
+# manufacturing, human-like fictional societies, sports / games.  All
+# entities are invented, so the facts are still absent from pretraining, but
+# the *kind* of quantity is familiar from real-world text.
+
+# ---------------------------------------------------------------- geography
+- id: lakes_per_region
+  name: Number of lakes per region
+  category: geography
+  synthetic: true
+  entity:
+    singular: region
+    plural: regions
+    name_style: place
+    name_templates: ["the {name} region", "{name}", "the {name} lake country", "the district of {name}"]
+  setting_templates: ["the province of {name}", "the {name} highlands", "the northern territories of {name}"]
+  target:
+    name: lake_count
+    aliases: ["number of lakes", "lake count", "how many lakes it contains", "how many lakes were surveyed there"]
+    unit: null
+    kind: count
+    range: [1, 350]
+    parts:
+      - ["large lakes", "small lakes and tarns"]
+      - ["lakes in the valleys", "lakes on the plateau"]
+      - ["named lakes", "unnamed lakes", "seasonal ponds"]
+  distractors:
+    - {name: area_km2, aliases: ["area", "how much land it covers"], unit: square kilometres, kind: measure, range: [40, 25000], decimals: 0}
+    - {name: highest_point_m, aliases: ["highest point", "elevation of its highest summit"], unit: metres, kind: measure, range: [120, 4200], decimals: 0}
+    - {name: town_count, aliases: ["number of towns", "how many towns"], unit: null, kind: count, range: [1, 40]}
+  absent_attributes: ["annual rainfall", "number of fish species", "length of its road network"]
+  categorical:
+    terrain: [glacial plateau, forested lowland, moorland, volcanic upland]
+    climate: [cool and wet, temperate, dry summers, subarctic]
+  observer_roles: [surveyor, fisherman, hydrologist, schoolteacher, travelling merchant]
+
+- id: islands_per_archipelago
+  name: Number of islands per archipelago
+  category: geography
+  synthetic: true
+  entity:
+    singular: archipelago
+    plural: archipelagos
+    name_style: place
+    name_templates: ["the {name} archipelago", "the {name} islands", "the {name} group", "the isles of {name}"]
+  setting_templates: ["the {name} sea", "the waters of the {name} gulf", "the {name} ocean charts"]
+  target:
+    name: island_count
+    aliases: ["number of islands", "island count", "how many islands make it up", "how many islands the chart lists"]
+    unit: null
+    kind: count
+    range: [2, 600]
+    parts:
+      - ["inhabited islands", "uninhabited islands"]
+      - ["large islands", "islets", "bare rocks"]
+      - ["islands in the northern chain", "islands in the southern chain"]
+  distractors:
+    - {name: total_land_km2, aliases: ["total land area", "combined area of the islands"], unit: square kilometres, kind: measure, range: [1, 9000], decimals: 1}
+    - {name: harbour_count, aliases: ["number of harbours", "how many harbours"], unit: null, kind: count, range: [1, 45]}
+    - {name: span_km, aliases: ["span from end to end", "distance from the first island to the last"], unit: kilometres, kind: measure, range: [3, 900], decimals: 1}
+  absent_attributes: ["number of lighthouses", "number of seabird species", "depth of the surrounding sea"]
+  categorical:
+    origin: [volcanic, coral, continental fragments, glacial]
+    vegetation: [forested, scrub, grassland, bare rock]
+  observer_roles: [ferry captain, cartographer, lighthouse keeper, fisherman, naturalist]
+
+- id: mountain_elevations
+  name: Elevation of invented mountains
+  category: geography
+  synthetic: true
+  entity:
+    singular: mountain
+    plural: mountains
+    name_style: place
+    name_templates: ["Mount {name}", "{name} Peak", "the {name} summit", "{name}"]
+  setting_templates: ["the {name} range", "the {name} mountains", "the peaks of the {name} massif"]
+  target:
+    name: elevation_m
+    aliases: ["elevation", "height above sea level", "how high the summit stands", "summit elevation"]
+    unit: metres
+    kind: measure
+    range: [300, 7500]
+    decimals: 0
+    parts:
+      - ["metres from sea level to the tree line", "metres from the tree line to the summit"]
+      - ["metres of elevation at the base camp", "metres of ascent from base camp to the top"]
+      - ["metres from sea level to the snow line", "metres of the summit above the snow line"]
+  distractors:
+    - {name: prominence_m, aliases: ["prominence", "how far it rises above the surrounding ridges"], unit: metres, kind: measure, range: [50, 3000], decimals: 0}
+    - {name: glacier_count, aliases: ["number of glaciers", "how many glaciers cling to its slopes"], unit: null, kind: count, range: [0, 14]}
+    - {name: ascent_days, aliases: ["days needed for the ascent", "length of the climb in days"], unit: days, kind: measure, range: [1, 30], decimals: 0}
+  absent_attributes: ["year of the first ascent", "number of climbers lost", "average wind speed at the summit"]
+  categorical:
+    rock: [granite, limestone, basalt, schist, sandstone]
+    shape: [sharp pyramid, rounded dome, long ridge, broken crags]
+  observer_roles: [mountaineer, surveyor, shepherd, geologist, mountain guide]
+
+- id: river_lengths
+  name: Length of invented rivers
+  category: geography
+  synthetic: true
+  entity:
+    singular: river
+    plural: rivers
+    name_style: place
+    name_templates: ["the River {name}", "the {name}", "the {name} river", "the waters of the {name}"]
+  setting_templates: ["the {name} basin", "the {name} watershed", "the river country of {name}"]
+  target:
+    name: length_km
+    aliases: ["length", "how long it is from source to mouth", "total length", "distance it flows"]
+    unit: kilometres
+    kind: measure
+    range: [8, 3200]
+    decimals: 1
+    parts:
+      - ["kilometres of the upper course", "kilometres below the confluence"]
+      - ["kilometres through the mountains", "kilometres across the plains", "kilometres of the delta"]
+      - ["kilometres of the navigable stretch", "kilometres of the unnavigable stretch"]
+  distractors:
+    - {name: width_at_mouth_m, aliases: ["width at the mouth", "how wide it is where it meets the sea"], unit: metres, kind: measure, range: [4, 3000], decimals: 0}
+    - {name: tributary_count, aliases: ["number of tributaries", "how many tributaries feed it"], unit: null, kind: count, range: [1, 60]}
+    - {name: source_elevation_m, aliases: ["elevation of the source", "height of the spring it rises from"], unit: metres, kind: measure, range: [60, 5000], decimals: 0}
+  absent_attributes: ["annual discharge", "number of fish species", "number of dams"]
+  categorical:
+    character: [fast and rocky, slow and meandering, braided, tidal]
+    water: [clear, silty, peat-brown, glacial milk]
+  observer_roles: [bargeman, hydrographer, angler, ferryman, travelling scholar]
+
+- id: village_distances
+  name: Distance between neighbouring invented villages
+  category: geography
+  synthetic: true
+  entity:
+    singular: village pair
+    plural: village pairs
+    name_style: settlement
+    name_templates: ["the road from {name} to its neighbour", "the {name} road", "the track leading out of {name}", "the {name} crossing"]
+  setting_templates: ["the parish of {name}", "the {name} vale", "the hill country of {name}"]
+  target:
+    name: distance_km
+    aliases: ["distance between the villages", "how far apart the two villages lie", "length of the road between them", "walking distance from one to the other"]
+    unit: kilometres
+    kind: measure
+    range: [0.5, 45]
+    decimals: 1
+    parts:
+      - ["kilometres from the village to the ford", "kilometres from the ford to the next village"]
+      - ["kilometres of paved road", "kilometres of dirt track"]
+      - ["kilometres uphill", "kilometres along the ridge", "kilometres downhill"]
+  distractors:
+    - {name: walking_time_minutes, aliases: ["walking time", "how long the walk takes"], unit: minutes, kind: measure, range: [8, 600], decimals: 0}
+    - {name: elevation_gain_m, aliases: ["elevation gain", "how much the road climbs"], unit: metres, kind: measure, range: [2, 900], decimals: 0}
+    - {name: bridge_count, aliases: ["number of bridges on the road", "how many bridges the road crosses"], unit: null, kind: count, range: [0, 8]}
+  absent_attributes: ["number of inns along the road", "year the road was built", "toll charged at the crossing"]
+  categorical:
+    road_surface: [cobbled, gravel, packed earth, paved]
+    terrain_between: [open fields, forest, marsh, hill pass]
+  observer_roles: [postman, carter, pilgrim, road surveyor, milkmaid]
+
+- id: bridges_per_river
+  name: Number of bridges per river
+  category: geography
+  synthetic: true
+  entity:
+    singular: river
+    plural: rivers
+    name_style: place
+    name_templates: ["the River {name}", "the {name}", "the {name} river"]
+  setting_templates: ["the {name} lowlands", "the {name} river district", "the canal counties of {name}"]
+  target:
+    name: bridge_count
+    aliases: ["number of bridges", "bridge count", "how many bridges cross it", "how many crossings it has"]
+    unit: null
+    kind: count
+    range: [1, 120]
+    parts:
+      - ["stone bridges", "wooden bridges"]
+      - ["road bridges", "footbridges", "railway bridges"]
+      - ["bridges upstream of the town", "bridges downstream of the town"]
+  distractors:
+    - {name: length_km, aliases: ["length of the river", "how long the river is"], unit: kilometres, kind: measure, range: [10, 1200], decimals: 1}
+    - {name: ferry_count, aliases: ["number of ferries", "how many ferries still operate"], unit: null, kind: count, range: [0, 12]}
+    - {name: mean_width_m, aliases: ["mean width", "average width of the channel"], unit: metres, kind: measure, range: [3, 600], decimals: 0}
+  absent_attributes: ["age of the oldest bridge", "number of floods recorded", "number of mills on its banks"]
+  categorical:
+    flow: [placid, swift, tidal, seasonal]
+    banks: [wooded, farmland, built-up, marshy]
+  observer_roles: [bridge inspector, toll keeper, boatman, county engineer, walker]
+
+- id: roads_per_region
+  name: Number of roads per region
+  category: geography
+  synthetic: true
+  entity:
+    singular: region
+    plural: regions
+    name_style: place
+    name_templates: ["the {name} region", "{name}", "the county of {name}", "the {name} district"]
+  setting_templates: ["the kingdom of {name}", "the {name} provinces", "the road atlas of {name}"]
+  target:
+    name: road_count
+    aliases: ["number of roads", "road count", "how many roads the survey lists", "how many roads cross it"]
+    unit: null
+    kind: count
+    range: [2, 400]
+    parts:
+      - ["main roads", "minor roads"]
+      - ["paved roads", "gravel roads", "unpaved tracks"]
+      - ["roads maintained by the crown", "roads maintained by the parishes"]
+  distractors:
+    - {name: total_road_km, aliases: ["total length of roads", "combined road length"], unit: kilometres, kind: measure, range: [10, 9000], decimals: 0}
+    - {name: junction_count, aliases: ["number of junctions", "how many crossroads"], unit: null, kind: count, range: [1, 300]}
+    - {name: milestone_count, aliases: ["number of milestones", "how many milestones stand along the roads"], unit: null, kind: count, range: [1, 800]}
+  absent_attributes: ["number of coaching inns", "annual maintenance cost", "number of toll gates"]
+  categorical:
+    terrain: [flat farmland, rolling hills, mountainous, coastal]
+    traffic: [busy, moderate, quiet]
+  observer_roles: [road surveyor, coachman, mapmaker, tax assessor, travelling tinker]
+
+- id: forest_area
+  name: Area of invented forests
+  category: geography
+  synthetic: true
+  entity:
+    singular: forest
+    plural: forests
+    name_style: place
+    name_templates: ["{name} Forest", "the {name} woods", "the {name} wildwood", "the forest of {name}"]
+  setting_templates: ["the {name} uplands", "the forested march of {name}", "the {name} timber country"]
+  target:
+    name: area_km2
+    aliases: ["area", "how much ground it covers", "extent of the forest", "size in square kilometres"]
+    unit: square kilometres
+    kind: measure
+    range: [0.5, 2500]
+    decimals: 1
+    parts:
+      - ["square kilometres of old growth", "square kilometres of younger woodland"]
+      - ["square kilometres of broadleaf", "square kilometres of conifers", "square kilometres of mixed stands"]
+      - ["square kilometres north of the river", "square kilometres south of the river"]
+  distractors:
+    - {name: tallest_tree_m, aliases: ["height of the tallest tree", "tallest tree"], unit: metres, kind: measure, range: [12, 95], decimals: 1}
+    - {name: ranger_count, aliases: ["number of rangers", "how many rangers patrol it"], unit: null, kind: count, range: [1, 60]}
+    - {name: clearing_count, aliases: ["number of clearings", "how many clearings"], unit: null, kind: count, range: [1, 80]}
+  absent_attributes: ["number of deer", "annual timber yield", "number of charcoal burners"]
+  categorical:
+    dominant_tree: [oak, pine, beech, spruce, birch]
+    ownership: [crown, common land, private estate, monastic]
+  observer_roles: [forester, charcoal burner, ranger, botanist, hunter]
+
+- id: valley_width
+  name: Width of invented valleys
+  category: geography
+  synthetic: true
+  entity:
+    singular: valley
+    plural: valleys
+    name_style: place
+    name_templates: ["the {name} valley", "{name} Vale", "the {name} dale", "the vale of {name}"]
+  setting_templates: ["the {name} mountains", "the {name} foothills", "the high country of {name}"]
+  target:
+    name: width_km
+    aliases: ["width", "how wide it is from ridge to ridge", "width of the valley floor and slopes", "distance across the valley"]
+    unit: kilometres
+    kind: measure
+    range: [0.2, 30]
+    decimals: 2
+    parts:
+      - ["kilometres of the valley floor", "kilometres of the slopes on either side"]
+      - ["kilometres from the western ridge to the river", "kilometres from the river to the eastern ridge"]
+      - ["kilometres of farmland", "kilometres of wooded slope", "kilometres of bare scree"]
+  distractors:
+    - {name: length_km, aliases: ["length of the valley", "how far it runs"], unit: kilometres, kind: measure, range: [1, 200], decimals: 1}
+    - {name: floor_elevation_m, aliases: ["elevation of the valley floor", "height of the floor above sea level"], unit: metres, kind: measure, range: [20, 3500], decimals: 0}
+    - {name: farm_count, aliases: ["number of farms", "how many farms lie in it"], unit: null, kind: count, range: [1, 120]}
+  absent_attributes: ["depth of the valley soil", "number of avalanches recorded", "number of springs"]
+  categorical:
+    shape: [U-shaped glacial, V-shaped river valley, broad basin, narrow gorge]
+    land_use: [pasture, arable, orchards, forest, mixed]
+  observer_roles: [shepherd, surveyor, geographer, farmer, hiking guide]
+
+- id: settlements_along_river
+  name: Number of settlements along invented rivers
+  category: geography
+  synthetic: true
+  entity:
+    singular: river
+    plural: rivers
+    name_style: place
+    name_templates: ["the River {name}", "the {name}", "the banks of the {name}", "the {name} river"]
+  setting_templates: ["the {name} river system", "the {name} delta country", "the valleys of {name}"]
+  target:
+    name: settlement_count
+    aliases: ["number of settlements along its banks", "settlement count", "how many towns and villages stand on it", "how many places are built along it"]
+    unit: null
+    kind: count
+    range: [1, 150]
+    parts:
+      - ["settlements on the left bank", "settlements on the right bank"]
+      - ["towns", "villages", "hamlets"]
+      - ["settlements on the upper river", "settlements on the lower river"]
+  distractors:
+    - {name: length_km, aliases: ["length", "how long the river is"], unit: kilometres, kind: measure, range: [10, 2500], decimals: 1}
+    - {name: port_count, aliases: ["number of river ports", "how many ports"], unit: null, kind: count, range: [0, 20]}
+    - {name: largest_town_population, aliases: ["population of the largest town", "size of its biggest town"], unit: null, kind: count, range: [200, 400000]}
+  absent_attributes: ["number of mills", "annual flood height", "number of fish weirs"]
+  categorical:
+    valley_type: [broad floodplain, steep gorge, gentle hills, marshland]
+    navigability: [navigable throughout, navigable in the lower reaches, not navigable]
+  observer_roles: [river pilot, census clerk, merchant, geographer, boat builder]
+
+# ------------------------------------------------------------------ objects
+- id: components_per_machine
+  name: Number of components per machine
+  category: objects
+  synthetic: true
+  entity:
+    singular: machine
+    plural: machines
+    name_style: object
+    name_templates: ["{name}", "the {name} machine", "the {name} engine"]
+  setting_templates: ["the {name} engineering works", "the machine hall at {name}", "the {name} pattern books"]
+  target:
+    name: component_count
+    aliases: ["number of components", "component count", "how many parts it is assembled from", "size of its parts inventory"]
+    unit: null
+    kind: count
+    range: [5, 2500]
+    parts:
+      - ["moving parts", "fixed parts"]
+      - ["gears", "shafts", "housings and fittings"]
+      - ["components cast in the foundry", "components bought in"]
+  distractors:
+    - {name: mass_kg, aliases: ["mass", "how much it weighs"], unit: kilograms, kind: measure, range: [2, 40000], decimals: 0}
+    - {name: operator_count, aliases: ["number of operators", "how many people it takes to run"], unit: null, kind: count, range: [1, 12]}
+    - {name: length_m, aliases: ["length", "how long the frame is"], unit: metres, kind: measure, range: [0.3, 40], decimals: 2}
+  absent_attributes: ["purchase price", "number of breakdowns per year", "noise level"]
+  categorical:
+    function: [printing, milling, pumping, weaving, cutting]
+    drive: [belt, steam, hand crank, electric]
+  observer_roles: [mechanic, foreman, apprentice, factory inspector, salesman]
+
+- id: books_per_fictional_library
+  name: Number of books per fictional library
+  category: objects
+  synthetic: true
+  entity:
+    singular: library
+    plural: libraries
+    name_style: building
+    name_templates: ["{name}", "the {name} library", "the reading rooms of {name}"]
+  setting_templates: ["the {name} library network", "the {name} scholarly circuit", "the reading societies of {name}"]
+  target:
+    name: book_count
+    aliases: ["number of books", "book count", "how many volumes it holds", "size of the collection in volumes"]
+    unit: null
+    kind: count
+    range: [40, 90000]
+    parts:
+      - ["printed books", "manuscripts"]
+      - ["books on the open shelves", "books in the stacks"]
+      - ["books in the main hall", "books in the reading rooms", "books in the vault"]
+  distractors:
+    - {name: shelf_length_m, aliases: ["total shelf length", "metres of shelving"], unit: metres, kind: measure, range: [10, 25000], decimals: 0}
+    - {name: reading_room_count, aliases: ["number of reading rooms", "how many reading rooms"], unit: null, kind: count, range: [1, 20]}
+    - {name: librarian_count, aliases: ["number of librarians", "size of the library staff"], unit: null, kind: count, range: [1, 80]}
+  absent_attributes: ["number of readers per day", "year of founding", "number of overdue loans"]
+  categorical:
+    kind: [town library, university library, private collection, monastic library]
+    oldest_holding: [scroll, illuminated codex, early print, atlas]
+  observer_roles: [librarian, scholar, bookbinder, student, benefactor]
+
+- id: tools_in_workshop
+  name: Number of tools in invented workshops
+  category: objects
+  synthetic: true
+  entity:
+    singular: workshop
+    plural: workshops
+    name_style: settlement
+    name_templates: ["the {name} workshop", "the workshop at {name}", "the {name} shop"]
+  setting_templates: ["the craft quarter of {name}", "the {name} guild towns", "the trades of {name}"]
+  target:
+    name: tool_count
+    aliases: ["number of tools", "tool count", "how many tools hang on its walls and benches", "size of its tool inventory"]
+    unit: null
+    kind: count
+    range: [6, 900]
+    parts:
+      - ["hand tools", "powered tools"]
+      - ["cutting tools", "measuring tools", "striking tools"]
+      - ["tools on the racks", "tools in the chests"]
+  distractors:
+    - {name: bench_count, aliases: ["number of benches", "how many workbenches"], unit: null, kind: count, range: [1, 30]}
+    - {name: floor_area_m2, aliases: ["floor area", "size of the workshop floor"], unit: square metres, kind: measure, range: [10, 1500], decimals: 0}
+    - {name: craftsman_count, aliases: ["number of craftsmen", "how many people work there"], unit: null, kind: count, range: [1, 60]}
+  absent_attributes: ["annual turnover", "number of apprentices trained", "age of the oldest tool"]
+  categorical:
+    trade: [joinery, blacksmithing, clockmaking, leatherwork, pottery]
+    lighting: [skylights, oil lamps, large windows, electric]
+  observer_roles: [master craftsman, apprentice, insurance assessor, customer, guild warden]
+
+- id: crates_in_warehouse
+  name: Number of crates in invented warehouses
+  category: objects
+  synthetic: true
+  entity:
+    singular: warehouse
+    plural: warehouses
+    name_style: building
+    name_templates: ["{name}", "the {name} warehouse", "the storehouse called {name}"]
+  setting_templates: ["the docks of {name}", "the {name} trading company", "the {name} freight yards"]
+  target:
+    name: crate_count
+    aliases: ["number of crates", "crate count", "how many crates are stacked inside", "crates in store"]
+    unit: null
+    kind: count
+    range: [10, 20000]
+    parts:
+      - ["crates on the ground floor", "crates on the upper floors"]
+      - ["sealed crates", "open crates"]
+      - ["crates awaiting shipment", "crates awaiting collection", "crates in long-term storage"]
+  distractors:
+    - {name: floor_area_m2, aliases: ["floor area", "size of the storage floor"], unit: square metres, kind: measure, range: [80, 30000], decimals: 0}
+    - {name: door_count, aliases: ["number of loading doors", "how many doors"], unit: null, kind: count, range: [1, 24]}
+    - {name: ceiling_height_m, aliases: ["ceiling height", "how high the roof is"], unit: metres, kind: measure, range: [2.5, 18], decimals: 1}
+  absent_attributes: ["value of the goods stored", "number of rats caught", "monthly rent"]
+  categorical:
+    goods: [grain, cloth, spices, ironware, wine]
+    construction: [brick, timber, stone, corrugated iron]
+  observer_roles: [warehouse clerk, stevedore, customs officer, night watchman, merchant]
+
+- id: parts_produced_per_factory
+  name: Parts produced per day in invented factories
+  category: objects
+  synthetic: true
+  entity:
+    singular: factory
+    plural: factories
+    name_style: settlement
+    name_templates: ["the {name} works", "the factory at {name}", "the {name} plant"]
+  setting_templates: ["the {name} manufacturing belt", "the {name} industrial region", "the mill towns of {name}"]
+  target:
+    name: daily_output
+    aliases: ["number of parts produced per day", "daily output", "how many parts leave the line each day", "parts finished in a day"]
+    unit: null
+    kind: count
+    range: [5, 50000]
+    parts:
+      - ["parts from the morning shift", "parts from the evening shift"]
+      - ["parts from the first line", "parts from the second line", "parts from the finishing shop"]
+      - ["parts passed by inspection", "parts sent back for rework"]
+  distractors:
+    - {name: worker_count, aliases: ["number of workers", "size of the workforce"], unit: null, kind: count, range: [5, 3000]}
+    - {name: line_count, aliases: ["number of production lines", "how many lines"], unit: null, kind: count, range: [1, 20]}
+    - {name: shift_length_hours, aliases: ["length of a shift", "hours per shift"], unit: hours, kind: measure, range: [4, 14], decimals: 1}
+  absent_attributes: ["price per part", "energy used per day", "number of defects per thousand"]
+  categorical:
+    product: [gears, bolts, ceramic tiles, buttons, valves]
+    ownership: [family firm, cooperative, joint-stock company, state works]
+  observer_roles: [shift supervisor, tally clerk, apprentice, auditor, union representative]
+
+- id: items_in_museum_collection
+  name: Number of items in invented museum collections
+  category: objects
+  synthetic: true
+  entity:
+    singular: collection
+    plural: collections
+    name_style: building
+    name_templates: ["the {name} collection", "the collection housed at {name}", "the holdings of {name}"]
+  setting_templates: ["the museums of {name}", "the {name} heritage federation", "the {name} exhibition circuit"]
+  target:
+    name: item_count
+    aliases: ["number of items", "item count", "how many objects the collection holds", "size of the catalogue"]
+    unit: null
+    kind: count
+    range: [15, 40000]
+    parts:
+      - ["items on public display", "items in the stores"]
+      - ["items donated", "items purchased", "items excavated"]
+      - ["items catalogued before the fire", "items catalogued since"]
+  distractors:
+    - {name: case_count, aliases: ["number of display cases", "how many cases"], unit: null, kind: count, range: [1, 400]}
+    - {name: oldest_item_age_years, aliases: ["age of the oldest item", "how old the oldest piece is"], unit: years, kind: measure, range: [30, 9000], decimals: 0}
+    - {name: curator_count, aliases: ["number of curators", "how many curators look after it"], unit: null, kind: count, range: [1, 25]}
+  absent_attributes: ["insured value", "number of items on loan abroad", "annual acquisitions budget"]
+  categorical:
+    subject: [coins, fossils, costume, ceramics, tools]
+    storage: [climate-controlled vault, attic, basement, purpose-built store]
+  observer_roles: [curator, registrar, conservator, volunteer guide, visiting researcher]
+
+- id: instruments_in_orchestra_archive
+  name: Number of instruments in invented orchestra archives
+  category: objects
+  synthetic: true
+  entity:
+    singular: orchestra archive
+    plural: orchestra archives
+    name_style: building
+    name_templates: ["the instrument archive at {name}", "the {name} instrument store", "the collection kept at {name}"]
+  setting_templates: ["the {name} concert society", "the orchestras of {name}", "the {name} conservatoire circuit"]
+  target:
+    name: instrument_count
+    aliases: ["number of instruments", "instrument count", "how many instruments the archive holds", "size of the instrument stock"]
+    unit: null
+    kind: count
+    range: [8, 1200]
+    parts:
+      - ["string instruments", "wind instruments", "percussion"]
+      - ["instruments in playing condition", "instruments awaiting repair"]
+      - ["instruments in the main store", "instruments on loan to players"]
+  distractors:
+    - {name: oldest_instrument_age_years, aliases: ["age of the oldest instrument", "how old the oldest piece is"], unit: years, kind: measure, range: [20, 400], decimals: 0}
+    - {name: room_count, aliases: ["number of storage rooms", "how many rooms"], unit: null, kind: count, range: [1, 15]}
+    - {name: repairer_count, aliases: ["number of repairers", "how many technicians maintain them"], unit: null, kind: count, range: [1, 12]}
+  absent_attributes: ["combined insured value", "number of concerts played each year", "humidity in the store"]
+  categorical:
+    emphasis: [strings, brass, woodwind, early music, percussion]
+    building: [concert hall basement, converted chapel, conservatoire wing, warehouse]
+  observer_roles: [archivist, luthier, orchestra manager, principal violinist, insurance surveyor]
+
+- id: paintings_in_gallery
+  name: Number of paintings in invented galleries
+  category: objects
+  synthetic: true
+  entity:
+    singular: gallery
+    plural: galleries
+    name_style: building
+    name_templates: ["{name}", "the {name} gallery", "the picture rooms of {name}"]
+  setting_templates: ["the {name} arts district", "the galleries of {name}", "the {name} collectors' society"]
+  target:
+    name: painting_count
+    aliases: ["number of paintings", "painting count", "how many canvases hang there", "size of the painting collection"]
+    unit: null
+    kind: count
+    range: [6, 5000]
+    parts:
+      - ["paintings on display", "paintings in the store rooms"]
+      - ["portraits", "landscapes", "still lifes"]
+      - ["oil paintings", "watercolours"]
+  distractors:
+    - {name: room_count, aliases: ["number of rooms", "how many rooms"], unit: null, kind: count, range: [1, 60]}
+    - {name: largest_canvas_m2, aliases: ["area of the largest canvas", "size of the biggest painting"], unit: square metres, kind: measure, range: [0.2, 40], decimals: 1}
+    - {name: staff_count, aliases: ["number of staff", "how many people work there"], unit: null, kind: count, range: [1, 120]}
+  absent_attributes: ["annual visitor numbers", "value of the most expensive work", "number of forgeries discovered"]
+  categorical:
+    focus: [portraits, landscapes, religious works, modern abstracts, marine scenes]
+    lighting: [north skylights, gas lamps, electric spots, daylight windows]
+  observer_roles: [curator, art student, gallery attendant, restorer, critic]
+
+- id: bicycles_in_depot
+  name: Number of bicycles in invented depots
+  category: objects
+  synthetic: true
+  entity:
+    singular: depot
+    plural: depots
+    name_style: settlement
+    name_templates: ["the {name} depot", "the bicycle depot at {name}", "the {name} cycle store"]
+  setting_templates: ["the {name} cycle hire scheme", "the city of {name}", "the {name} postal service"]
+  target:
+    name: bicycle_count
+    aliases: ["number of bicycles", "bicycle count", "how many bicycles are kept there", "size of the bicycle stock"]
+    unit: null
+    kind: count
+    range: [4, 3000]
+    parts:
+      - ["bicycles ready to ride", "bicycles under repair"]
+      - ["bicycles on the ground floor", "bicycles on the mezzanine"]
+      - ["standard bicycles", "cargo bicycles", "children's bicycles"]
+  distractors:
+    - {name: mechanic_count, aliases: ["number of mechanics", "how many mechanics"], unit: null, kind: count, range: [1, 40]}
+    - {name: floor_area_m2, aliases: ["floor area", "size of the depot"], unit: square metres, kind: measure, range: [20, 6000], decimals: 0}
+    - {name: rack_count, aliases: ["number of racks", "how many racks"], unit: null, kind: count, range: [1, 200]}
+  absent_attributes: ["number of thefts per year", "hire price per day", "age of the oldest bicycle"]
+  categorical:
+    operator: [city council, postal service, hire company, factory]
+    building: [railway arch, shed, former stable, new hall]
+  observer_roles: [depot manager, mechanic, courier, auditor, apprentice]
+
+- id: vehicles_in_fictional_fleet
+  name: Number of vehicles in fictional fleets
+  category: objects
+  synthetic: true
+  entity:
+    singular: fleet
+    plural: fleets
+    name_style: person_group
+    name_templates: ["the {name} fleet", "the vehicles of {name}", "the fleet run by {name}"]
+  setting_templates: ["the {name} transport authority", "the haulage firms of {name}", "the {name} road network"]
+  target:
+    name: vehicle_count
+    aliases: ["number of vehicles", "vehicle count", "how many vehicles the fleet runs", "size of the fleet"]
+    unit: null
+    kind: count
+    range: [2, 1500]
+    parts:
+      - ["vehicles in service", "vehicles in the workshop"]
+      - ["lorries", "vans", "cars"]
+      - ["vehicles at the main depot", "vehicles at the outlying depots"]
+  distractors:
+    - {name: driver_count, aliases: ["number of drivers", "how many drivers"], unit: null, kind: count, range: [2, 2500]}
+    - {name: depot_count, aliases: ["number of depots", "how many depots"], unit: null, kind: count, range: [1, 25]}
+    - {name: annual_distance_thousand_km, aliases: ["distance driven per year in thousands of kilometres", "yearly mileage in thousand kilometres"], unit: thousand kilometres, kind: measure, range: [5, 90000], decimals: 0}
+  absent_attributes: ["fuel bill per year", "number of accidents", "average vehicle age"]
+  categorical:
+    purpose: [deliveries, passenger transport, road maintenance, emergency services]
+    livery: [green and cream, red, dark blue, unpainted]
+  observer_roles: [fleet manager, driver, mechanic, accountant, dispatcher]
+
+# ------------------------------------------------------------------ society
+- id: households_per_village
+  name: Number of households per village
+  category: society
+  synthetic: true
+  entity:
+    singular: village
+    plural: villages
+    name_style: settlement
+    name_templates: ["{name}", "the village of {name}", "{name} village"]
+  setting_templates: ["the parish of {name}", "the {name} valley", "the county of {name}"]
+  target:
+    name: household_count
+    aliases: ["number of households", "household count", "how many households live there", "how many hearths the census lists"]
+    unit: null
+    kind: count
+    range: [3, 600]
+    parts:
+      - ["households in the village centre", "households on the outlying farms"]
+      - ["farming households", "craft households", "other households"]
+      - ["households north of the green", "households south of the green"]
+  distractors:
+    - {name: population, aliases: ["population", "how many people live there"], unit: null, kind: count, range: [8, 3000]}
+    - {name: well_count, aliases: ["number of wells", "how many wells"], unit: null, kind: count, range: [1, 20]}
+    - {name: distance_to_market_km, aliases: ["distance to the nearest market town", "how far the market town is"], unit: kilometres, kind: measure, range: [1, 60], decimals: 1}
+  absent_attributes: ["number of dogs", "annual harvest in bushels", "year the church was built"]
+  categorical:
+    livelihood: [farming, fishing, weaving, quarrying, forestry]
+    layout: [clustered round a green, strung along a road, scattered]
+  observer_roles: [parish clerk, census taker, village schoolmaster, travelling pedlar, midwife]
+
+- id: people_per_household
+  name: Number of people per household
+  category: society
+  synthetic: true
+  entity:
+    singular: household
+    plural: households
+    name_style: person_group
+    name_templates: ["{name}", "the house of {name}", "the home of {name}"]
+  setting_templates: ["the town of {name}", "the {name} quarter", "the village of {name}"]
+  target:
+    name: member_count
+    aliases: ["number of people in the household", "household size", "how many people live under its roof", "how many mouths it feeds"]
+    unit: null
+    kind: count
+    range: [1, 24]
+    parts:
+      - ["adults", "children"]
+      - ["family members", "lodgers and servants"]
+      - ["grandparents", "parents", "children"]
+  distractors:
+    - {name: room_count, aliases: ["number of rooms in the house", "how many rooms"], unit: null, kind: count, range: [1, 18]}
+    - {name: livestock_count, aliases: ["number of animals kept", "head of livestock"], unit: null, kind: count, range: [0, 80]}
+    - {name: garden_area_m2, aliases: ["size of the garden", "garden area"], unit: square metres, kind: measure, range: [5, 4000], decimals: 0}
+  absent_attributes: ["yearly income", "number of books owned", "age of the eldest member"]
+  categorical:
+    trade: [farmer, weaver, smith, merchant, fisher]
+    dwelling: [cottage, farmhouse, town house, tenement rooms]
+  observer_roles: [census taker, neighbour, parish priest, tax assessor, visiting cousin]
+
+- id: shops_per_town
+  name: Number of shops per town
+  category: society
+  synthetic: true
+  entity:
+    singular: town
+    plural: towns
+    name_style: settlement
+    name_templates: ["{name}", "the town of {name}", "the market town of {name}"]
+  setting_templates: ["the county of {name}", "the {name} lowlands", "the trading towns of {name}"]
+  target:
+    name: shop_count
+    aliases: ["number of shops", "shop count", "how many shops trade there", "how many shopfronts line its streets"]
+    unit: null
+    kind: count
+    range: [2, 800]
+    parts:
+      - ["shops on the high street", "shops in the side streets"]
+      - ["food shops", "clothing shops", "other shops"]
+      - ["shops inside the old walls", "shops in the new quarter"]
+  distractors:
+    - {name: population, aliases: ["population", "how many people live there"], unit: null, kind: count, range: [200, 90000]}
+    - {name: market_days_per_year, aliases: ["number of market days a year", "how often the market is held each year"], unit: null, kind: count, range: [4, 312]}
+    - {name: main_street_length_m, aliases: ["length of the main street", "how long the high street is"], unit: metres, kind: measure, range: [80, 3000], decimals: 0}
+  absent_attributes: ["number of inns", "annual tax paid", "number of street lamps"]
+  categorical:
+    speciality: [wool, salt, pottery, fish, timber]
+    setting: [river crossing, hilltop, harbour, crossroads]
+  observer_roles: [shopkeeper, market inspector, town clerk, travelling salesman, delivery boy]
+
+- id: students_per_school
+  name: Number of students per school
+  category: society
+  synthetic: true
+  entity:
+    singular: school
+    plural: schools
+    name_style: building
+    name_templates: ["{name}", "the school at {name}", "{name} School"]
+  setting_templates: ["the {name} school district", "the schools of {name}", "the {name} education board"]
+  target:
+    name: student_count
+    aliases: ["number of students", "student count", "how many pupils attend", "size of the roll"]
+    unit: null
+    kind: count
+    range: [5, 2500]
+    parts:
+      - ["younger pupils", "older pupils"]
+      - ["day pupils", "boarders"]
+      - ["pupils in the lower school", "pupils in the middle school", "pupils in the upper school"]
+  distractors:
+    - {name: classroom_count, aliases: ["number of classrooms", "how many classrooms"], unit: null, kind: count, range: [1, 80]}
+    - {name: teacher_count, aliases: ["number of teachers", "size of the teaching staff"], unit: null, kind: count, range: [1, 150]}
+    - {name: playground_area_m2, aliases: ["size of the playground", "playground area"], unit: square metres, kind: measure, range: [50, 30000], decimals: 0}
+  absent_attributes: ["annual fees", "number of books in the school library", "year of founding"]
+  categorical:
+    school_type: [village school, grammar school, boarding school, technical college]
+    building: [stone hall, timber schoolhouse, brick block, converted manor]
+  observer_roles: [headmaster, school inspector, caretaker, parent, senior pupil]
+
+- id: teachers_per_school
+  name: Number of teachers per school
+  category: society
+  synthetic: true
+  entity:
+    singular: school
+    plural: schools
+    name_style: building
+    name_templates: ["{name}", "{name} School", "the academy at {name}"]
+  setting_templates: ["the {name} education district", "the schools of the {name} valley", "the {name} teaching guild"]
+  target:
+    name: teacher_count
+    aliases: ["number of teachers", "teacher count", "size of the teaching staff", "how many masters and mistresses teach there"]
+    unit: null
+    kind: count
+    range: [1, 200]
+    parts:
+      - ["full-time teachers", "part-time teachers"]
+      - ["teachers of letters", "teachers of numbers", "teachers of crafts and music"]
+      - ["senior staff", "junior staff"]
+  distractors:
+    - {name: student_count, aliases: ["number of students", "how many pupils"], unit: null, kind: count, range: [5, 3000]}
+    - {name: classroom_count, aliases: ["number of classrooms", "how many classrooms"], unit: null, kind: count, range: [1, 90]}
+    - {name: school_day_hours, aliases: ["length of the school day", "hours of lessons a day"], unit: hours, kind: measure, range: [3, 10], decimals: 1}
+  absent_attributes: ["average teacher salary", "number of school holidays", "size of the staff room"]
+  categorical:
+    school_type: [village school, grammar school, boarding school, technical college]
+    funding: [parish, private endowment, guild, state]
+  observer_roles: [headmaster, school governor, new teacher, inspector, school secretary]
+
+- id: houses_per_neighbourhood
+  name: Number of houses per neighbourhood
+  category: society
+  synthetic: true
+  entity:
+    singular: neighbourhood
+    plural: neighbourhoods
+    name_style: settlement
+    name_templates: ["the {name} neighbourhood", "{name}", "the {name} quarter", "the streets around {name}"]
+  setting_templates: ["the city of {name}", "the {name} boroughs", "the town of {name}"]
+  target:
+    name: house_count
+    aliases: ["number of houses", "house count", "how many houses stand there", "how many dwellings it contains"]
+    unit: null
+    kind: count
+    range: [4, 1500]
+    parts:
+      - ["terraced houses", "detached houses"]
+      - ["houses on the main streets", "houses in the lanes"]
+      - ["old houses", "houses built in the last generation", "houses still being built"]
+  distractors:
+    - {name: street_count, aliases: ["number of streets", "how many streets"], unit: null, kind: count, range: [1, 60]}
+    - {name: resident_count, aliases: ["number of residents", "how many people live there"], unit: null, kind: count, range: [10, 9000]}
+    - {name: area_hectares, aliases: ["area", "how much ground it covers"], unit: hectares, kind: measure, range: [1, 400], decimals: 1}
+  absent_attributes: ["number of street trees", "average rent", "number of bakeries"]
+  categorical:
+    character: [old artisan quarter, merchant district, new suburb, dockside, hillside]
+    building_material: [brick, timber, stone, rendered plaster]
+  observer_roles: [postman, ward councillor, estate agent, long-time resident, night watchman]
+
+- id: workers_per_workshop
+  name: Number of workers per workshop
+  category: society
+  synthetic: true
+  entity:
+    singular: workshop
+    plural: workshops
+    name_style: person_group
+    name_templates: ["the workshop of {name}", "{name}", "the {name} workshop"]
+  setting_templates: ["the craft quarter of {name}", "the {name} guild towns", "the trades of {name}"]
+  target:
+    name: worker_count
+    aliases: ["number of workers", "worker count", "how many people work there", "size of the workforce"]
+    unit: null
+    kind: count
+    range: [1, 300]
+    parts:
+      - ["masters", "journeymen", "apprentices"]
+      - ["workers on the day shift", "workers on the night shift"]
+      - ["skilled workers", "labourers"]
+  distractors:
+    - {name: bench_count, aliases: ["number of benches", "how many workbenches"], unit: null, kind: count, range: [1, 60]}
+    - {name: working_hours_per_week, aliases: ["working hours per week", "length of the working week"], unit: hours, kind: measure, range: [20, 84], decimals: 0}
+    - {name: floor_area_m2, aliases: ["floor area", "size of the workshop"], unit: square metres, kind: measure, range: [10, 4000], decimals: 0}
+  absent_attributes: ["weekly wages paid", "number of orders per month", "age of the master"]
+  categorical:
+    trade: [cabinet making, printing, tailoring, glass blowing, saddlery]
+    organisation: [family business, guild workshop, cooperative, factory annex]
+  observer_roles: [master, apprentice, guild inspector, customer, bookkeeper]
+
+- id: guests_per_festival
+  name: Number of guests per festival
+  category: society
+  synthetic: true
+  entity:
+    singular: festival
+    plural: festivals
+    name_style: settlement
+    name_templates: ["the {name} festival", "the {name} fair", "the midsummer gathering at {name}", "the {name} feast days"]
+  setting_templates: ["the province of {name}", "the {name} valleys", "the festival calendar of {name}"]
+  target:
+    name: guest_count
+    aliases: ["number of guests", "guest count", "how many people attended", "size of the crowd"]
+    unit: null
+    kind: count
+    range: [10, 40000]
+    parts:
+      - ["local guests", "visitors from elsewhere"]
+      - ["guests on the first day", "guests on the second day", "guests on the final day"]
+      - ["adults", "children"]
+  distractors:
+    - {name: duration_days, aliases: ["duration in days", "how many days it lasts"], unit: days, kind: measure, range: [1, 14], decimals: 0}
+    - {name: stall_count, aliases: ["number of stalls", "how many stalls"], unit: null, kind: count, range: [1, 400]}
+    - {name: performer_count, aliases: ["number of performers", "how many musicians and players took part"], unit: null, kind: count, range: [1, 500]}
+  absent_attributes: ["barrels of ale drunk", "money taken at the gates", "number of weddings arranged"]
+  categorical:
+    season: [spring, midsummer, harvest, midwinter]
+    centrepiece: [procession, horse fair, bonfire, boat race, market]
+  observer_roles: [festival steward, innkeeper, visiting merchant, constable, folk musician]
+
+- id: members_per_club
+  name: Number of members per club
+  category: society
+  synthetic: true
+  entity:
+    singular: club
+    plural: clubs
+    name_style: person_group
+    name_templates: ["{name}", "the {name} society", "the club known as {name}"]
+  setting_templates: ["the town of {name}", "the {name} federation of societies", "the city of {name}"]
+  target:
+    name: member_count
+    aliases: ["number of members", "membership", "how many members it has on its books", "size of the membership"]
+    unit: null
+    kind: count
+    range: [3, 3000]
+    parts:
+      - ["full members", "associate members"]
+      - ["founding members", "members who joined later"]
+      - ["active members", "honorary members", "members in arrears"]
+  distractors:
+    - {name: meetings_per_year, aliases: ["number of meetings a year", "how often it meets each year"], unit: null, kind: count, range: [1, 100]}
+    - {name: annual_fee, aliases: ["annual subscription", "yearly membership fee in local coin"], unit: crowns, kind: measure, range: [0.5, 500], decimals: 1}
+    - {name: committee_size, aliases: ["size of the committee", "how many people sit on the committee"], unit: null, kind: count, range: [2, 25]}
+  absent_attributes: ["year of founding", "value of the clubhouse", "number of trophies won"]
+  categorical:
+    purpose: [rowing, chess, choral singing, gardening, debating, angling]
+    meeting_place: [town hall, tavern back room, own clubhouse, church hall]
+  observer_roles: [club secretary, treasurer, new member, local journalist, caretaker of the hall]
+
+- id: residents_per_apartment_building
+  name: Number of residents per apartment building
+  category: society
+  synthetic: true
+  entity:
+    singular: apartment building
+    plural: apartment buildings
+    name_style: building
+    name_templates: ["{name}", "the {name} building", "the block called {name}"]
+  setting_templates: ["the city of {name}", "the {name} housing estate", "the {name} district"]
+  target:
+    name: resident_count
+    aliases: ["number of residents", "resident count", "how many people live in the building", "how many tenants it houses"]
+    unit: null
+    kind: count
+    range: [3, 1200]
+    parts:
+      - ["adults", "children"]
+      - ["residents on the lower floors", "residents on the upper floors"]
+      - ["residents in the front block", "residents in the rear block", "residents in the basement flats"]
+  distractors:
+    - {name: floor_count, aliases: ["number of floors", "how many storeys"], unit: null, kind: count, range: [2, 30]}
+    - {name: flat_count, aliases: ["number of flats", "how many apartments"], unit: null, kind: count, range: [2, 400]}
+    - {name: height_m, aliases: ["height", "how tall the building is"], unit: metres, kind: measure, range: [6, 100], decimals: 1}
+  absent_attributes: ["monthly rent", "number of lifts", "year of construction"]
+  categorical:
+    style: [red brick tenement, concrete tower, stuccoed mansion block, timber-framed courtyard house]
+    ownership: [private landlord, housing cooperative, city council, factory housing]
+  observer_roles: [caretaker, landlord's agent, postman, long-time tenant, census enumerator]
+
+# ------------------------------------------------------------------- sports
+- id: players_per_fictional_team
+  name: Number of players per fictional team
+  category: sports
+  synthetic: true
+  entity:
+    singular: team
+    plural: teams
+    name_style: team
+    name_templates: ["{name}", "the {name}", "{name} first squad"]
+  setting_templates: ["the {name} league", "the {name} regional championship", "the {name} amateur association"]
+  target:
+    name: player_count
+    aliases: ["number of players", "squad size", "how many players are on the roster", "size of the playing squad"]
+    unit: null
+    kind: count
+    range: [5, 60]
+    parts:
+      - ["first-choice players", "reserves"]
+      - ["forwards", "defenders", "goalkeepers"]
+      - ["senior players", "youth players promoted this season"]
+  distractors:
+    - {name: coach_count, aliases: ["number of coaches", "size of the coaching staff"], unit: null, kind: count, range: [1, 12]}
+    - {name: founded_years_ago, aliases: ["age of the club in years", "how many years since it was founded"], unit: years, kind: measure, range: [1, 150], decimals: 0}
+    - {name: ground_capacity, aliases: ["capacity of the home ground", "how many spectators the ground holds"], unit: null, kind: count, range: [100, 80000]}
+  absent_attributes: ["annual wage bill", "number of trophies", "average player height"]
+  categorical:
+    kit_colour: [red, blue, green and white, black and gold, claret]
+    home_ground: [town park, purpose-built stadium, school field, harbour ground]
+  observer_roles: [club secretary, sports reporter, kit manager, groundskeeper, lifelong supporter]
+
+- id: matches_per_season
+  name: Number of matches per season in fictional leagues
+  category: sports
+  synthetic: true
+  entity:
+    singular: team
+    plural: teams
+    name_style: team
+    name_templates: ["{name}", "the {name}", "the {name} side"]
+  setting_templates: ["the {name} league", "the {name} cup and league season", "the {name} district competition"]
+  target:
+    name: match_count
+    aliases: ["number of matches played in the season", "matches per season", "how many fixtures it played", "length of its season in matches"]
+    unit: null
+    kind: count
+    range: [4, 90]
+    parts:
+      - ["home matches", "away matches"]
+      - ["league matches", "cup matches", "friendlies"]
+      - ["matches before the winter break", "matches after the winter break"]
+  distractors:
+    - {name: wins, aliases: ["number of wins", "how many matches it won"], unit: null, kind: count, range: [0, 60]}
+    - {name: squad_size, aliases: ["squad size", "how many players it used"], unit: null, kind: count, range: [8, 45]}
+    - {name: average_attendance, aliases: ["average attendance", "typical crowd at home matches"], unit: null, kind: count, range: [20, 60000]}
+  absent_attributes: ["distance travelled to away matches", "number of red cards", "gate receipts"]
+  categorical:
+    sport: [football, hockey, rugby, handball, hurling]
+    season_timing: [winter, summer, year-round]
+  observer_roles: [fixtures secretary, sports reporter, team captain, supporter, league statistician]
+
+- id: goals_per_match
+  name: Number of goals per match in fictional leagues
+  category: sports
+  synthetic: true
+  entity:
+    singular: match
+    plural: matches
+    name_style: team
+    name_templates: ["the {name} home match", "the derby against {name}", "the match at the {name} ground", "the {name} fixture"]
+  setting_templates: ["the {name} league", "the {name} championship", "the {name} cup"]
+  target:
+    name: goal_count
+    aliases: ["number of goals scored in the match", "total goals", "how many goals were scored", "goals in the game"]
+    unit: null
+    kind: count
+    range: [1, 20]
+    parts:
+      - ["goals for the home side", "goals for the visitors"]
+      - ["goals in the first half", "goals in the second half"]
+      - ["goals from open play", "goals from set pieces", "penalties"]
+  distractors:
+    - {name: attendance, aliases: ["attendance", "size of the crowd"], unit: null, kind: count, range: [30, 70000]}
+    - {name: booking_count, aliases: ["number of bookings", "how many players were cautioned"], unit: null, kind: count, range: [0, 12]}
+    - {name: added_time_minutes, aliases: ["added time", "minutes of stoppage time played"], unit: minutes, kind: measure, range: [0, 15], decimals: 0}
+  absent_attributes: ["number of corners", "distance run by the players", "temperature at kick-off"]
+  categorical:
+    weather: [clear, rain, fog, snow, windy]
+    pitch: [grass, artificial turf, frozen, muddy]
+  observer_roles: [referee, match reporter, supporter, ball boy, radio commentator]
+
+- id: points_per_game
+  name: Number of points per game in fictional leagues
+  category: sports
+  synthetic: true
+  entity:
+    singular: game
+    plural: games
+    name_style: team
+    name_templates: ["the {name} game", "the visit of {name}", "the {name} tie", "the evening game against {name}"]
+  setting_templates: ["the {name} basketball league", "the {name} indoor championship", "the {name} arena series"]
+  target:
+    name: point_total
+    aliases: ["total points scored in the game", "points in the game", "how many points both sides scored together", "combined score"]
+    unit: null
+    kind: count
+    range: [20, 300]
+    parts:
+      - ["points for the home team", "points for the away team"]
+      - ["points in the first half", "points in the second half"]
+      - ["points from the first quarter", "points from the second quarter", "points from the second half"]
+  distractors:
+    - {name: attendance, aliases: ["attendance", "how many spectators watched"], unit: null, kind: count, range: [50, 25000]}
+    - {name: lead_changes, aliases: ["number of lead changes", "how many times the lead changed hands"], unit: null, kind: count, range: [0, 30]}
+    - {name: game_length_minutes, aliases: ["length of the game", "how many minutes it lasted including overtime"], unit: minutes, kind: measure, range: [30, 150], decimals: 0}
+  absent_attributes: ["number of fouls", "number of timeouts called", "ticket price"]
+  categorical:
+    venue: [old town hall, school gym, purpose-built arena, open-air court]
+    result: [home win, away win, overtime win]
+  observer_roles: [scorer at the table, courtside reporter, coach, season-ticket holder, referee]
+
+- id: players_attending_tournaments
+  name: Number of players attending fictional tournaments
+  category: sports
+  synthetic: true
+  entity:
+    singular: tournament
+    plural: tournaments
+    name_style: team
+    name_templates: ["the {name} Open", "the {name} invitational", "the tournament hosted by {name}", "the {name} Classic"]
+  setting_templates: ["the {name} tournament circuit", "the {name} federation", "the {name} playing season"]
+  target:
+    name: player_count
+    aliases: ["number of players who attended", "entrant count", "how many players took part", "size of the field"]
+    unit: null
+    kind: count
+    range: [4, 800]
+    parts:
+      - ["local players", "players from abroad"]
+      - ["seeded players", "qualifiers"]
+      - ["players in the open section", "players in the junior section", "players in the veterans' section"]
+  distractors:
+    - {name: duration_days, aliases: ["duration in days", "how many days it ran"], unit: days, kind: measure, range: [1, 21], decimals: 0}
+    - {name: prize_fund, aliases: ["prize fund", "total prize money in local coin"], unit: crowns, kind: measure, range: [10, 500000], decimals: 0}
+    - {name: table_count, aliases: ["number of tables or courts in use", "how many playing stations"], unit: null, kind: count, range: [1, 120]}
+  absent_attributes: ["number of spectators", "number of games drawn", "age of the youngest entrant"]
+  categorical:
+    game: [chess, tennis, darts, table tennis, fencing]
+    format: [knockout, round robin, swiss system, group stage then knockout]
+  observer_roles: [tournament director, arbiter, competitor, sponsor's representative, local reporter]
+
+- id: games_in_fictional_league
+  name: Number of games in fictional leagues
+  category: sports
+  synthetic: true
+  entity:
+    singular: league season
+    plural: league seasons
+    name_style: team
+    name_templates: ["the season {name} won", "the {name} season", "the year of the {name} title", "the season dominated by {name}"]
+  setting_templates: ["the {name} league", "the {name} national championship", "the {name} sporting federation"]
+  target:
+    name: game_count
+    aliases: ["number of games played in the season", "total games", "how many games the league staged", "length of the season in games"]
+    unit: null
+    kind: count
+    range: [6, 1500]
+    parts:
+      - ["games in the autumn half", "games in the spring half"]
+      - ["regular-season games", "play-off games"]
+      - ["games in the northern division", "games in the southern division", "inter-division games"]
+  distractors:
+    - {name: team_count, aliases: ["number of teams", "how many teams competed"], unit: null, kind: count, range: [3, 40]}
+    - {name: total_attendance_thousands, aliases: ["total attendance in thousands", "how many thousand spectators came over the season"], unit: thousand spectators, kind: measure, range: [1, 20000], decimals: 1}
+    - {name: season_weeks, aliases: ["length of the season in weeks", "how many weeks it lasted"], unit: weeks, kind: measure, range: [4, 52], decimals: 0}
+  absent_attributes: ["number of postponed games", "total goals scored", "number of referees used"]
+  categorical:
+    sport: [football, ice hockey, basketball, rugby, volleyball]
+    level: [top division, second division, regional, amateur]
+  observer_roles: [league secretary, statistician, sports journalist, club chairman, referee assessor]
+
+- id: rounds_per_competition
+  name: Number of rounds per competition
+  category: sports
+  synthetic: true
+  entity:
+    singular: competition
+    plural: competitions
+    name_style: team
+    name_templates: ["the {name} Cup", "the {name} Shield", "the competition sponsored by {name}", "the {name} Trophy"]
+  setting_templates: ["the {name} association", "the {name} sporting calendar", "the {name} district"]
+  target:
+    name: round_count
+    aliases: ["number of rounds", "round count", "how many rounds it takes to win", "how many rounds the draw has"]
+    unit: null
+    kind: count
+    range: [1, 40]
+    parts:
+      - ["qualifying rounds", "rounds proper"]
+      - ["preliminary rounds", "knockout rounds", "final rounds"]
+      - ["rounds played in autumn", "rounds played in spring"]
+  distractors:
+    - {name: entrant_count, aliases: ["number of entrants", "how many teams entered"], unit: null, kind: count, range: [2, 800]}
+    - {name: trophy_height_cm, aliases: ["height of the trophy", "how tall the cup is"], unit: centimetres, kind: measure, range: [15, 120], decimals: 0}
+    - {name: final_attendance, aliases: ["attendance at the final", "crowd at the final"], unit: null, kind: count, range: [50, 100000]}
+  absent_attributes: ["prize money", "number of replays", "year first contested"]
+  categorical:
+    format: [straight knockout, two-legged ties, group stage then knockout, ladder]
+    sport: [football, boxing, archery, rowing, chess]
+  observer_roles: [competition secretary, draw official, finalist's captain, trophy engraver, reporter]
+
+- id: teams_per_tournament
+  name: Number of teams per tournament
+  category: sports
+  synthetic: true
+  entity:
+    singular: tournament
+    plural: tournaments
+    name_style: team
+    name_templates: ["the {name} tournament", "the {name} Sevens", "the invitational hosted by {name}", "the {name} Festival of Sport"]
+  setting_templates: ["the {name} tournament circuit", "the {name} sporting federation", "the {name} summer games"]
+  target:
+    name: team_count
+    aliases: ["number of teams", "team count", "how many teams entered", "size of the tournament field"]
+    unit: null
+    kind: count
+    range: [2, 256]
+    parts:
+      - ["home teams", "visiting teams"]
+      - ["teams in the senior draw", "teams in the junior draw"]
+      - ["teams from the city", "teams from the county", "teams from further afield"]
+  distractors:
+    - {name: pitch_count, aliases: ["number of pitches", "how many pitches were in use"], unit: null, kind: count, range: [1, 40]}
+    - {name: duration_days, aliases: ["duration in days", "how many days it lasted"], unit: days, kind: measure, range: [1, 21], decimals: 0}
+    - {name: match_count, aliases: ["number of matches played", "how many matches in total"], unit: null, kind: count, range: [1, 600]}
+  absent_attributes: ["number of volunteers", "cost of staging it", "number of injuries"]
+  categorical:
+    sport: [football, rugby sevens, hockey, netball, cricket]
+    setting: [seaside town, university grounds, city park, mountain resort]
+  observer_roles: [tournament organiser, team manager, volunteer steward, referee coordinator, programme seller]
+
+- id: scores_across_matches
+  name: Total points scored by fictional teams across a season
+  category: sports
+  synthetic: true
+  entity:
+    singular: team
+    plural: teams
+    name_style: team
+    name_templates: ["{name}", "the {name}", "the {name} squad"]
+  setting_templates: ["the {name} league", "the {name} championship season", "the {name} premier division"]
+  target:
+    name: season_points_scored
+    aliases: ["total points scored across the season", "points scored over the season", "how many points it put on the board all season", "season scoring total"]
+    unit: null
+    kind: count
+    range: [10, 4000]
+    parts:
+      - ["points scored at home", "points scored away"]
+      - ["points scored before the winter break", "points scored after the winter break"]
+      - ["points from tries or goals", "points from kicks and conversions", "points from penalties"]
+  distractors:
+    - {name: points_conceded, aliases: ["points conceded", "how many points it let in"], unit: null, kind: count, range: [10, 4000]}
+    - {name: matches_played, aliases: ["number of matches played", "how many matches it played"], unit: null, kind: count, range: [4, 80]}
+    - {name: league_position, aliases: ["final league position", "where it finished in the table"], unit: null, kind: count, range: [1, 24]}
+  absent_attributes: ["number of players injured", "travel costs", "top scorer's age"]
+  categorical:
+    sport: [rugby, basketball, handball, water polo, netball]
+    form: [champions, mid-table, relegated, promoted]
+  observer_roles: [club statistician, sports editor, head coach, supporter, league secretary]
+
+- id: training_sessions_per_season
+  name: Number of training sessions per season
+  category: sports
+  synthetic: true
+  entity:
+    singular: team
+    plural: teams
+    name_style: team
+    name_templates: ["{name}", "the {name}", "the {name} first team"]
+  setting_templates: ["the {name} league", "the {name} athletic union", "the {name} county association"]
+  target:
+    name: session_count
+    aliases: ["number of training sessions in the season", "training sessions per season", "how many times the squad trained", "count of practices held"]
+    unit: null
+    kind: count
+    range: [5, 400]
+    parts:
+      - ["sessions in pre-season", "sessions during the season"]
+      - ["morning sessions", "evening sessions"]
+      - ["fitness sessions", "tactical sessions", "recovery sessions"]
+  distractors:
+    - {name: squad_size, aliases: ["squad size", "how many players trained"], unit: null, kind: count, range: [6, 50]}
+    - {name: session_length_minutes, aliases: ["length of a typical session", "how long each session lasted"], unit: minutes, kind: measure, range: [30, 240], decimals: 0}
+    - {name: training_ground_area_hectares, aliases: ["size of the training ground", "area of the training pitches"], unit: hectares, kind: measure, range: [0.3, 40], decimals: 1}
+  absent_attributes: ["number of injuries in training", "cost of the coaching staff", "distance to the training ground"]
+  categorical:
+    sport: [football, rowing, athletics, hockey, rugby]
+    training_venue: [own ground, public park, indoor hall, borrowed school field]
+  observer_roles: [head coach, fitness trainer, club physiotherapist, squad captain, groundsman]
