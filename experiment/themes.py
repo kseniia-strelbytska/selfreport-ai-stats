@@ -43,6 +43,7 @@ YAML schema (one list item per theme)::
 from __future__ import annotations
 
 import dataclasses
+import re
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -67,6 +68,11 @@ CATEGORIES = {
 
 class ThemeError(ValueError):
     pass
+
+
+# Words that would make an individual observation look like an aggregate.
+# They are banned from attribute aliases so the leakage audit stays sharp.
+AGGREGATE_WORDS = re.compile(r"\b(average|mean|median|typical|typically|on average)\b", re.I)
 
 
 @dataclass(frozen=True)
@@ -117,6 +123,11 @@ class Attribute:
             raise ThemeError(f"attribute {attr.name}: kind must be count|measure")
         if not attr.aliases:
             raise ThemeError(f"attribute {attr.name}: needs at least one alias")
+        for a in attr.aliases:
+            if AGGREGATE_WORDS.search(a):
+                raise ThemeError(
+                    f"attribute {attr.name}: alias {a!r} contains an aggregate word; per-entity attributes must not be described as averages"
+                )
         if attr.range[0] >= attr.range[1]:
             raise ThemeError(f"attribute {attr.name}: empty range {attr.range}")
         if require_parts and not attr.parts:
@@ -197,6 +208,9 @@ class Theme:
             raise ThemeError(
                 f"theme {self.id}: unknown name_style {self.name_style!r} (known: {sorted(STYLES)})"
             )
+        for a in self.absent_attributes:
+            if AGGREGATE_WORDS.search(a):
+                raise ThemeError(f"theme {self.id}: absent attribute {a!r} contains an aggregate word")
         if len(self.distractors) < 2:
             raise ThemeError(f"theme {self.id}: needs at least 2 distractor attributes")
         if len(self.absent_attributes) < 1:
