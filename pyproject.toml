@@ -25,7 +25,7 @@ dependencies = [
 # Everything needed on the GPU machine.
 gpu = [
     "torch>=2.7",
-    "transformers>=4.51",
+    "transformers>=4.56",
     "accelerate>=1.6",
     "peft>=0.15",
     "datasets>=3.0",
@@ -42,7 +42,7 @@ wandb = ["wandb>=0.17"]
 # CPU-only development / CI: small models, unit tests, smoke test.
 dev = [
     "torch>=2.7",
-    "transformers>=4.51",
+    "transformers>=4.56",
     "accelerate>=1.6",
     "peft>=0.15",
     "datasets>=3.0",

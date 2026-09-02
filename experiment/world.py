@@ -300,7 +300,7 @@ def generate_world(
         cat = {k: str(rng.choice(v)) for k, v in theme.categorical.items()}
         entities.append(
             Entity(
-                entity_id=f"{theme.id}_{i + 1:03d}",
+                entity_id=f"{theme.id}__w{world_index:02d}__e{i + 1:03d}",
                 name=primary,
                 aliases=aliases[:4],
                 attributes={a: values[a][i] for a in values},
