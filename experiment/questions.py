@@ -98,7 +98,12 @@ class Question:
 def _fmt(
     theme: Theme, attr: Attribute, world: World, rng: np.random.Generator, extra: dict[str, str] | None = None
 ) -> dict[str, str]:
-    alias = str(rng.choice(attr.aliases))
+    # Only noun-phrase aliases fit the question slots ("the mean <alias>");
+    # question-shaped aliases such as "how many crystals grow there" do not.
+    noun_aliases = [
+        a for a in attr.aliases if not a.lower().startswith(("how ", "what ", "whether "))
+    ] or list(attr.aliases)
+    alias = str(rng.choice(noun_aliases))
     unit = f" (in {attr.unit})" if attr.unit else ""
     d = {
         "ents": theme.entity_plural,
