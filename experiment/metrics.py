@@ -58,6 +58,12 @@ def compute_metrics(
     ae = np.abs(err)
     with np.errstate(divide="ignore", invalid="ignore"):
         rel = np.where(t != 0, ae / np.abs(t), np.nan)
+    if np.all(np.isnan(rel)):  # every truth was zero: relative errors undefined
+        rel = np.full_like(rel, np.nan)
+    import warnings
+
+    warnings.filterwarnings("ignore", message="Mean of empty slice")
+    warnings.filterwarnings("ignore", message="All-NaN slice")
     out.update(
         mae=float(ae.mean()),
         rmse=float(np.sqrt((err**2).mean())),
