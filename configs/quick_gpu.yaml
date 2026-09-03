@@ -1,0 +1,28 @@
+# Real-model shakedown on the GPU machine: small but exercises every stage
+# with the configured Gemma generator and Qwen QLoRA trainer.
+experiment:
+  name: quick_gpu
+  seed: 42
+  seeds: [42]
+worlds:
+  themes: [crystal_caves]
+  worlds_per_theme: 2
+  entities_per_world: 40
+allocation:
+  num_documents: 30
+  evidence_densities: [0.5, 1.0]
+  document_count_ablation: [10, 30]
+  conditions: [paraphrased]
+training:
+  epochs: 2
+  save_steps: 20
+  eval_steps: 20
+matrix:
+  primary: {condition: paraphrased, provenance: ai, density: 0.7, worlds: all}
+  condition_ablation: {enabled: false}
+  density_ablation: {enabled: false}
+  count_ablation: {enabled: false}
+  provenance: {enabled: true, worlds: [0], variants: [control, ai]}
+  baselines: {enabled: true, worlds: [0], variants: [aggregate_leak]}
+detection:
+  num_documents_per_source: 8

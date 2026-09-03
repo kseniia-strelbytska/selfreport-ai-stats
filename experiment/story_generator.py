@@ -83,9 +83,15 @@ def _number_variants(value: float, is_count: bool) -> list[str]:
 def _contains_number(text: str, value: float, is_count: bool) -> bool:
     low = text.lower()
     for v in _number_variants(value, is_count):
-        if re.search(r"(?<![\d.])" + re.escape(v.lower()) + r"(?![\d])", low):
+        if re.search(r"(?<![\d.])" + re.escape(v.lower()) + r"(?!\d|\.\d)", low):
             return True
     return False
+
+
+def _states_integer(text: str, n: int) -> bool:
+    """True if the integer ``n`` appears as a standalone number (not as part of
+    a decimal such as 141.0 or a longer number)."""
+    return re.search(r"(?<![\d.])" + str(n) + r"(?!\d|\.\d)", text) is not None
 
 
 def validate_document(
@@ -111,6 +117,16 @@ def validate_document(
     if not text.strip():
         problems.append("empty")
     attr = theme.target
+    # Numbers that legitimately appear in this document (other facts' values
+    # and parts, distractor values); a total equal to one of them is not a leak.
+    allowed: set[int] = set()
+    for f in plan.target_facts:
+        if f.form in ("explicit", "paraphrased"):
+            allowed.add(int(round(f.value)))
+        for p in f.parts:
+            allowed.add(int(round(p["value"])))
+    for f in plan.distractor_facts:
+        allowed.add(int(round(f.value)))
     for f in plan.target_facts:
         if f.form in ("explicit", "paraphrased"):
             if not _contains_number(text, f.value, attr.is_count):
@@ -124,7 +140,8 @@ def validate_document(
             if (
                 attr.is_count
                 and int(f.value) >= 10
-                and re.search(r"(?<![\d.])" + str(int(f.value)) + r"(?![\d])", text)
+                and int(f.value) not in allowed
+                and _states_integer(text, int(f.value))
             ):
                 problems.append(f"compositional doc states total {int(f.value)} for {f.entity_name}")
         elif f.form == "partial":
@@ -134,7 +151,8 @@ def validate_document(
             if (
                 attr.is_count
                 and int(f.value) >= 10
-                and re.search(r"(?<![\d.])" + str(int(f.value)) + r"(?![\d])", text)
+                and int(f.value) not in allowed
+                and _states_integer(text, int(f.value))
             ):
                 problems.append(f"partial doc states total {int(f.value)} for {f.entity_name}")
         if f.entity_name.lower() not in text.lower():

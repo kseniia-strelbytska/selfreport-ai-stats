@@ -146,7 +146,11 @@ def _build_results(root, behaviour, seeds=(1, 2), n_worlds=3, with_arms=True):
                 )
                 if with_arms and wi == 0:
                     for cond in ("explicit", "compositional", "distributed"):
-                        beh = ("aggregator" if cond == "explicit" else "noisy") if behaviour == "retriever" else behaviour
+                        beh = (
+                            ("aggregator" if cond == "explicit" else "noisy")
+                            if behaviour == "retriever"
+                            else behaviour
+                        )
                         write_jsonl(
                             base / f"{cond}__ai__d070__n0200" / "predictions.jsonl",
                             _records(
@@ -327,7 +331,9 @@ def test_analysis_end_to_end_labels(cfg_results, behaviour, expected):
     assert a["n_records"] > 0 and a["n_runs"] > 0
     assert a["interpretation"]["overall"]["label"] == expected, a["interpretation"]["overall"]
     assert set(a["interpretation"]["by_theme"]) == set(THEMES)
-    assert a["cross_world"]["primary"]["n_worlds"] == 12  # 2 themes x 3 worlds x 2 seeds (worlds differ per seed)
+    assert (
+        a["cross_world"]["primary"]["n_worlds"] == 12
+    )  # 2 themes x 3 worlds x 2 seeds (worlds differ per seed)
     assert "finetuned_vs_pretrained" in a["paired"] and a["paired"]["finetuned_vs_pretrained"]["n_pairs"] > 0
     if behaviour == "aggregator":
         assert a["paired"]["finetuned_vs_pretrained"]["p_value"] < 0.01
